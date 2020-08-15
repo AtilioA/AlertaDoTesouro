@@ -1,3 +1,4 @@
+## Node
 # Logs
 logs
 *.log
@@ -102,3 +103,19 @@ dist
 
 # TernJS port file
 .tern-port
+
+## VisualStudioCode ##
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+## VisualStudioCode Patch ##
+# Ignore all local history of files
+.history
+
+# Project folders/files
+*ignore_me*
+ignore/
