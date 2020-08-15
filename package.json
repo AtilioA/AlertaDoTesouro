@@ -5,10 +5,16 @@
   "repository": "git@github.com:AtilioA/AlertaDoTesouro.git",
   "author": "AtilioA <atiliodadalto@hotmail.com>",
   "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "dev:server": "ts-node-dev --transpileOnly --ignore-watch node_modules src/server.ts"
+  },
   "dependencies": {
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "@types/express": "^4.17.7",
+    "ts-node-dev": "^1.0.0-pre.57",
     "typescript": "^3.9.7"
   }
 }
