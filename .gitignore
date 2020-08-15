@@ -105,7 +105,6 @@ dist
 .tern-port
 
 ## VisualStudioCode ##
-.vscode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -120,3 +119,4 @@ dist
 # Project folders/files
 *ignore_me*
 ignore/
+!.vscode/launch.json
