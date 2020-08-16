@@ -9,6 +9,10 @@ class NotificationRepository {
     this.notifications = [];
   }
 
+  public all() {
+    return this.notifications;
+  }
+
   public create(
     bond: TreasuryBond,
     value: number,

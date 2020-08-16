@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, request } from 'express';
 import TreasuryBond from '../models/TreasuryBond';
 import Notification from '../models/Notification';
 import NotificationsRepository from '../repositories/NotificationsRepository';
@@ -8,6 +8,12 @@ const notificationsRouter = Router();
 const notifications: Notification[] = [];
 
 const notificationsRepository = new NotificationsRepository();
+
+notificationsRouter.get('/', (request, response) => {
+  const notifications = notificationsRepository.all();
+
+  return response.json(notifications);
+});
 
 notificationsRouter.post('/', (request, response) => {
   const { bond, value, type, notifyByEmail, notifyByBrowser } = request.body;
