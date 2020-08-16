@@ -1,18 +1,20 @@
 import { Router } from 'express';
 import TreasuryBond from '../models/TreasuryBond';
 import Notification from '../models/Notification';
-
+import NotificationsRepository from '../repositories/NotificationsRepository';
 const notificationsRouter = Router();
 
 // Stub until connection to database is implemented
 const notifications: Notification[] = [];
 
+const notificationsRepository = new NotificationsRepository();
+
 notificationsRouter.post('/', (request, response) => {
   const { bond, value, type, notifyByEmail, notifyByBrowser } = request.body;
 
   // Stub until connection to database is implemented
-  const findNotificationForTheSameBond = notifications.find(
-    notification => notification.bond.id === bond.id,
+  const findNotificationForTheSameBond = notificationsRepository.findByCode(
+    bond.code,
   );
 
   if (findNotificationForTheSameBond) {
@@ -21,7 +23,7 @@ notificationsRouter.post('/', (request, response) => {
       .json({ message: 'A notification for this bond already exists.' });
   }
 
-  const notification = new Notification(
+  const notification = notificationsRepository.create(
     bond,
     value,
     type,
