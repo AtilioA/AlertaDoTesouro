@@ -9,13 +9,13 @@ class Notification {
   notifyByEmail: boolean;
   notifyByBrowser: boolean;
 
-  constructor(
-    bond: TreasuryBond,
-    value: number,
-    type: number,
-    notifyByEmail: boolean,
-    notifyByBrowser: boolean,
-  ) {
+  constructor({
+    bond,
+    value,
+    type,
+    notifyByEmail,
+    notifyByBrowser,
+  }: Omit<Notification, 'id'>) {
     this.id = v4();
     this.bond = bond;
     this.value = value;

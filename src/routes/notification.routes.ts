@@ -29,13 +29,13 @@ notificationsRouter.post('/', (request, response) => {
       .json({ message: 'A notification for this bond already exists.' });
   }
 
-  const notification = notificationsRepository.create(
+  const notification = notificationsRepository.create({
     bond,
     value,
     type,
     notifyByEmail,
     notifyByBrowser,
-  );
+  });
 
   return response.json(notification);
 });

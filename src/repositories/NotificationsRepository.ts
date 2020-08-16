@@ -2,6 +2,14 @@ import Notification from '../models/Notification';
 import TreasuryBond from '../models/TreasuryBond';
 import notificationsRouter from '../routes/notification.routes';
 
+interface CreateNotificationDTO {
+  bond: TreasuryBond;
+  value: number;
+  type: number;
+  notifyByEmail: boolean;
+  notifyByBrowser: boolean;
+}
+
 class NotificationRepository {
   private notifications: Notification[];
 
@@ -13,20 +21,20 @@ class NotificationRepository {
     return this.notifications;
   }
 
-  public create(
-    bond: TreasuryBond,
-    value: number,
-    type: number,
-    notifyByEmail: boolean,
-    notifyByBrowser: boolean,
-  ): Notification {
-    const notification = new Notification(
+  public create({
+    bond,
+    value,
+    type,
+    notifyByEmail,
+    notifyByBrowser,
+  }: CreateNotificationDTO): Notification {
+    const notification = new Notification({
       bond,
       value,
       type,
       notifyByEmail,
       notifyByBrowser,
-    );
+    });
 
     this.notifications.push(notification);
 
