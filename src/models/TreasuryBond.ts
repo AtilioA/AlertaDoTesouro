@@ -1,4 +1,4 @@
-import { uuid } from 'uuidv4';
+import { v4 } from 'uuid';
 
 interface TreasuryBondTexts {
   features: string;
@@ -39,7 +39,7 @@ class TreasuryBond {
     texts: TreasuryBondTexts,
     indexedTo: Index,
   ) {
-    this.id = uuid();
+    this.id = v4();
     this.ISIN = ISIN;
     this.code = code;
     this.name = name;

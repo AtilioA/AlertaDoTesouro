@@ -1,24 +1,14 @@
 import { Router } from 'express';
-import { uuid } from 'uuidv4';
 import TreasuryBond from '../models/TreasuryBond';
+import Notification from '../models/Notification';
 
 const notificationsRouter = Router();
-
-// Stub until Notification model is implemented
-interface Notification {
-  id: string;
-  bond: TreasuryBond;
-  value: number;
-  type: number;
-  notifyByMail: boolean;
-  notifyByBrowser: boolean;
-}
 
 // Stub until connection to database is implemented
 const notifications: Notification[] = [];
 
 notificationsRouter.post('/', (request, response) => {
-  const { bond, value, type, notifyByMail, notifyByBrowser } = request.body;
+  const { bond, value, type, notifyByEmail, notifyByBrowser } = request.body;
 
   // Stub until connection to database is implemented
   const findNotificationForTheSameBond = notifications.find(
@@ -31,17 +21,13 @@ notificationsRouter.post('/', (request, response) => {
       .json({ message: 'A notification for this bond already exists.' });
   }
 
-  const notification = {
-    id: uuid(),
+  const notification = new Notification(
     bond,
     value,
     type,
-    notifyByMail,
+    notifyByEmail,
     notifyByBrowser,
-  };
-
-  // Stub until connection to database is implemented
-  notifications.push(notification);
+  );
 
   return response.json(notification);
 });
