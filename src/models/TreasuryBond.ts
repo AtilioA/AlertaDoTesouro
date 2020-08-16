@@ -12,6 +12,7 @@ interface Index {
 
 class TreasuryBond {
   id: string;
+  code: number;
   name: string;
   expirationDate: Date;
   minimumInvestmentAmount: number;
@@ -26,6 +27,7 @@ class TreasuryBond {
 
   constructor(
     name: string,
+    code: number,
     expirationDate: Date,
     minimumInvestmentAmount: number,
     investmentSubtitle: string,
@@ -38,6 +40,8 @@ class TreasuryBond {
     indexedTo: Index,
   ) {
     this.id = uuid();
+    this.ISIN = ISIN;
+    this.code = code;
     this.name = name;
     this.expirationDate = expirationDate;
     this.minimumInvestmentAmount = minimumInvestmentAmount;
@@ -45,7 +49,6 @@ class TreasuryBond {
     this.semianualInterestIndex = semianualInterestIndex;
     this.anualInvestmentRate = anualInvestmentRate;
     this.anualRedRate = anualRedRate;
-    this.ISIN = ISIN;
     this.indexedTo = indexedTo;
     this.lastDateOfNegotiation = lastDateOfNegotiation;
     this.texts = texts;
