@@ -1,10 +1,12 @@
 {
-  "name": "AlertaDoTesouro",
+  "name": "alerta-do-tesouro",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "git@github.com:AtilioA/AlertaDoTesouro.git",
   "author": "AtilioA <atiliodadalto@hotmail.com>",
   "license": "MIT",
+  "private": true,
+  "homepage": "https://github.com/AtilioA/AlertaDoTesouro",
   "scripts": {
     "build": "tsc",
     "dev:server": "ts-node-dev --ignore-watch node_modules src/server.ts"
@@ -16,7 +18,8 @@
     }
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "uuidv4": "^6.2.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^9.1.2",

@@ -1,9 +1,8 @@
 import { Router } from 'express';
+import notificationsRouter from './notification.routes';
 
 const routes = Router();
 
-routes.get('/', (request, response) =>
-  response.json({ message: 'Hello, World!' })
-);
-
+routes.use('/notifications', notificationsRouter);
+  
 export default routes;
