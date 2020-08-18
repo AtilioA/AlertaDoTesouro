@@ -1,4 +1,4 @@
-import Notification from '../models/Notification';
+import Notification, { nType } from '../models/Notification';
 // import TreasuryBond from '../models/TreasuryBond';
 // import notificationsRouter from '../routes/notification.routes';
 import { EntityRepository, Repository } from 'typeorm';
@@ -21,6 +21,17 @@ class NotificationRepository extends Repository<Notification> {
     });
 
     return findNotification || null;
+  }
+
+  public checkEnum(type: string): nType {
+    switch (type) {
+      case nType.LESS: {
+        return nType.LESS;
+      }
+      default: {
+        return nType.GREATER;
+      }
+    }
   }
 }
 

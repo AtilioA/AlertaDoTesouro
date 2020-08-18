@@ -1,11 +1,11 @@
-import Notification from '../models/Notification';
+import Notification, { nType } from '../models/Notification';
 import NotificationsRepository from '../repositories/NotificationsRepository';
 import TreasuryBond from '../models/TreasuryBond';
 import { getCustomRepository } from 'typeorm';
 interface Request {
   bond: TreasuryBond;
   value: number;
-  type: number;
+  type: nType;
   notifyByEmail: boolean;
   notifyByBrowser: boolean;
 }
@@ -21,6 +21,8 @@ class CreateNotificationService {
     const notificationsRepository = getCustomRepository(
       NotificationsRepository,
     );
+
+    type = notificationsRepository.checkEnum(type);
 
     const findNotificationForTheSameBond = await notificationsRepository.findByCode(
       // bond.code,

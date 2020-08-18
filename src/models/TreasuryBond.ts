@@ -1,4 +1,4 @@
-import { v4 } from 'uuid';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 interface TreasuryBondTexts {
   features: string;
@@ -11,48 +11,44 @@ interface Index {
 }
 
 class TreasuryBond {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
-  code: number;
-  name: string;
-  expirationDate: Date;
-  minimumInvestmentAmount: number;
-  investmentSubtitle: string;
-  semianualInterestIndex: boolean;
-  anualInvestmentRate: number;
-  anualRedRate: number;
-  ISIN: number;
-  indexedTo: Index;
-  lastDateOfNegotiation?: Date;
-  texts: TreasuryBondTexts;
 
-  constructor(
-    name: string,
-    code: number,
-    expirationDate: Date,
-    minimumInvestmentAmount: number,
-    investmentSubtitle: string,
-    semianualInterestIndex: boolean,
-    anualInvestmentRate: number,
-    ISIN: number,
-    anualRedRate: number,
-    lastDateOfNegotiation: Date,
-    texts: TreasuryBondTexts,
-    indexedTo: Index,
-  ) {
-    this.id = v4();
-    this.ISIN = ISIN;
-    this.code = code;
-    this.name = name;
-    this.expirationDate = expirationDate;
-    this.minimumInvestmentAmount = minimumInvestmentAmount;
-    this.investmentSubtitle = investmentSubtitle;
-    this.semianualInterestIndex = semianualInterestIndex;
-    this.anualInvestmentRate = anualInvestmentRate;
-    this.anualRedRate = anualRedRate;
-    this.indexedTo = indexedTo;
-    this.lastDateOfNegotiation = lastDateOfNegotiation;
-    this.texts = texts;
-  }
+  @Column('int')
+  code: number;
+
+  @Column('text')
+  name: string;
+
+  @Column('timestamp with time zone')
+  expirationDate: Date;
+
+  @Column('float')
+  minimumInvestmentAmount: number;
+
+  @Column('text')
+  investmentSubtitle: string;
+
+  @Column('boolean')
+  semianualInterestIndex: boolean;
+
+  @Column('float')
+  anualInvestmentRate: number;
+
+  @Column('float')
+  anualRedRate: number;
+
+  @Column('text')
+  ISIN: string;
+
+  @Column('json')
+  indexedTo: Index;
+
+  @Column('timestamp with time zone')
+  lastDateOfNegotiation?: Date;
+
+  @Column('json')
+  texts: TreasuryBondTexts;
 }
 
 export default TreasuryBond;
