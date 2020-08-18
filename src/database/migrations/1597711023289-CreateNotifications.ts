@@ -12,12 +12,13 @@ export default class CreateNotifications1597711023289
             type: 'varchar',
             isPrimary: true,
             generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
           },
-          {
-            name: 'bond',
-            type: 'json',
-            isNullable: false,
-          },
+          // {
+          //   name: 'bond',
+          //   type: 'json',
+          //   isNullable: false,
+          // },
           {
             name: 'value',
             type: 'float',
