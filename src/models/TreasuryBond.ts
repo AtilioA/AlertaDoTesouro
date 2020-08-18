@@ -1,10 +1,13 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
+// Some miscellaneous texts that the API returns about the bond
 interface TreasuryBondTexts {
+  investmentSubtitle: string;
   features: string;
   recommendedFor: string;
 }
 
+// Index the bond is associated to (e.g. SELIC, IPCA, etc)
 interface Index {
   code: number;
   name: string;
@@ -26,14 +29,11 @@ class TreasuryBond {
   @Column('float')
   minimumInvestmentAmount: number;
 
-  @Column('text')
-  investmentSubtitle: string;
-
   @Column('boolean')
   semianualInterestIndex: boolean;
 
   @Column('float')
-  anualInvestmentRate: number;
+  annualInvestmentRate: number;
 
   @Column('float')
   anualRedRate: number;

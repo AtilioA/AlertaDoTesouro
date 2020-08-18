@@ -14,11 +14,6 @@ export default class CreateNotifications1597711023289
             generationStrategy: 'uuid',
             default: 'uuid_generate_v4()',
           },
-          // {
-          //   name: 'bond',
-          //   type: 'json',
-          //   isNullable: false,
-          // },
           {
             name: 'value',
             type: 'float',

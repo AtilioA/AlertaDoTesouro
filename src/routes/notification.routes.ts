@@ -6,6 +6,7 @@ import CreateNotificationService from '../services/CreateNotificationService';
 import { getCustomRepository } from 'typeorm';
 const notificationsRouter = Router();
 
+// List all notifications endpoint
 notificationsRouter.get('/', async (request, response) => {
   const notificationsRepository = getCustomRepository(NotificationsRepository);
   const notifications = await notificationsRepository.find();
@@ -13,12 +14,14 @@ notificationsRouter.get('/', async (request, response) => {
   return response.json(notifications);
 });
 
+// Create notification endpoint
 notificationsRouter.post('/', async (request, response) => {
   try {
     const { bond, value, type, notifyByEmail, notifyByBrowser } = request.body;
 
     const createNotification = new CreateNotificationService();
 
+    // Create and save it in the database
     const notification = await createNotification.execute({
       bond,
       value,
