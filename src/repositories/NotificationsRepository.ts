@@ -1,50 +1,24 @@
 import Notification from '../models/Notification';
-import TreasuryBond from '../models/TreasuryBond';
-import notificationsRouter from '../routes/notification.routes';
+// import TreasuryBond from '../models/TreasuryBond';
+// import notificationsRouter from '../routes/notification.routes';
+import { EntityRepository, Repository } from 'typeorm';
 
-interface CreateNotificationDTO {
-  bond: TreasuryBond;
-  value: number;
-  type: number;
-  notifyByEmail: boolean;
-  notifyByBrowser: boolean;
-}
+// interface CreateNotificationDTO {
+//   bond: TreasuryBond;
+//   value: number;
+//   type: number;
+//   notifyByEmail: boolean;
+//   notifyByBrowser: boolean;
+// }
 
-class NotificationRepository {
-  private notifications: Notification[];
-
-  constructor() {
-    this.notifications = [];
-  }
-
-  public all() {
-    return this.notifications;
-  }
-
-  public create({
-    bond,
-    value,
-    type,
-    notifyByEmail,
-    notifyByBrowser,
-  }: CreateNotificationDTO): Notification {
-    const notification = new Notification({
-      bond,
-      value,
-      type,
-      notifyByEmail,
-      notifyByBrowser,
+@EntityRepository(Notification)
+class NotificationRepository extends Repository<Notification> {
+  public async findByCode(code: number): Promise<Notification | null> {
+    const findNotification = await this.findOne({
+      where: {
+        value: code,
+      },
     });
-
-    this.notifications.push(notification);
-
-    return notification;
-  }
-
-  public findByCode(code: number): Notification | null {
-    const findNotification = this.notifications.find(
-      notification => notification.bond.code === code,
-    );
 
     return findNotification || null;
   }

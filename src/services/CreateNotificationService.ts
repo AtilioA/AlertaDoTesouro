@@ -1,7 +1,7 @@
 import Notification from '../models/Notification';
 import NotificationsRepository from '../repositories/NotificationsRepository';
 import TreasuryBond from '../models/TreasuryBond';
-
+import { getCustomRepository } from 'typeorm';
 interface Request {
   bond: TreasuryBond;
   value: number;
@@ -11,34 +11,35 @@ interface Request {
 }
 
 class CreateNotificationService {
-  private notificationsRepository: NotificationsRepository;
-
-  constructor(notificationsRepository: NotificationsRepository) {
-    this.notificationsRepository = notificationsRepository;
-  }
-
-  public execute({
-    bond,
+  public async execute({
+    // bond,
     value,
     type,
     notifyByEmail,
     notifyByBrowser,
-  }: Request): Notification {
-    const findNotificationForTheSameBond = this.notificationsRepository.findByCode(
-      bond.code,
+  }: Request): Promise<Notification> {
+    const notificationsRepository = getCustomRepository(
+      NotificationsRepository,
+    );
+
+    const findNotificationForTheSameBond = await notificationsRepository.findByCode(
+      // bond.code,
+      value,
     );
 
     if (findNotificationForTheSameBond) {
       throw Error('A notification for this bond already exists.');
     }
 
-    const notification = this.notificationsRepository.create({
-      bond,
+    const notification = notificationsRepository.create({
+      // bond,
       value,
       type,
       notifyByEmail,
       notifyByBrowser,
     });
+
+    await notificationsRepository.save(notification);
 
     return notification;
   }

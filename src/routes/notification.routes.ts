@@ -3,28 +3,23 @@ import TreasuryBond from '../models/TreasuryBond';
 import Notification from '../models/Notification';
 import NotificationsRepository from '../repositories/NotificationsRepository';
 import CreateNotificationService from '../services/CreateNotificationService';
+import { getCustomRepository } from 'typeorm';
 const notificationsRouter = Router();
 
-// Stub until connection to database is implemented
-const notifications: Notification[] = [];
-
-const notificationsRepository = new NotificationsRepository();
-
-notificationsRouter.get('/', (request, response) => {
-  const notifications = notificationsRepository.all();
+notificationsRouter.get('/', async (request, response) => {
+  const notificationsRepository = getCustomRepository(NotificationsRepository);
+  const notifications = await notificationsRepository.find();
 
   return response.json(notifications);
 });
 
-notificationsRouter.post('/', (request, response) => {
+notificationsRouter.post('/', async (request, response) => {
   try {
     const { bond, value, type, notifyByEmail, notifyByBrowser } = request.body;
 
-    const createNotification = new CreateNotificationService(
-      notificationsRepository,
-    );
+    const createNotification = new CreateNotificationService();
 
-    const notification = createNotification.execute({
+    const notification = await createNotification.execute({
       bond,
       value,
       type,
