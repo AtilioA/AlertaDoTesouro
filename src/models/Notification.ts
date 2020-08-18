@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import TreasuryBond from './TreasuryBond';
 
 /* Whether the user wants to be notified when the bond's annual rate is
  * greater than or less than the given value
@@ -13,6 +14,9 @@ export enum nType {
 class Notification {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @ManyToOne(type => TreasuryBond, treasuryBond => treasuryBond.notifications)
+  bond: TreasuryBond;
 
   @Column('int')
   value: number;

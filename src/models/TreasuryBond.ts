@@ -1,7 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import Notification from './Notification';
 
 // Some miscellaneous texts that the API returns about the bond
-interface TreasuryBondTexts {
+interface treasuryBondTexts {
   investmentSubtitle: string;
   features: string;
   recommendedFor: string;
@@ -13,9 +14,13 @@ interface Index {
   name: string;
 }
 
+@Entity('treasurybonds')
 class TreasuryBond {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @OneToMany(type => Notification, notification => notification.bond)
+  notifications: Notification[];
 
   @Column('int')
   code: number;
@@ -29,6 +34,9 @@ class TreasuryBond {
   @Column('float')
   minimumInvestmentAmount: number;
 
+  @Column('float')
+  investmentUnitaryValue: number;
+
   @Column('boolean')
   semianualInterestIndex: boolean;
 
@@ -37,6 +45,9 @@ class TreasuryBond {
 
   @Column('float')
   anualRedRate: number;
+
+  @Column('float')
+  minRedVal: number;
 
   @Column('text')
   ISIN: string;
@@ -48,7 +59,7 @@ class TreasuryBond {
   lastDateOfNegotiation?: Date;
 
   @Column('json')
-  texts: TreasuryBondTexts;
+  texts: treasuryBondTexts;
 }
 
 export default TreasuryBond;
