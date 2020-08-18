@@ -1,28 +1,25 @@
-import { v4 } from 'uuid';
 import TreasuryBond from './TreasuryBond';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
+@Entity('notifications')
 class Notification {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
-  bond: TreasuryBond;
-  value: number;
-  type: number;
-  notifyByEmail: boolean;
-  notifyByBrowser: boolean;
 
-  constructor({
-    bond,
-    value,
-    type,
-    notifyByEmail,
-    notifyByBrowser,
-  }: Omit<Notification, 'id'>) {
-    this.id = v4();
-    this.bond = bond;
-    this.value = value;
-    this.type = type;
-    this.notifyByEmail = notifyByEmail;
-    this.notifyByBrowser = notifyByBrowser;
-  }
+  @Column('json')
+  bond: TreasuryBond;
+
+  @Column('number')
+  value: number;
+
+  @Column('number')
+  type: number;
+
+  @Column('boolean')
+  notifyByEmail: boolean;
+
+  @Column('boolean')
+  notifyByBrowser: boolean;
 }
 
 export default Notification;
