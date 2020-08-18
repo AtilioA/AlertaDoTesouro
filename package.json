@@ -9,7 +9,8 @@
   "homepage": "https://github.com/AtilioA/AlertaDoTesouro",
   "scripts": {
     "build": "tsc",
-    "dev:server": "ts-node-dev --ignore-watch node_modules src/server.ts"
+    "dev:server": "ts-node-dev --ignore-watch node_modules src/server.ts",
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
   },
   "husky": {
     "hooks": {
