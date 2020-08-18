@@ -10,6 +10,7 @@ interface Request {
   type: nType;
   notifyByEmail: boolean;
   notifyByBrowser: boolean;
+  active: boolean;
 }
 
 class CreateNotificationService {
@@ -19,6 +20,7 @@ class CreateNotificationService {
     type,
     notifyByEmail,
     notifyByBrowser,
+    active,
   }: Request): Promise<Notification> {
     const notificationsRepository = getCustomRepository(
       NotificationsRepository,
@@ -30,18 +32,19 @@ class CreateNotificationService {
       bond.code,
       // value,
     );
-    
+
     // User can only create one notification per bond
     if (findNotificationForTheSameBond) {
       throw Error('A notification for this bond already exists.');
     }
 
     const notification = notificationsRepository.create({
-      // bond,
+      bond,
       value,
       type,
       notifyByEmail,
       notifyByBrowser,
+      active,
     });
 
     await notificationsRepository.save(notification);

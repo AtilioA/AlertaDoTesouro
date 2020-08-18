@@ -29,6 +29,9 @@ class Notification {
 
   @Column('boolean')
   notifyByBrowser: boolean;
+
+  @Column('boolean')
+  active: boolean;
 }
 
 export default Notification;

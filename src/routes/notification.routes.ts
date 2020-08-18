@@ -17,7 +17,14 @@ notificationsRouter.get('/', async (request, response) => {
 // Create notification endpoint
 notificationsRouter.post('/', async (request, response) => {
   try {
-    const { bond, value, type, notifyByEmail, notifyByBrowser } = request.body;
+    const {
+      bond,
+      value,
+      type,
+      notifyByEmail,
+      notifyByBrowser,
+      active,
+    } = request.body;
 
     const createNotification = new CreateNotificationService();
 
@@ -28,6 +35,7 @@ notificationsRouter.post('/', async (request, response) => {
       type,
       notifyByEmail,
       notifyByBrowser,
+      active,
     });
 
     return response.json(notification);
