@@ -6,13 +6,13 @@ class Notification {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('json')
-  bond: TreasuryBond;
+  // @Column('jsonb')
+  // bond: TreasuryBond;
 
-  @Column('number')
+  @Column('int')
   value: number;
 
-  @Column('number')
+  @Column('int')
   type: number;
 
   @Column('boolean')
