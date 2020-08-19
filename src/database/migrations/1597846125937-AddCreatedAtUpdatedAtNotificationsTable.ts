@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, TableColumn } from 'typeorm';
 
-export class AddCreatedAtUpdatedAtNotificationsTable1597846125937
+export default class AddCreatedAtUpdatedAtNotificationsTable1597846125937
   implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.addColumns('notifications', [
