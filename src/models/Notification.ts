@@ -4,8 +4,11 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   CreateDateColumn,
+  JoinColumn,
 } from 'typeorm';
 import TreasuryBond from './TreasuryBond';
+import User from './User';
+import { ColumnMetadata } from 'typeorm/metadata/ColumnMetadata';
 
 /* Whether the user wants to be notified when the bond's annual rate is
  * greater than or less than the given value
@@ -21,7 +24,18 @@ class Notification {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(type => TreasuryBond, treasuryBond => treasuryBond.notifications)
+  @Column()
+  user_id: string;
+
+  @ManyToOne(type => User)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
+
+  @Column()
+  bond_id: string;
+
+  @ManyToOne(type => TreasuryBond)
+  @JoinColumn({ name: 'treasurybond_id' })
   bond: TreasuryBond;
 
   @Column('int')
