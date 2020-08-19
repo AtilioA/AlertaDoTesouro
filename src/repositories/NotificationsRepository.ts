@@ -1,5 +1,4 @@
 import Notification, { nType } from '../models/Notification';
-// import TreasuryBond from '../models/TreasuryBond';
 import { EntityRepository, Repository } from 'typeorm';
 
 // interface CreateNotificationDTO {

@@ -8,7 +8,6 @@ import {
 } from 'typeorm';
 import TreasuryBond from './TreasuryBond';
 import User from './User';
-import { ColumnMetadata } from 'typeorm/metadata/ColumnMetadata';
 
 /* Whether the user wants to be notified when the bond's annual rate is
  * greater than or less than the given value
@@ -32,7 +31,7 @@ class Notification {
   user: User;
 
   @Column()
-  bond_id: string;
+  treasurybond_id: string;
 
   @ManyToOne(type => TreasuryBond)
   @JoinColumn({ name: 'treasurybond_id' })

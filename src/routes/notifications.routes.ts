@@ -1,6 +1,4 @@
 import { Router, request, response } from 'express';
-import TreasuryBond from '../models/TreasuryBond';
-import Notification from '../models/Notification';
 import NotificationsRepository from '../repositories/NotificationsRepository';
 import CreateNotificationService from '../services/CreateNotificationService';
 import { getCustomRepository } from 'typeorm';
@@ -18,7 +16,8 @@ notificationsRouter.get('/', async (request, response) => {
 notificationsRouter.post('/', async (request, response) => {
   try {
     const {
-      bond,
+      user_id,
+      treasurybond_id,
       value,
       type,
       notifyByEmail,
@@ -30,7 +29,8 @@ notificationsRouter.post('/', async (request, response) => {
 
     // Create and save it in the database
     const notification = await createNotification.execute({
-      bond,
+      user_id,
+      treasurybond_id,
       value,
       type,
       notifyByEmail,

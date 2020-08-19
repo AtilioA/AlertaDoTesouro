@@ -2,10 +2,10 @@
 
 import { getCustomRepository } from 'typeorm';
 import Notification, { nType } from '../models/Notification';
-import TreasuryBond from '../models/TreasuryBond';
 import NotificationsRepository from '../repositories/NotificationsRepository';
 interface Request {
-  bond: TreasuryBond;
+  user_id: string;
+  treasurybond_id: string;
   value: number;
   type: nType;
   notifyByEmail: boolean;
@@ -15,7 +15,8 @@ interface Request {
 
 class CreateNotificationService {
   public async execute({
-    bond,
+    user_id,
+    treasurybond_id,
     value,
     type,
     notifyByEmail,
@@ -29,17 +30,18 @@ class CreateNotificationService {
     type = notificationsRepository.checkEnum(type);
 
     const findNotificationForTheSameBond = await notificationsRepository.findByCode(
-      bond.code,
-      // value,
+      // bond.code,
+      value,
     );
 
     // User can only create one notification per bond
     if (findNotificationForTheSameBond) {
-      throw Error('A notification for this bond already exists.');
+      throw Error('A notification for this bond and user already exists.');
     }
 
     const notification = notificationsRepository.create({
-      bond,
+      user_id,
+      treasurybond_id,
       value,
       type,
       notifyByEmail,
