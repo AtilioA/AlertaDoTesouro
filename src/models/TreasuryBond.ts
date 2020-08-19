@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  CreateDateColumn,
+} from 'typeorm';
 import Notification from './Notification';
 
 // Some miscellaneous texts that the API returns about the bond
@@ -60,6 +66,12 @@ class TreasuryBond {
 
   @Column('json')
   texts: treasuryBondTexts;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @CreateDateColumn()
+  updated_at: Date;
 }
 
 export default TreasuryBond;
