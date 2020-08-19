@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  CreateDateColumn,
+} from 'typeorm';
 import TreasuryBond from './TreasuryBond';
 
 /* Whether the user wants to be notified when the bond's annual rate is
@@ -32,6 +38,12 @@ class Notification {
 
   @Column('boolean')
   active: boolean;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @CreateDateColumn()
+  updated_at: Date;
 }
 
 export default Notification;

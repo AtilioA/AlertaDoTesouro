@@ -1,9 +1,9 @@
 // Service for creating new notification and saving it in the database
 
-import Notification, { nType } from '../models/Notification';
-import NotificationsRepository from '../repositories/NotificationsRepository';
-import TreasuryBond from '../models/TreasuryBond';
 import { getCustomRepository } from 'typeorm';
+import Notification, { nType } from '../models/Notification';
+import TreasuryBond from '../models/TreasuryBond';
+import NotificationsRepository from '../repositories/NotificationsRepository';
 interface Request {
   bond: TreasuryBond;
   value: number;

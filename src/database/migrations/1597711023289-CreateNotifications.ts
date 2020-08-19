@@ -17,12 +17,10 @@ export default class CreateNotifications1597711023289
           {
             name: 'value',
             type: 'float',
-            isNullable: false,
           },
           {
             name: 'type',
-            type: 'int',
-            isNullable: false,
+            type: 'varchar',
           },
           {
             name: 'notifyByEmail',
