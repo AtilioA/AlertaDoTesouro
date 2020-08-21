@@ -8,6 +8,7 @@
   "private": true,
   "homepage": "https://github.com/AtilioA/AlertaDoTesouro",
   "scripts": {
+    "up": "docker start alertadotesouro_postgres",
     "build": "tsc",
     "dev:server": "ts-node-dev --ignore-watch node_modules src/server.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
@@ -19,7 +20,7 @@
     }
   },
   "dependencies": {
-    "@types/uuid": "^8.3.0",
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "pg": "^8.3.0",
     "reflect-metadata": "^0.1.13",
@@ -29,6 +30,8 @@
   "devDependencies": {
     "@commitlint/cli": "^9.1.2",
     "@commitlint/config-conventional": "^9.1.2",
+    "@types/bcryptjs": "^2.4.2",
+    "@types/uuid": "^8.3.0",
     "@types/express": "^4.17.7",
     "@typescript-eslint/eslint-plugin": "^3.9.0",
     "commitizen": "^4.1.2",
