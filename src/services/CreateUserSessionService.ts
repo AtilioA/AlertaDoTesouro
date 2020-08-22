@@ -2,8 +2,10 @@ import { getRepository } from 'typeorm';
 import User from '../models/User';
 import { compare } from 'bcryptjs';
 import { sign, verify } from 'jsonwebtoken';
-import * as dotenv from 'dotenv';
-dotenv.config();
+// import * as dotenv from 'dotenv';
+// dotenv.config();
+
+import authConfig from '../config/auth';
 
 interface Request {
   email: string;
@@ -32,9 +34,10 @@ export default class CreateUserSessionService {
       throw new Error('Incorrect email/password combination');
     }
 
-    const token = sign({}, String(process.env.JWT_SECRET), {
+    const { secret, expiresIn} = authConfig.jwt
+    const token = sign({}, secret), {
       subject: user.id,
-      expiresIn: '3d',
+      expiresIn,
     });
 
     return { user, token };

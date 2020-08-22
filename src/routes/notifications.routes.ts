@@ -2,7 +2,10 @@ import { Router, request, response } from 'express';
 import NotificationsRepository from '../repositories/NotificationsRepository';
 import CreateNotificationService from '../services/CreateNotificationService';
 import { getCustomRepository } from 'typeorm';
+import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+
 const notificationsRouter = Router();
+notificationsRouter.use(ensureAuthenticated); // All notifications routes require authentication
 
 // List all notifications endpoint
 notificationsRouter.get('/', async (request, response) => {
