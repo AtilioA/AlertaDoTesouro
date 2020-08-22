@@ -1,10 +1,7 @@
 import { getRepository } from 'typeorm';
 import User from '../models/User';
 import { compare } from 'bcryptjs';
-import { sign, verify } from 'jsonwebtoken';
-// import * as dotenv from 'dotenv';
-// dotenv.config();
-
+import { sign } from 'jsonwebtoken';
 import authConfig from '../config/auth';
 
 interface Request {
@@ -22,23 +19,25 @@ export default class CreateUserSessionService {
     const usersRepository = getRepository(User);
 
     const user = await usersRepository.findOne({ where: { email } });
-    console.log(user);
 
     if (!user) {
-      throw new Error('Incorrect email/password combination');
+      throw new Error('Incorrect email/password combination.');
     }
 
     const passwordMatch = await compare(password, user.password);
 
     if (!passwordMatch) {
-      throw new Error('Incorrect email/password combination');
+      throw new Error('Incorrect email/password combination.');
     }
 
-    const { secret, expiresIn} = authConfig.jwt
-    const token = sign({}, secret), {
+    const { secret, expiresIn } = authConfig.jwt;
+
+    const token = sign({}, secret, {
       subject: user.id,
       expiresIn,
     });
+
+    delete user.password;
 
     return { user, token };
   }
