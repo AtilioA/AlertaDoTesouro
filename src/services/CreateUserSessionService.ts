@@ -1,6 +1,9 @@
 import { getRepository } from 'typeorm';
 import User from '../models/User';
 import { compare } from 'bcryptjs';
+import { sign, verify } from 'jsonwebtoken';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 interface Request {
   email: string;
@@ -9,6 +12,7 @@ interface Request {
 
 interface Response {
   user: User;
+  token: string;
 }
 
 export default class CreateUserSessionService {
@@ -28,6 +32,11 @@ export default class CreateUserSessionService {
       throw new Error('Incorrect email/password combination');
     }
 
-    return { user };
+    const token = sign({}, String(process.env.JWT_SECRET), {
+      subject: user.id,
+      expiresIn: '3d',
+    });
+
+    return { user, token };
   }
 }
