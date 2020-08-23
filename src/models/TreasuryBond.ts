@@ -8,14 +8,14 @@ import {
 import Notification from './Notification';
 
 // Some miscellaneous texts that the API returns about the bond
-interface treasuryBondTexts {
+export interface treasuryBondTexts {
   investmentSubtitle: string;
   features: string;
   recommendedFor: string;
 }
 
 // Index the bond is associated to (e.g. SELIC, IPCA, etc)
-interface Index {
+export interface Index {
   code: number;
   name: string;
 }
@@ -59,13 +59,13 @@ class TreasuryBond {
   ISIN: string;
 
   @Column('json')
-  indexedTo: Index;
+  indexedTo?: Index;
 
   @Column('timestamp with time zone')
   lastDateOfNegotiation?: Date;
 
   @Column('json')
-  texts: treasuryBondTexts;
+  texts?: treasuryBondTexts;
 
   @CreateDateColumn()
   created_at: Date;
