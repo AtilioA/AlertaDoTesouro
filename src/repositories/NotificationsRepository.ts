@@ -12,10 +12,10 @@ import { EntityRepository, Repository } from 'typeorm';
 @EntityRepository(Notification)
 class NotificationRepository extends Repository<Notification> {
   // STUB: Find notification by bond code
-  public async findByCode(code: number): Promise<Notification | null> {
+  public async findByCode(id: string): Promise<Notification | null> {
     const findNotification = await this.findOne({
       where: {
-        value: code,
+        treasurybond_id: id,
       },
     });
 
