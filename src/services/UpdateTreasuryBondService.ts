@@ -1,12 +1,12 @@
 import { getRepository, getConnection } from 'typeorm';
 import TreasuryBond, { treasuryBondTexts, Index } from '../models/TreasuryBond';
-import { updateTBs } from '../utils/fetchTBAPI';
+import { fetchListOfTreasuryBonds } from '../utils/fetchTBAPI';
 
 class UpdateTreasuryBondService {
   public async execute(): Promise<any> {
     const treasuryBondsRepository = getRepository(TreasuryBond);
 
-    const treasuryBondsList = await updateTBs();
+    const treasuryBondsList = await fetchListOfTreasuryBonds();
     try {
       for (let tb of treasuryBondsList) {
         let currentTb = tb['TrsrBd'];

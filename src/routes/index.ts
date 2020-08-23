@@ -2,11 +2,15 @@ import { Router } from 'express';
 import notificationsRouter from './notifications.routes';
 import usersRouter from './users.routes';
 import sessionsRouter from './sessions.routes';
+import treasuryBondsRouter from './treasurybonds.routes';
 
 const routes = Router();
 
-routes.use('/notifications', notificationsRouter);
 routes.use('/users', usersRouter);
 routes.use('/sessions', sessionsRouter);
+
+routes.use('/treasurybonds', treasuryBondsRouter);
+
+routes.use('/notifications', notificationsRouter);
 
 export default routes;

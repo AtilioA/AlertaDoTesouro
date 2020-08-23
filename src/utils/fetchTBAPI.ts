@@ -1,8 +1,26 @@
-import TreasuryBond from '../models/TreasuryBond';
+import { treasuryBondTexts, Index } from '../models/TreasuryBond';
 const axios = require('axios');
 var https = require('https');
 
-export async function fetchTB(TBCode: number): Promise<TreasuryBond> {
+interface TreasuryBondJson {
+  code: number;
+  name: string;
+  expirationDate: Date;
+  minimumInvestmentAmount: number;
+  investmentUnitaryValue: number;
+  semianualInterestIndex: boolean;
+  annualInvestmentRate: number;
+  annualRedRate: number;
+  minimumRedValue: number;
+  ISIN: string;
+  indexedTo?: Index;
+  lastDateOfNegotiation?: Date;
+  texts?: treasuryBondTexts;
+}
+
+export async function fetchTreasuryBondByCode(
+  TBCode: number,
+): Promise<TreasuryBondJson> {
   // Fetch API
   const APIUrl =
     'https://www.tesourodireto.com.br/json/br/com/b3/tesourodireto/service/api/treasurybondsinfo.json';
@@ -25,16 +43,22 @@ export async function fetchTB(TBCode: number): Promise<TreasuryBond> {
     (tb: any) => tb['TrsrBd']['cd'] === TBCode,
   );
 
-  // Return TreasuryBond object (?)
-  const treasuryBondObj = new TreasuryBond();
-
   console.log(treasuryBondJson);
-  return new TreasuryBond();
+  return treasuryBondJson;
 }
 
-export function updateTBs(): object {
-  // Fetch & consume API
-  // Return all data
+export async function fetchListOfTreasuryBonds(): Promise<Array<any>> {
+  // Fetch API
+  const APIUrl =
+    'https://www.tesourodireto.com.br/json/br/com/b3/tesourodireto/service/api/treasurybondsinfo.json';
+  const agent = new https.Agent({
+    rejectUnauthorized: false,
+  });
+  const response = await axios.get(APIUrl, {
+    httpsAgent: agent,
+  });
 
-  return {};
+  const treasuryBondsList = response['data']['response']['TrsrBdTradgList'];
+
+  return treasuryBondsList;
 }
