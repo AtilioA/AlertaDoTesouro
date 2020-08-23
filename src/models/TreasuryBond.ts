@@ -50,10 +50,10 @@ class TreasuryBond {
   annualInvestmentRate: number;
 
   @Column('float')
-  anualRedRate: number;
+  annualRedRate: number;
 
   @Column('float')
-  minRedVal: number;
+  minimumRedValue: number;
 
   @Column('text')
   ISIN: string;
