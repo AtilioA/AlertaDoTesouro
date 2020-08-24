@@ -13,11 +13,11 @@ const usersRouter = Router();
 // Create users endpoint
 usersRouter.post('/', async (request, response) => {
   try {
-    const { name, email, password } = request.body;
+    const { email, password } = request.body;
 
     const createUser = new CreateUserService();
 
-    const user = await createUser.execute({ name, email, password });
+    const user = await createUser.execute({ email, password });
 
     delete user.password;
 
