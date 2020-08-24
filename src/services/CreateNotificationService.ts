@@ -1,9 +1,9 @@
 // Service for creating new notification and saving it in the database
 
-import { getCustomRepository, getRepository } from 'typeorm';
+import { getCustomRepository } from 'typeorm';
 import Notification, { nType } from '../models/Notification';
 import NotificationsRepository from '../repositories/NotificationsRepository';
-import TreasuryBond from '../models/TreasuryBond';
+
 interface Request {
   user_id: string;
   treasurybond_id: string;
@@ -30,8 +30,11 @@ class CreateNotificationService {
 
     type = notificationsRepository.checkEnum(type);
 
-    const findNotificationForTheSameBond = await notificationsRepository.findByCode(
-      treasurybond_id,
+    const notifications = await notificationsRepository.find({
+      where: { user_id },
+    });
+    const findNotificationForTheSameBond = notifications.find(
+      notification => notification.treasurybond_id === treasurybond_id,
     );
 
     // User can only create one notification per bond

@@ -20,10 +20,9 @@ notificationsRouter.get('/', async (request: any, response) => {
 });
 
 // Create notification endpoint
-notificationsRouter.post('/', async (request, response) => {
+notificationsRouter.post('/', async (request: any, response) => {
   try {
     const {
-      user_id,
       treasurybond_id,
       value,
       type,
@@ -31,6 +30,8 @@ notificationsRouter.post('/', async (request, response) => {
       notifyByBrowser,
       active,
     } = request.body;
+
+    const user_id = request.user.id;
 
     const createNotification = new CreateNotificationService();
 
