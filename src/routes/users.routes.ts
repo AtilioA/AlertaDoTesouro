@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import CreateUserService from '../services/CreateUserService';
+import UpdateUserService from '../services/UpdateUserService';
+import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 
 const usersRouter = Router();
 
@@ -20,6 +22,39 @@ usersRouter.post('/', async (request, response) => {
     delete user.password;
 
     return response.json(user);
+  } catch (error) {
+    return response.status(400).json({ error: error.message });
+  }
+});
+
+usersRouter.use(ensureAuthenticated); // All user editing routes require authentication
+
+// Update user endpoint
+usersRouter.put('/', async (request: any, response) => {
+  try {
+    const user_id = request.user.id;
+
+    const {
+      oldPassword,
+      newPassword,
+      newPasswordConfirmation,
+      notify,
+      notifyByEmail,
+      notifyByBrowser,
+    } = request.body;
+
+    const updateUser = new UpdateUserService();
+
+    const updated = await updateUser.execute(
+      user_id,
+      oldPassword,
+      newPassword,
+      newPasswordConfirmation,
+      notify,
+      notifyByEmail,
+      notifyByBrowser,
+    );
+    return response.json({ updated });
   } catch (error) {
     return response.status(400).json({ error: error.message });
   }
