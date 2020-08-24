@@ -9,9 +9,12 @@ const notificationsRouter = Router();
 notificationsRouter.use(ensureAuthenticated); // All notifications routes require authentication
 
 // List all notifications endpoint
-notificationsRouter.get('/', async (request, response) => {
+notificationsRouter.get('/', async (request: any, response) => {
   const notificationsRepository = getCustomRepository(NotificationsRepository);
-  const notifications = await notificationsRepository.find();
+  const user_id = request.user.id;
+  const notifications = await notificationsRepository.find({
+    where: { user_id },
+  });
 
   return response.json(notifications);
 });
