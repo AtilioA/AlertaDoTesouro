@@ -5,6 +5,7 @@ import { getCustomRepository } from 'typeorm';
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 import DeleteNotificationService from '../services/DeleteNotificationService';
 import UpdateNotificationService from '../services/UpdateNotificationService';
+import NodeMail from '../services/MailService';
 
 const notificationsRouter = Router();
 notificationsRouter.use(ensureAuthenticated); // All notifications routes require authentication
@@ -47,7 +48,20 @@ notificationsRouter.post('/', async (request: any, response) => {
       active,
     });
 
-    return response.json(notification);
+    const message = {
+      to: 'test@example.com',
+      message: 'Test message',
+    };
+
+    const sendMailResult = await NodeMail.sendMail({
+      to: `<${message.to}>`,
+      subject: `${notification.bond.name || 'A bond'} return is now ${
+        notification.type
+      } than ${notification.value}%!`,
+      text: message.message,
+    });
+
+    return response.json({ notification, sendMailResult });
   } catch (error) {
     return response.status(400).json({ error: error.message });
   }
@@ -59,11 +73,25 @@ notificationsRouter.put('/:notification_id', async (request: any, response) => {
     const notification_id = request.params['notification_id'];
     const user_id = request.user.id;
 
-    const {value, type, notifyByEmail, notifyByBrowser, active} = request.body
+    const {
+      value,
+      type,
+      notifyByEmail,
+      notifyByBrowser,
+      active,
+    } = request.body;
 
     const updateNotification = new UpdateNotificationService();
 
-    const updated = await updateNotification.execute(user_id, notification_id, value, type, notifyByEmail, notifyByBrowser, active);
+    const updated = await updateNotification.execute(
+      user_id,
+      notification_id,
+      value,
+      type,
+      notifyByEmail,
+      notifyByBrowser,
+      active,
+    );
     return response.json({ updated });
   } catch (error) {
     return response.status(400).json({ error: error.message });

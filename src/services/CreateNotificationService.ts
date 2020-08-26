@@ -1,8 +1,9 @@
 // Service for creating new notification and saving it in the database
 
-import { getCustomRepository } from 'typeorm';
+import { getCustomRepository, getRepository } from 'typeorm';
 import Notification, { nType } from '../models/Notification';
 import NotificationsRepository from '../repositories/NotificationsRepository';
+import TreasuryBond from '../models/TreasuryBond';
 
 interface Request {
   user_id: string;
@@ -38,13 +39,13 @@ class CreateNotificationService {
     );
 
     // User can only create one notification per bond
-    if (findNotificationForTheSameBond) {
-      throw Error('A notification for this bond and user already exists.');
-    }
+    const treasuryBondRepository = getRepository(TreasuryBond);
+    const bond = await treasuryBondRepository.findOne({ id: treasurybond_id });
 
     const notification = notificationsRepository.create({
       user_id,
       treasurybond_id,
+      bond,
       value,
       type,
       notifyByEmail,

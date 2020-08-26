@@ -1,42 +1,48 @@
-import * as nodemailer from 'nodemailer';
-import MailConfig from '../config/mail';
+import nodemailer from 'nodemailer';
+import { resolve } from 'path';
+// import exphbs from 'express-handlebars';
+// import nodemailerhbs from 'nodemailer-express-handlebars';
+import mailConfig from '../config/mail';
+class NodeMail {
+  public transporter: any;
 
-class Mail {
-  constructor(
-    public to?: string,
-    public subject?: string,
-    public message?: string,
-  ) {}
+  configureTemplates() {
+    console.log('a');
+    // const viewPath = resolve(__dirname, '..', 'app', 'views', 'emails');
 
-  sendMail() {
-    let mailOptions = {
-      from: 'alertadotesouro@gmail.com',
-      to: this.to,
-      subject: this.subject,
-      html: this.message,
-    };
+    // this.transporter.use(
+    //   'compile',
+    //   nodemailerhbs({
+    //     viewEngine: exphbs.create({
+    //       layoutsDir: resolve(viewPath, 'layouts'),
+    //       partialsDir: resolve(viewPath, 'partials'),
+    //       default: 'default',
+    //       extname: '.hbs',
+    //     }),
+    //     viewPath,
+    //     extName: '.hbs',
+    //   })
+    // );
+  }
 
-    const transporter = nodemailer.createTransport({
-      host: MailConfig.host,
-      port: MailConfig.port,
-      secure: false,
-      auth: {
-        user: MailConfig.user,
-        pass: MailConfig.password,
-      },
-      tls: { rejectUnauthorized: false },
+  constructor() {
+    this.transporter = nodemailer.createTransport({
+      host: mailConfig.host,
+      port: mailConfig.port,
+      secure: mailConfig.secure,
+      auth: mailConfig.auth,
+      tls: mailConfig.tls,
     });
 
-    console.log(mailOptions);
+    this.configureTemplates();
+  }
 
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        return error;
-      } else {
-        return 'E-mail was sent successfully!';
-      }
+  sendMail(mailMessage: any): any {
+    return this.transporter.sendMail({
+      from: 'alertadotesouro@gmail.com',
+      ...mailMessage,
     });
   }
 }
 
-export default new Mail();
+export default new NodeMail();
