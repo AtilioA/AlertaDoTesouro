@@ -12,10 +12,10 @@ import User from './User';
 /* Whether the user wants to be notified when the bond's annual rate is
  * greater than or less than the given value
  */
-export type NotificationType = 'greater' | 'less';
+export type NotificationType = 'maior' | 'menor';
 export enum nType {
-  GREATER = 'greater',
-  LESS = 'less',
+  GREATER = 'maior',
+  LESS = 'menor',
 }
 
 @Entity('notifications')

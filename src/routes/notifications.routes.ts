@@ -1,11 +1,12 @@
 import { Router, request, response } from 'express';
 import NotificationsRepository from '../repositories/NotificationsRepository';
 import CreateNotificationService from '../services/CreateNotificationService';
-import { getCustomRepository } from 'typeorm';
+import { getCustomRepository, getRepository } from 'typeorm';
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 import DeleteNotificationService from '../services/DeleteNotificationService';
 import UpdateNotificationService from '../services/UpdateNotificationService';
 import NodeMail from '../services/MailService';
+import User from '../models/User';
 
 const notificationsRouter = Router();
 notificationsRouter.use(ensureAuthenticated); // All notifications routes require authentication
@@ -48,16 +49,26 @@ notificationsRouter.post('/', async (request: any, response) => {
       active,
     });
 
+    const userRepository = getRepository(User);
+    const findUser = await userRepository.findOne(user_id);
+
+    if (!findUser) {
+      throw new Error('User not found when creating notification');
+    }
+
     const message = {
-      to: 'test@example.com',
-      message: 'Test message',
+      to: findUser.email || 'user@undefined.com',
+      message: `<h1>Alerta do Tesouro</h1>
+${notification.bond.name || 'Um título'} tem retorno ao ano ${
+        notification.type
+      } que ${notification.value}% agora!`,
     };
 
     const sendMailResult = await NodeMail.sendMail({
       to: `<${message.to}>`,
-      subject: `${notification.bond.name || 'A bond'} return is now ${
+      subject: `${notification.bond.name || 'Um título'} tem retorno ${
         notification.type
-      } than ${notification.value}%!`,
+      } que ${notification.value}% agora!`,
       text: message.message,
     });
 

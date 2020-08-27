@@ -39,6 +39,10 @@ class CreateNotificationService {
     );
 
     // User can only create one notification per bond
+    // if (findNotificationForTheSameBond) {
+    //   throw Error('A notification for this bond and user already exists.');
+    // }
+
     const treasuryBondRepository = getRepository(TreasuryBond);
     const bond = await treasuryBondRepository.findOne({ id: treasurybond_id });
 

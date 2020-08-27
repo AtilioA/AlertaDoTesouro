@@ -6,24 +6,24 @@ import mailConfig from '../config/mail';
 class NodeMail {
   public transporter: any;
 
-  configureTemplates() {
-    console.log('a');
-    // const viewPath = resolve(__dirname, '..', 'app', 'views', 'emails');
+  // configureTemplates() {
+  // console.log('a');
+  // const viewPath = resolve(__dirname, '..', 'app', 'views', 'emails');
 
-    // this.transporter.use(
-    //   'compile',
-    //   nodemailerhbs({
-    //     viewEngine: exphbs.create({
-    //       layoutsDir: resolve(viewPath, 'layouts'),
-    //       partialsDir: resolve(viewPath, 'partials'),
-    //       default: 'default',
-    //       extname: '.hbs',
-    //     }),
-    //     viewPath,
-    //     extName: '.hbs',
-    //   })
-    // );
-  }
+  // this.transporter.use(
+  //   'compile',
+  //   nodemailerhbs({
+  //     viewEngine: exphbs.create({
+  //       layoutsDir: resolve(viewPath, 'layouts'),
+  //       partialsDir: resolve(viewPath, 'partials'),
+  //       default: 'default',
+  //       extname: '.hbs',
+  //     }),
+  //     viewPath,
+  //     extName: '.hbs',
+  //   })
+  // );
+  // }
 
   constructor() {
     this.transporter = nodemailer.createTransport({
@@ -34,7 +34,7 @@ class NodeMail {
       tls: mailConfig.tls,
     });
 
-    this.configureTemplates();
+    // this.configureTemplates();
   }
 
   sendMail(mailMessage: any): any {
