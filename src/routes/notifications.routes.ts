@@ -7,6 +7,8 @@ import DeleteNotificationService from '../services/DeleteNotificationService';
 import UpdateNotificationService from '../services/UpdateNotificationService';
 import NodeMail from '../services/MailService';
 import User from '../models/User';
+import Queue from '../services/Queue';
+import NotifyBondReturns from '../jobs/NotifyBondReturns';
 
 const notificationsRouter = Router();
 notificationsRouter.use(ensureAuthenticated); // All notifications routes require authentication
@@ -56,23 +58,12 @@ notificationsRouter.post('/', async (request: any, response) => {
       throw new Error('User not found when creating notification');
     }
 
-    const message = {
-      to: findUser.email || 'user@undefined.com',
-      message: `<h1>Alerta do Tesouro</h1>
-${notification.bond.name || 'Um título'} tem retorno ao ano ${
-        notification.type
-      } que ${notification.value}% agora!`,
-    };
-
-    const sendMailResult = await NodeMail.sendMail({
-      to: `<${message.to}>`,
-      subject: `${notification.bond.name || 'Um título'} tem retorno ${
-        notification.type
-      } que ${notification.value}% agora!`,
-      text: message.message,
+    await Queue.add(NotifyBondReturns.key, {
+      notification,
+      findUser
     });
 
-    return response.json({ notification, sendMailResult });
+    return response.json({ notification });
   } catch (error) {
     return response.status(400).json({ error: error.message });
   }
