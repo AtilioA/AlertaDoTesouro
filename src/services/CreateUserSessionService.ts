@@ -24,6 +24,10 @@ export default class CreateUserSessionService {
       throw new Error('Incorrect email/password combination.');
     }
 
+    if (!user.confirmed) {
+      throw new Error('Please confirm your email to activate your account.');
+    }
+
     const passwordMatch = await compare(password, user.password);
 
     if (!passwordMatch) {
