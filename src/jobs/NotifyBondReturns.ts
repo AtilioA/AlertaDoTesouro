@@ -21,24 +21,22 @@ class NotifyBondReturns {
 
     await MailService.sendMail({
       to: `<${user.email}>`,
-      subject: `${notification.bond.name || 'Um título'} tem retorno ${
+      subject: `${notification.bond.name || 'Um título'} agora tem retorno ${
         notification.type
-      } que ${notification.value}% agora!`,
+      } que ${notification.value}%!`,
       text: `<h1>Alerta do Tesouro</h1>
 ${notification.bond.name || 'Um título'} tem retorno ao ano ${
         notification.type
       } que ${notification.value}% agora!`,
 
-      // template: 'notify-bond-return',
-      // context: {
-      //   treasuryBond: treasuryBond.name,
-      //   treasuryBondRate: treasuryBond.annualInvestmentRate,
-      //   type: notification.type,
-      //   value: notification.value,
-      // },
+      template: 'notify-bond-returns',
+      context: {
+        treasurybond: notification.bond,
+        notification: notification,
+      },
     });
 
-    console.log(`notify-bond-return email was just sent to '${user.email}'.`);
+    console.log(`notify-bond-returns email was just sent to '${user.email}'.`);
   }
 }
 
