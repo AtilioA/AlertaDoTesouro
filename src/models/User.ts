@@ -15,6 +15,9 @@ class User {
 
   @Column('text')
   password: string;
+  
+  @Column('boolean')
+  confirmed: boolean;
 
   @Column('boolean')
   notify: boolean;
