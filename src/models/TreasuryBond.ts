@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
   CreateDateColumn,
+  JoinColumn,
 } from 'typeorm';
 import Notification from './Notification';
 
@@ -26,6 +27,7 @@ class TreasuryBond {
   id: string;
 
   @OneToMany(type => Notification, notification => notification.bond)
+  @JoinColumn({ name: 'notification_id' })
   notifications: Notification[];
 
   @Column('int')
