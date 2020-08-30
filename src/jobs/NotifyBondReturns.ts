@@ -16,17 +16,17 @@ class NotifyBondReturns {
 
   // Job task
   async handle(data: any) {
-    const { notification } = data.data;
+    const { notification, treasuryBond } = data.data;
     const user = data.data.findUser;
 
     await MailService.sendMail({
       to: `<${user.email}>`,
-      subject: `${notification.bond.name || 'Um título'} agora tem retorno ${
+      subject: `${treasuryBond.name || 'Um título'} agora tem retorno ${
         notification.type
       } que ${notification.value}%!`,
       template: 'notify-bond-returns',
       context: {
-        treasurybond: notification.bond,
+        treasurybond: treasuryBond,
         notification: notification,
       },
     });
