@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Container } from './styles';
 import { FiKey } from 'react-icons/fi';
+import Input from '../../components/Input';
 
 const SignIn: React.FC = () => (
   <Container>
@@ -13,12 +14,12 @@ const SignIn: React.FC = () => (
       <div id="input-header">
         <h2>EMAIL</h2>
       </div>
-      <input placeholder="Ex: alan@turing.com" />
+      <Input name="email" placeholder="Ex: alan@turing.com" />
 
       <div id="input-header">
         <h2>SENHA</h2>
       </div>
-      <input type="password" placeholder="Sua senha" />
+      <Input name="password" type="password" placeholder="Sua senha" />
 
       <button type="submit">Entrar</button>
 

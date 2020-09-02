@@ -89,11 +89,13 @@ export const Container = styled.div`
 
     transition: color 0.2s;
     &:hover {
-      color: ${shade(0.1, '#3b9fff')};
+      color: ${shade(0.2, '#3b9fff')};
     }
 
     svg {
       margin-right: 5px;
+      /* margin-top: auto; */
+      /* margin-bottom: auto; */
     }
   }
 `;
