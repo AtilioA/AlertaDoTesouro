@@ -4,10 +4,12 @@ import SignIn from './pages/SignIn';
 import Header from './components/Header';
 import SignUp from './pages/SignUp';
 import GlobalStyle from './styles/global';
+import Card from './components/Cards';
 
 const App: React.FC = () => (
   <>
-    <Header/>
+    <Header />
+    <Card />
     <SignIn />
     <SignUp />
     <GlobalStyle />
