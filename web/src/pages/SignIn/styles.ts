@@ -8,8 +8,6 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  /* width: 100%; */
-  /* max-width: 700px; */
 
   form {
     margin: 80px;
@@ -24,16 +22,12 @@ export const Container = styled.div`
       font-size: 26px;
       text-align: center;
       margin-bottom: 50px;
-      /* padding-bottom: 50px; */
     }
 
     div#input-header {
       font-size: 20px;
       text-align: left;
       margin: 5px 5px 5px 14px;
-      & + input {
-        margin-bottom: 10px;
-      }
     }
 
     input {
@@ -43,10 +37,13 @@ export const Container = styled.div`
       background: #e2e2e2;
       border-radius: 4px;
       border: 2px solid #e2e2e2;
+      & + input {
+        margin-top: 5px;
+      }
     }
 
     button {
-      /* background-color: #3b9eff; */
+      background: #3b9eff;
       color: #ffffff;
 
       margin: 10px;
@@ -58,8 +55,6 @@ export const Container = styled.div`
 
       width: 90%;
       height: 42px;
-
-      background: #3b9eff;
 
       text-align: center;
       font-weight: bold;
@@ -94,8 +89,6 @@ export const Container = styled.div`
 
     svg {
       margin-right: 5px;
-      /* margin-top: auto; */
-      /* margin-bottom: auto; */
     }
   }
 `;

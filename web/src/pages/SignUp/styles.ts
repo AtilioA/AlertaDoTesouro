@@ -28,9 +28,6 @@ export const Container = styled.div`
       font-size: 20px;
       text-align: left;
       margin: 5px 5px 5px 14px;
-      & + input {
-        margin-bottom: 10px;
-      }
     }
 
     input {
@@ -40,6 +37,9 @@ export const Container = styled.div`
       background: #e2e2e2;
       border-radius: 4px;
       border: 2px solid #e2e2e2;
+      & + input {
+        margin-top: 5px;
+      }
     }
 
     button {

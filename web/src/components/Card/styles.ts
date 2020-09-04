@@ -1,17 +1,18 @@
 import styled from 'styled-components';
+import { shade } from 'polished';
 
 export const CardFooter = styled.div`
   display: flex;
   height: 300px;
 
-  p {
+  p, label {
     font-size: 16px;
     line-height: 50px;
     margin-left: 21px;
     margin-top: 10px;
   }
 
-    /* Chrome, Safari, Edge, Opera */
+  /* Chrome, Safari, Edge, Opera */
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -51,6 +52,11 @@ export const CardFooter = styled.div`
     border: 0;
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
     border-radius: 0px 0px 40px 40px;
+
+    transition: background 0.2s;
+    &:hover {
+      background: ${shade(-0.1, '#10E17D')};
+    }
   }
 `;
 
@@ -64,11 +70,11 @@ export const CardBody = styled.div`
     font-size: 20px;
     display: flex;
     flex-direction: column;
-    text-align: left;
   }
   div#line {
+    display: flex;
+    justify-content: space-between;
     b {
-
         font-size: 24px;
         margin-left: 45px;
       }
@@ -77,7 +83,6 @@ export const CardBody = styled.div`
     }
   }
 `;
-
 
 export const CardHeader = styled.div`
   border-left: 12px solid #1D498B;
@@ -103,8 +108,7 @@ export const CardHeader = styled.div`
   svg {
     color: #888;
   }
-  `
-
+`;
 
 export const Container = styled.div`
   background: #eee;
