@@ -3,34 +3,41 @@ import React from 'react';
 import { Container } from './styles';
 import { FiKey } from 'react-icons/fi';
 import Input from '../../components/Input';
+import { Form } from '@unform/web';
 
-const SignIn: React.FC = () => (
-  <Container>
-    <form>
-      <div id="form-header">
-        <h1>LOGIN</h1>
-      </div>
+const SignIn: React.FC = () => {
+  function handleSubmit(data: object): void {
+    console.log(data);
+  }
 
-      <div id="input-header">
-        <h2>EMAIL</h2>
-      </div>
-      <Input name="email" placeholder="Ex: alan@turing.com" />
+  return (
+    <Container>
+      <Form onSubmit={handleSubmit}>
+        <div id="form-header">
+          <h1>LOGIN</h1>
+        </div>
 
-      <div id="input-header">
-        <h2>SENHA</h2>
-      </div>
-      <Input name="password" type="password" placeholder="Sua senha" />
+        <div id="input-header">
+          <h2>EMAIL</h2>
+        </div>
+        <Input name="email" placeholder="Ex: alan@turing.com" />
 
-      <button type="submit">Entrar</button>
+        <div id="input-header">
+          <h2>SENHA</h2>
+        </div>
+        <Input name="password" type="password" placeholder="Sua senha" />
 
-      <a href="forgot">Esqueci minha senha</a>
-    </form>
+        <button type="submit">Entrar</button>
 
-    <a href="login">
-      <FiKey />
-      &nbsp; Criar conta
-    </a>
-  </Container>
-);
+        <a href="forgot">Esqueci minha senha</a>
+      </Form>
+
+      <a href="login">
+        <FiKey />
+        &nbsp; Criar conta
+      </a>
+    </Container>
+  );
+};
 
 export default SignIn;

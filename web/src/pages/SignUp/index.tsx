@@ -3,38 +3,45 @@ import React from 'react';
 import { Container } from './styles';
 import { FiLogIn } from 'react-icons/fi';
 import Input from '../../components/Input';
+import { Form } from '@unform/web';
 
-const SignIn: React.FC = () => (
-  <Container>
-    <form>
-      <div id="form-header">
-        <h1>CADASTRO</h1>
-      </div>
+const SignIn: React.FC = () => {
+  function handleSubmit(data: object): void {
+    console.log(data);
+  }
 
-      <div id="input-header">
-        <h2>EMAIL</h2>
-      </div>
-      <Input name="email" placeholder="Ex: alan@turing.com" />
+  return (
+    <Container>
+      <Form onSubmit={handleSubmit}>
+        <div id="form-header">
+          <h1>CADASTRO</h1>
+        </div>
 
-      <div id="input-header">
-        <h2>SENHA</h2>
-      </div>
-      <Input name="password" type="password" placeholder="Sua senha" />
+        <div id="input-header">
+          <h2>EMAIL</h2>
+        </div>
+        <Input name="email" placeholder="Ex: alan@turing.com" />
 
-      <Input
-        name="confirmPassword"
-        type="password"
-        placeholder="Confirmação da sua senha"
-      />
+        <div id="input-header">
+          <h2>SENHA</h2>
+        </div>
+        <Input name="password" type="password" placeholder="Sua senha" />
 
-      <button type="submit">Cadastrar-se</button>
-    </form>
+        <Input
+          name="confirmPassword"
+          type="password"
+          placeholder="Confirmação da sua senha"
+        />
 
-    <a href="login">
-      <FiLogIn />
-      &nbsp; Entrar com minha conta
-    </a>
-  </Container>
-);
+        <button type="submit">Cadastrar-se</button>
+      </Form>
+
+      <a href="login">
+        <FiLogIn />
+        &nbsp; Entrar com minha conta
+      </a>
+    </Container>
+  );
+};
 
 export default SignIn;
