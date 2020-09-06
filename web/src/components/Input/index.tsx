@@ -22,7 +22,6 @@ const Input: React.FC<InputProps> = ({ name, icon: Icon, ...props }) => {
   const [isFilled, setIsFilled] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
-  console.log(inputRef.current);
   const { fieldName, defaultValue, error, registerField } = useField(name);
 
   useEffect(() => {
