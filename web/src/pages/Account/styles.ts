@@ -70,14 +70,14 @@ export const Container = styled.div`
       }
       &#sair {
         margin-top: 75px;
-        background: #F64C75;
+        background: #f64c75;
         margin-bottom: -5px;
         &:hover {
           background: ${shade(0.1, '#F64C75')};
         }
       }
       &#deletar-conta {
-        background: #FF1818;
+        background: #ff1818;
         &:hover {
           background: ${shade(0.1, '#FF1818')};
         }

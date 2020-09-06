@@ -9,7 +9,7 @@ export const Container = styled.div`
   align-items: center;
   flex-direction: column;
 
-  form {
+  Form {
     margin: 80px;
     width: 340px;
     text-align: center;
@@ -30,18 +30,6 @@ export const Container = styled.div`
       margin: 5px 5px 5px 14px;
     }
 
-    input {
-      margin-left: 5px;
-      padding: 10px;
-      width: 97%;
-      background: #e2e2e2;
-      border-radius: 4px;
-      border: 2px solid #e2e2e2;
-      & + input {
-        margin-top: 5px;
-      }
-    }
-
     button {
       background: #3b9eff;
       color: #ffffff;
@@ -50,19 +38,24 @@ export const Container = styled.div`
       }
       transition: background 0.2s;
 
-      margin: 10px;
+      margin-top: 10px;
       padding: 0 16px;
 
       border-radius: 4px;
       border: 0;
       box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
 
-      width: 90%;
+      width: 100%;
       height: 42px;
 
       text-align: center;
       font-weight: bold;
     }
+  }
+
+  Form {
+    align-items: center;
+    justify-content: center;
   }
 
   > a {

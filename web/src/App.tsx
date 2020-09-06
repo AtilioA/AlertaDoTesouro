@@ -11,11 +11,11 @@ import Footer from './components/Footer';
 const App: React.FC = () => (
   <>
     <Header />
-    <Account/>
-    <Card />
-    <SignIn />
+    {/* <Account /> */}
+    {/* <Card /> */}
+    {/* <SignIn /> */}
     <SignUp />
-    <Footer/>
+    <Footer />
     <GlobalStyle />
   </>
 );

@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { Container } from './styles';
-import { FiLogIn } from 'react-icons/fi';
+import { FiLogIn, FiLock, FiUser, FiArrowUp, FiCheck } from 'react-icons/fi';
+import { MdLock } from 'react-icons/md';
 import Input from '../../components/Input';
 import { Form } from '@unform/web';
 
@@ -20,14 +21,20 @@ const SignIn: React.FC = () => {
         <div id="input-header">
           <h2>EMAIL</h2>
         </div>
-        <Input name="email" placeholder="Ex: alan@turing.com" />
+        <Input icon={FiUser} name="email" placeholder="Ex: alan@turing.com" />
 
         <div id="input-header">
           <h2>SENHA</h2>
         </div>
-        <Input name="password" type="password" placeholder="Sua senha" />
+        <Input
+          icon={FiLock}
+          name="password"
+          type="password"
+          placeholder="Sua senha"
+        />
 
         <Input
+          icon={FiCheck}
           name="confirmPassword"
           type="password"
           placeholder="Confirmação da sua senha"

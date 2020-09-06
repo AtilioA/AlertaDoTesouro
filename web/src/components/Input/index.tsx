@@ -1,6 +1,14 @@
-import React, { InputHTMLAttributes, useEffect, useRef } from 'react';
+import React, {
+  InputHTMLAttributes,
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+} from 'react';
 import { IconBaseProps } from 'react-icons';
 import { useField } from '@unform/core';
+
+import { Container } from './styles';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
@@ -8,6 +16,9 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input: React.FC<InputProps> = ({ name, icon: Icon, ...props }) => {
+  const [isFocused, setIsFocused] = useState(false);
+  const [isFilled, setIsFilled] = useState(false);
+
   const inputRef = useRef<HTMLInputElement>(null);
   console.log(inputRef.current);
   const { fieldName, defaultValue, error, registerField } = useField(name);
@@ -20,11 +31,22 @@ const Input: React.FC<InputProps> = ({ name, icon: Icon, ...props }) => {
     });
   }, [fieldName, registerField]);
 
+  const handleInputBlur = useCallback(() => {
+    setIsFocused(false);
+
+    setIsFilled(!!inputRef.current?.value);
+  }, []);
+
   return (
-    <>
-      {Icon && <Icon size={20} />}
-      <input ref={inputRef} {...props} />
-    </>
+    <Container isFocused={isFocused} isFilled={isFilled} isErrored={false}>
+      <div id="svg-div">{Icon && <Icon size={20} />}</div>
+      <input
+        onFocus={() => setIsFocused(true)}
+        onBlur={handleInputBlur}
+        ref={inputRef}
+        {...props}
+      />
+    </Container>
   );
 };
 
