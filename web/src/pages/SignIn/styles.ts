@@ -25,9 +25,16 @@ export const Container = styled.div`
     }
 
     div#input-header {
+      display: flex;
+      justify-content: space-between;
+
       font-size: 20px;
       text-align: left;
       margin: 5px 5px 5px 14px;
+
+      a {
+        font-size: 12px;
+      }
     }
 
     button {

@@ -19,7 +19,7 @@ const SignIn: React.FC = () => {
         email: Yup.string()
           .required('Email é obrigatório')
           .email('Digite um email válido'),
-        password: Yup.string().min(8, 'Mínimo de 8 caracteres'),
+        password: Yup.string().required('Informe sua senha'),
       });
 
       await schema.validate(data, {
@@ -45,6 +45,7 @@ const SignIn: React.FC = () => {
 
         <div id="input-header">
           <h2>SENHA</h2>
+          <a href="forgot">Esqueci minha senha</a>
         </div>
         <Input
           icon={FiLock}
@@ -54,8 +55,6 @@ const SignIn: React.FC = () => {
         />
 
         <button type="submit">Entrar</button>
-
-        <a href="forgot">Esqueci minha senha</a>
       </Form>
 
       <a href="login">
