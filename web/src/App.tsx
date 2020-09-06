@@ -8,14 +8,18 @@ import GlobalStyle from './styles/global';
 import Account from './pages/Account';
 import Footer from './components/Footer';
 
+import AuthContext from './context/AuthContext';
+
 const App: React.FC = () => (
   <>
-    <Header />
-    <Account />
-    {/* <Card /> */}
-    <SignIn />
-    <SignUp />
-    <Footer />
+    <AuthContext.Provider value={{email: 'Atílio'}}>
+      <Header />
+      <Account />
+      {/* <Card /> */}
+      <SignIn />
+      <SignUp />
+      <Footer />
+    </AuthContext.Provider>
     <GlobalStyle />
   </>
 );
