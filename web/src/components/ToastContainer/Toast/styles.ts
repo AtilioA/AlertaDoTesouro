@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { animated } from 'react-spring';
 
 const toastTypeVariations = {
   info: css`
@@ -19,15 +20,19 @@ interface ContainerProps {
   type?: 'success' | 'error' | 'info';
   hasDescription?: boolean;
 }
-export const Container = styled.div<ContainerProps>`
+export const Container = styled(animated.div)<ContainerProps>`
   display: flex;
-
   width: 360px;
 
   position: relative;
   padding: 16px 30px 16px 16px;
   border-radius: 10px;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+
+  transition: box-shadow 0.1s;
+  &:hover {
+    box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
+  }
 
   & + div {
     margin-top: 8px;
@@ -53,7 +58,7 @@ export const Container = styled.div<ContainerProps>`
   button {
     position: absolute;
     right: 12px;
-    top: 19px;
+    top: 16px;
     opacity: 0.6;
     border: 0;
     background: transparent;

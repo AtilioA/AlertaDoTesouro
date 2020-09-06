@@ -5,6 +5,7 @@ import { ToastMessage, ToastContext } from '../../../context/ToastContext';
 
 interface ToastProps {
   toastProps: ToastMessage
+  style: object;
 }
 
 const icons = {
@@ -13,7 +14,7 @@ const icons = {
   error: <FiAlertTriangle size={20}/>,
 }
 
-const Toast: React.FC<ToastProps> = ({ toastProps }) => {
+const Toast: React.FC<ToastProps> = ({ toastProps, style }) => {
   const { removeToast } = useContext(ToastContext);
 
   useEffect(() => {
@@ -27,7 +28,7 @@ const Toast: React.FC<ToastProps> = ({ toastProps }) => {
   }, [removeToast, toastProps.id]);
 
   return (
-    <Container type={toastProps.type} hasDescription={!!toastProps.description}>
+    <Container style={style} type={toastProps.type} hasDescription={!!toastProps.description}>
       {icons[toastProps.type || 'info']}
       <div>
         <strong>{toastProps.title}</strong>
@@ -35,7 +36,7 @@ const Toast: React.FC<ToastProps> = ({ toastProps }) => {
       </div>
 
       <button type="button" onClick={() => removeToast(toastProps.id)}>
-        <FiXCircle size={16} />
+        <FiXCircle size={20} />
       </button>
     </Container>
   );
