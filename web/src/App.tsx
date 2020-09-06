@@ -9,10 +9,12 @@ import Account from './pages/Account';
 import Footer from './components/Footer';
 
 import { AuthProvider } from './context/AuthContext';
+import ToastContainer from './components/ToastContainer';
 
 const App: React.FC = () => (
   <>
     <AuthProvider>
+      <ToastContainer/>
       <Header />
       <Account />
       {/* <Card /> */}
