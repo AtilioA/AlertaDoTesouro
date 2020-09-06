@@ -9,19 +9,20 @@ import Account from './pages/Account';
 import Footer from './components/Footer';
 
 import { AuthProvider } from './context/AuthContext';
+import { ToastProvider } from './context/ToastContext';
 import ToastContainer from './components/ToastContainer';
+import AppProvider from './context';
 
 const App: React.FC = () => (
   <>
-    <AuthProvider>
-      <ToastContainer/>
+    <AppProvider>
       <Header />
       <Account />
       {/* <Card /> */}
       <SignIn />
       <SignUp />
       <Footer />
-    </AuthProvider>
+    </AppProvider>
     <GlobalStyle />
   </>
 );

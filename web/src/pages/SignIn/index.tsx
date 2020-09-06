@@ -9,6 +9,7 @@ import { FormHandles } from '@unform/core';
 import getValidationErrors from '../../utils/getValidationErrors';
 
 import { AuthContext } from '../../context/AuthContext';
+import { ToastContext } from '../../context/ToastContext';
 
 interface SignInFormData {
   email: string;
@@ -19,6 +20,7 @@ const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   const {user, signIn} = useContext(AuthContext);
+  const {addToast, removeToast} = useContext(ToastContext);
 
   const handleSubmit = useCallback(async (data: SignInFormData) => {
     try {
@@ -35,7 +37,7 @@ const SignIn: React.FC = () => {
         abortEarly: false,
       });
 
-      signIn({
+      await signIn({
         email: data.email,
         password: data.password
       });
@@ -45,7 +47,7 @@ const SignIn: React.FC = () => {
         const errors = getValidationErrors(err);
         formRef.current?.setErrors(errors);
       } else {
-        // Emit toast
+        addToast();
       }
     }
   }, [signIn]);
