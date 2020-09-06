@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Toast } from './styles';
-import { FiAlertTriangle, FiXCircle, FiCheck, FiInfo, FiAlertCircle } from "react-icons/fi";
+import { FiAlertTriangle, FiXCircle, FiCheck, FiAlertCircle } from "react-icons/fi";
 
 const ToastContainer: React.FC = () => {
   return (
