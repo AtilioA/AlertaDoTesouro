@@ -29,9 +29,9 @@ export const Container = styled(animated.div)<ContainerProps>`
   border-radius: 10px;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
 
-  transition: box-shadow 0.1s;
+  transition: box-shadow 0.2s;
   &:hover {
-    box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 4px 10px 20px rgba(0, 0, 0, 0.2);
   }
 
   & + div {
