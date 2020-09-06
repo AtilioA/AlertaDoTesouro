@@ -62,7 +62,8 @@ export const Container = styled.div`
     color: #3b9fff;
     display: flex;
     align-items: center;
-    margin-top: 24px;
+    margin-top: 12px;
+
     text-decoration: none;
 
     transition: color 0.2s;

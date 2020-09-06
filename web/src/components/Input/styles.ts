@@ -29,11 +29,24 @@ export const Container = styled.div<ContainerProps>`
   }
 
   ${(props) =>
+    props.isErrored &&
+    css`
+      border-color: #e63232;
+      color: red;
+      svg {
+        color: #e63232;
+      }
+    `}
+
+  ${(props) =>
     props.isFocused &&
     css`
       color: #1d498b;
       font-weight: bold;
       border: 2px solid #1d498b;
+      svg {
+        color: #1d498b;
+      }
     `}
 
   ${(props) =>
@@ -44,13 +57,6 @@ export const Container = styled.div<ContainerProps>`
       }
     `}
 
-    ${(props) =>
-    props.isErrored &&
-    css`
-      border-color: #e63232;
-      color: red;
-    `}
-
   input {
     flex: 1;
     border: 0;
@@ -58,23 +64,6 @@ export const Container = styled.div<ContainerProps>`
 
     &::placeholder {
       color: #666360;
-    }
-  }
-
-  > a {
-    color: #3b9fff;
-    display: flex;
-    align-items: center;
-    margin-top: 24px;
-    text-decoration: none;
-
-    transition: color 0.2s;
-    &:hover {
-      color: ${shade(0.2, '#3b9fff')};
-    }
-
-    svg {
-      margin-right: 5px;
     }
   }
 `;

@@ -1,34 +1,48 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 
 import { Container } from './styles';
 import { FiLogIn, FiLock, FiUser, FiArrowUp, FiCheck } from 'react-icons/fi';
-import { MdLock } from 'react-icons/md';
 import Input from '../../components/Input';
 import { Form } from '@unform/web';
+import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
+import getValidationErrors from '../../utils/getValidationErrors';
 
 const SignIn: React.FC = () => {
+  const formRef = useRef<FormHandles>(null);
+
   const handleSubmit = useCallback(async (data: object) => {
     try {
+      formRef.current?.setErrors({});
+
       const schema = Yup.object().shape({
         email: Yup.string()
           .required('Email é obrigatório')
           .email('Digite um email válido'),
-        password: Yup.string()
-          .min(8, 'Mínimo de 8 caracteres'),
+        password: Yup.string().min(8, 'Mínimo de 8 caracteres'),
+        confirmPassword: Yup.string().when(
+          'password',
+          (password: string, field: any) =>
+            password
+              ? field
+                  .required('Senhas não batem')
+                  .oneOf([Yup.ref('password')], 'Senhas não batem')
+              : field,
+        ),
       });
 
       await schema.validate(data, {
         abortEarly: false,
       });
     } catch (err) {
-      console.log(err);
+      const errors = getValidationErrors(err);
+      formRef.current?.setErrors(errors);
     }
   }, []);
 
   return (
     <Container>
-      <Form onSubmit={handleSubmit}>
+      <Form ref={formRef} onSubmit={handleSubmit}>
         <div id="form-header">
           <h1>CADASTRO</h1>
         </div>

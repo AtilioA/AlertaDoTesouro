@@ -31,6 +31,10 @@ const Input: React.FC<InputProps> = ({ name, icon: Icon, ...props }) => {
     });
   }, [fieldName, registerField]);
 
+  const handleInputFocus = useCallback(() => {
+    setIsFocused(true);
+  }, []);
+
   const handleInputBlur = useCallback(() => {
     setIsFocused(false);
 
@@ -38,14 +42,16 @@ const Input: React.FC<InputProps> = ({ name, icon: Icon, ...props }) => {
   }, []);
 
   return (
-    <Container isFocused={isFocused} isFilled={isFilled} isErrored={false}>
+    <Container isFocused={isFocused} isFilled={isFilled} isErrored={!!error}>
       <div id="svg-div">{Icon && <Icon size={20} />}</div>
       <input
-        onFocus={() => setIsFocused(true)}
+        onFocus={handleInputFocus}
         onBlur={handleInputBlur}
         ref={inputRef}
         {...props}
       />
+
+      {error}
     </Container>
   );
 };

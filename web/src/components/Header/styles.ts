@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { shade } from 'polished';
 
 export const Container = styled.div`
-  background: #1D498B;
+  background: #1d498b;
   padding: 0 30px;
   border-radius: 0 0 15px 15px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -16,7 +17,7 @@ export const Container = styled.div`
   nav {
     display: flex;
     align-items: center;
-    color: #FFFFFF;
+    color: #ffffff;
     font-size: 36px;
     font-family: 'Quattrocento', serif;
     font-weight: 500;
@@ -38,7 +39,7 @@ export const Container = styled.div`
     flex-direction: row;
     align-items: center;
     color: #fff;
-    font-family: "Lato", sans-serif;
+    font-family: 'Lato', sans-serif;
     justify-content: space-around;
     font-size: 16px;
 
@@ -56,11 +57,18 @@ export const Container = styled.div`
       font-size: 16px;
       color: #fff;
       font-weight: bold;
+      font-family: Arial;
 
       background: none;
       border: 1px solid #fff;
       padding: 10px 20px 10px 20px;
       border-radius: 50px;
+
+      transition: background 0.2s;
+
+      &:hover {
+        background: ${shade(0.2, '#1d498b')};
+      }
     }
   }
 `;
