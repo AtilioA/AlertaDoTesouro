@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { shade } from 'polished';
 
 export const Container = styled.div`
@@ -53,17 +53,12 @@ export const Container = styled.div`
     }
   }
 
-  Form {
-    align-items: center;
-    justify-content: center;
-  }
-
-  > a {
+  a {
     color: #3b9fff;
     display: flex;
     align-items: center;
+    justify-content: center;
     margin-top: 12px;
-
     text-decoration: none;
 
     transition: color 0.2s;
@@ -75,4 +70,19 @@ export const Container = styled.div`
       margin-right: 5px;
     }
   }
+`;
+
+const appearFromLeft = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+`
+
+export const AnimationContainer = styled.div`
+  animation: ${appearFromLeft} 1s;
 `;
