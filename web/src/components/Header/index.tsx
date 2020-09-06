@@ -17,7 +17,9 @@ const Header: React.FC = () => (
             <a href="/conta">Conta</a>
           </Profile>
 
+          <a href="/login">
           <button>Logar</button>
+          </a>
       </aside>
   </Container>
 );

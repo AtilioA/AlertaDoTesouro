@@ -1,12 +1,13 @@
 import React, { useRef, useCallback, useContext } from 'react';
 
-import { Container } from './styles';
+import { Container, AnimationContainer } from './styles';
 import { FiKey, FiLock, FiUser } from 'react-icons/fi';
 import Input from '../../components/Input';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
 import getValidationErrors from '../../utils/getValidationErrors';
+import { Link } from 'react-router-dom';
 
 import { AuthContext } from '../../context/AuthContext';
 import { ToastContext } from '../../context/ToastContext';
@@ -46,6 +47,8 @@ const SignIn: React.FC = () => {
       if (err instanceof Yup.ValidationError) {
         const errors = getValidationErrors(err);
         formRef.current?.setErrors(errors);
+
+        return;
       } else {
         addToast({
         type: 'error',
@@ -58,34 +61,36 @@ const SignIn: React.FC = () => {
 
   return (
     <Container>
-      <Form ref={formRef} onSubmit={handleSubmit}>
-        <div id="form-header">
-          <h1>LOGIN</h1>
-        </div>
+      <AnimationContainer>
+        <Form ref={formRef} onSubmit={handleSubmit}>
+          <div id="form-header">
+            <h1>LOGIN</h1>
+          </div>
 
-        <div id="input-header">
-          <h2>EMAIL</h2>
-        </div>
-        <Input icon={FiUser} name="email" placeholder="Ex: alan@turing.com" />
+          <div id="input-header">
+            <h2>EMAIL</h2>
+          </div>
+          <Input icon={FiUser} name="email" placeholder="Ex: alan@turing.com" />
 
-        <div id="input-header">
-          <h2>SENHA</h2>
-          <a href="forgot">Esqueci minha senha</a>
-        </div>
-        <Input
-          icon={FiLock}
-          name="password"
-          type="password"
-          placeholder="Sua senha"
-        />
+          <div id="input-header">
+            <h2>SENHA</h2>
+            <Link to="forgot">Esqueci minha senha</Link>
+          </div>
+          <Input
+            icon={FiLock}
+            name="password"
+            type="password"
+            placeholder="Sua senha"
+          />
 
-        <button type="submit">Entrar</button>
-      </Form>
+          <button type="submit">Entrar</button>
+        </Form>
 
-      <a href="login">
-        <FiKey />
-        &nbsp; Criar conta
-      </a>
+        <Link to="registrar">
+          <FiKey />
+          &nbsp; Criar conta
+        </Link>
+      </AnimationContainer>
     </Container>
   );
 };

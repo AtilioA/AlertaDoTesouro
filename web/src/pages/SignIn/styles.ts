@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { shade } from 'polished';
 
 export const Container = styled.div`
@@ -86,4 +86,19 @@ export const Container = styled.div`
       margin-right: 5px;
     }
   }
+`;
+
+const appearFromLeft = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+`
+
+export const AnimationContainer = styled.div`
+  animation: ${appearFromLeft} 1s;
 `;
