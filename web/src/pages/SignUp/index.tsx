@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Container } from './styles';
@@ -9,11 +9,19 @@ import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import getValidationErrors from '../../utils/getValidationErrors';
 import { AnimationContainer } from '../SignIn/styles';
+import api from '../../services/api';
+import { ToastContext } from '../../context/ToastContext';
+
+interface SignUpFormData {
+  email: string;
+  password: string;
+}
 
 const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const { addToast } = useContext(ToastContext);
 
-  const handleSubmit = useCallback(async (data: object) => {
+  const handleSubmit = useCallback(async (data: SignUpFormData) => {
     try {
       formRef.current?.setErrors({});
 
@@ -36,13 +44,29 @@ const SignUp: React.FC = () => {
       await schema.validate(data, {
         abortEarly: false,
       });
-    } catch (err) {
-      const errors = getValidationErrors(err);
-      formRef.current?.setErrors(errors);
 
-      return;
+      await api.post('/users', data);
+
+      addToast({
+        type: 'info',
+        title: "Cadastro realizado com sucesso!",
+        description: 'Por favor, cheque seu email para confirmar sua conta.'
+      });
+    } catch (err) {
+      if (err instanceof Yup.ValidationError) {
+        const errors = getValidationErrors(err);
+        formRef.current?.setErrors(errors);
+
+        return;
+      } else {
+        addToast({
+          type: 'error',
+          title: 'Erro no cadastro',
+          description: 'Ocorreu um erro ao realizar o cadastro. Tente se cadastrar com outro email.'
+        });
+      }
     }
-  }, []);
+  }, [addToast]);
 
   return (
     <Container>
