@@ -7,6 +7,7 @@ import Route from './Route';
 import SignUp from '../pages/SignUp';
 import SignIn from '../pages/SignIn';
 import Account from '../pages/Account';
+import Notifications from '../pages/Notifications';
 
 const Routes: React.FC = () => (
   <Switch>
@@ -14,6 +15,7 @@ const Routes: React.FC = () => (
     <Route path="/login" component={SignIn}/>
     <Route path="/registrar" component={SignUp}/>
     <Route path="/conta"  component={Account} isPrivate />
+    <Route path="/notificacoes" component={Notifications}/>
   </Switch>
 )
 
