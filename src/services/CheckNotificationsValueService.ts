@@ -3,9 +3,10 @@ import Notification from '../models/Notification';
 import TreasuryBond from '../models/TreasuryBond';
 import Queue from './Queue';
 import NotifyBondReturns from '../jobs/NotifyBondReturns';
+import { response } from 'express';
 
 class CheckNotificationsValueService {
-  public async execute(): Promise<any> {
+  public async execute(): Promise<boolean> {
     const notificationRepository = getRepository(Notification);
     const treasuryBondRepository = getRepository(TreasuryBond);
 
@@ -14,17 +15,8 @@ class CheckNotificationsValueService {
       relations: ['notifications', 'notifications.user'],
     });
 
-    // const notificationsList = await notificationRepository.find({
-    //   where: { active: true },
-    //   relations: ['user', 'bond'],
-    // });
-
     for (let treasuryBond of treasuryBonds) {
       for (let notification of treasuryBond.notifications) {
-        // const findTreasuryBond = treasuryBonds.find(
-        //   treasurybond => treasurybond.id === notification.bond.id,
-        // );
-
         if (!treasuryBond.lastDateOfNegotiation) {
           switch (notification.type) {
             case 'maior':
@@ -33,10 +25,6 @@ class CheckNotificationsValueService {
                 notification.active &&
                 notification.user.notify
               ) {
-                // console.log(
-                // `${treasuryBond.annualInvestmentRate} > ${notification.value}. Envia notificação!`,
-                // );
-
                 if (notification.user.notifyByEmail) {
                   await Queue.add(NotifyBondReturns.key, {
                     notification,
@@ -50,6 +38,7 @@ class CheckNotificationsValueService {
                       active: false,
                     },
                   );
+                  console.log('atualizei o bagui');
                 }
               }
               break;
@@ -59,10 +48,6 @@ class CheckNotificationsValueService {
                 notification.active &&
                 notification.user.notify
               ) {
-                // console.log(
-                // `${treasuryBond.annualInvestmentRate} > ${notification.value}. Envia notificação!`,
-                // );
-
                 if (notification.user.notifyByEmail) {
                   await Queue.add(NotifyBondReturns.key, {
                     notification,
@@ -76,6 +61,7 @@ class CheckNotificationsValueService {
                       active: false,
                     },
                   );
+                  console.log('atualizei o bagui');
                 }
               }
               break;
@@ -83,6 +69,7 @@ class CheckNotificationsValueService {
         }
       }
     }
+
     return true;
   }
   catch(err) {
