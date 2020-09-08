@@ -1,8 +1,13 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
-  background: #8B491D;
-  color: #FFFFFF;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: fixed;
+
+  background: #8b491d;
+  color: #ffffff;
   height: 50px;
   font-size: 16px;
 
@@ -11,7 +16,7 @@ export const Container = styled.div`
     color: #5cb1ff;
     &#privacy {
       font-size: 12px;
-      color: #FFFFFF;
+      color: #ffffff;
       text-decoration: none;
     }
   }
