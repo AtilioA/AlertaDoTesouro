@@ -35,11 +35,10 @@ export const CardFooter = styled.div`
   }
 
   div#card-notify {
-  height: 300px;
+    height: 300px;
   }
 
   button {
-    margin-top: 45px;
     height: 70px;
     width: 100%;
 
@@ -118,6 +117,8 @@ export const Container = styled.div`
   height: 500px;
   max-width: 350px;
   margin: 0 auto;
+  margin-left: 35px;
+  margin-right: 35px;
 
   hr {
     border: 0px;
