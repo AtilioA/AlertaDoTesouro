@@ -34,8 +34,6 @@ const Dashboard: React.FC = () => (
           <Card/>
           <Card/>
           <Card/>
-        </div>
-        <div id="card-list">
           <Card/>
           <Card/>
           <Card/>
@@ -44,6 +42,7 @@ const Dashboard: React.FC = () => (
       <div id="fixed-rate">
         <h1>Títulos pré-fixados</h1>
         <div id="card-list">
+          <Card/>
           <Card/>
           <Card/>
           <Card/>

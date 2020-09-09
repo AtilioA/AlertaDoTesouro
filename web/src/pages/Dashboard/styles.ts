@@ -10,6 +10,7 @@ export const Container = styled.div`
   flex-direction: column;
 
   div#app-status {
+    justify-content: center;
     margin-top: 50px;
 
     div#market-status {
@@ -66,6 +67,10 @@ export const BondsList = styled.div`
   width: 100%;
 
   div#bonds-list {
+    h1 {
+      margin-bottom: 20px;
+    }
+
     margin-top: 30px;
     display: flex;
     width: 100%;
@@ -74,12 +79,11 @@ export const BondsList = styled.div`
     align-items: center;
 
     div#card-list {
-      margin-top: 20px;
-      & + div {
-        margin-top: 50px;
-      }
+      max-width: 70%;
+      justify-content: center;
       display: flex;
       flex-direction: row;
+      flex-wrap: wrap;
     }
 
     div#IPCA {

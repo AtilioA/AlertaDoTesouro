@@ -117,6 +117,10 @@ export const Container = styled.div`
   height: 500px;
   max-width: 350px;
   margin: 0 auto;
+  & + div {
+    margin-top: 50px;
+  }
+
   margin-left: 35px;
   margin-right: 35px;
 
