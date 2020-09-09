@@ -64,10 +64,10 @@ export const BondsList = styled.div`
   align-items: center;
   flex-direction: column;
   width: 100%;
+
   div#bonds-list {
     margin-top: 30px;
     display: flex;
-    flex: 1;
     width: 100%;
     flex-direction: column;
     justify-content: center;
@@ -75,10 +75,12 @@ export const BondsList = styled.div`
 
     div#card-list {
       margin-top: 20px;
+      & + div {
+        margin-top: 50px;
+      }
       display: flex;
       flex-direction: row;
     }
-
 
     div#IPCA {
       border-radius: 15px 15px 0px 0px;
@@ -87,8 +89,7 @@ export const BondsList = styled.div`
       justify-content: center;
       align-items: center;
       width: 100%;
-      padding: 30px 30px 60px 60px;
-
+      padding: 30px 30px 60px 30px;
 
       background: #FF6712;
     }
@@ -99,8 +100,7 @@ export const BondsList = styled.div`
       display: flex;
       flex-direction: column;
       width: 100%;
-      padding: 30px 30px 60px 60px;
-
+      padding: 30px 30px 60px 30px;
 
       background: #00D2AD;
     }
@@ -112,7 +112,7 @@ export const BondsList = styled.div`
       justify-content: center;
       align-items: center;
       width: 100%;
-      padding: 30px 30px 60px 60px;
+      padding: 30px 30px 60px 30px;
 
       background: #9557FF;
     }

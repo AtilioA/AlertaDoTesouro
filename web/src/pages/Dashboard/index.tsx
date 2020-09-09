@@ -34,9 +34,11 @@ const Dashboard: React.FC = () => (
           <Card/>
           <Card/>
           <Card/>
-          {/* <Card/>
+        </div>
+        <div id="card-list">
           <Card/>
-          <Card/> */}
+          <Card/>
+          <Card/>
         </div>
       </div>
       <div id="fixed-rate">
@@ -49,7 +51,9 @@ const Dashboard: React.FC = () => (
       </div>
       <div id="postfixed">
         <h1>Títulos pós-fixados</h1>
-        <Card/>
+        <div id="card-list">
+          <Card/>
+        </div>
       </div>
     </div>
   </BondsList>
