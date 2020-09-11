@@ -1,15 +1,27 @@
 var cron = require('node-cron');
 import axios from 'axios';
+import CheckNotificationsValueService from './services/CheckNotificationsValueService';
+import UpdateTreasuryBondService from './services/UpdateTreasuryBondService';
 
 // Update treasury bonds and check notifications
-cron.schedule('*/1 * * * *', async () => {
+cron.schedule('*/15 * * * *', async () => {
   console.log('Running update-all-treasury-bonds task every 15 minutes...');
-  await axios.put('http://localhost:3333/treasurybonds');
-  console.log('Updated all treasury bonds!');
+  const updateTreasuryBonds = new UpdateTreasuryBondService();
+  try {
+    const checkResult = await updateTreasuryBonds.execute();
+    console.log('Successfully updated all treasury bonds in the database!' + checkResult);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
-cron.schedule('*/1 * * * *', async () => {
+cron.schedule('*/15 * * * *', async () => {
   console.log('Running check-all-notifications task every 15 minutes...');
-  await axios.put('http://localhost:3333/notifications');
-  console.log('Checked all notifications!');
+  const checkNotifications = new CheckNotificationsValueService();
+  try {
+    const checkResult = await checkNotifications.execute();
+    console.log('Successfully checked all notifications in the database!' + checkResult);
+  } catch (err) {
+    console.log(err);
+  }
 });

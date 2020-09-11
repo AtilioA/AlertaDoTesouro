@@ -5,25 +5,9 @@ import { getCustomRepository, getRepository } from 'typeorm';
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 import DeleteNotificationService from '../services/DeleteNotificationService';
 import UpdateNotificationService from '../services/UpdateNotificationService';
-import CheckNotificationsValueService from '../services/CheckNotificationsValueService';
 import User from '../models/User';
 
 const notificationsRouter = Router();
-
-notificationsRouter.put('/', async (request: any, response) => {
-  const checkNotifications = new CheckNotificationsValueService();
-  try {
-    const checkResult = await checkNotifications.execute();
-    console.log('Successfully checked all notifications in the database!');
-    response.json({
-      ok: checkResult,
-      message: 'Successfully checked all notifications',
-    });
-  } catch (err) {
-    console.log(err);
-    response.json({ error: err.message });
-  }
-});
 
 notificationsRouter.use(ensureAuthenticated); // All notifications routes require authentication
 
@@ -71,7 +55,7 @@ notificationsRouter.post('/', async (request: any, response) => {
     if (!findUser) {
       throw new Error('User not found when creating notification');
     }
-    
+
     return response.json({ notification });
   } catch (error) {
     return response.status(400).json({ error: error.message });

@@ -28,7 +28,7 @@ class UpdateTreasuryBondService {
         };
         var texts = {
           investmentSubtitle: currentTb['invstmtStbl'],
-          features: currentTb['cd'],
+          features: currentTb['featrs'],
           recommendedTo: currentTb['rcvgIncm'],
         };
 

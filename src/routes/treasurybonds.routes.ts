@@ -3,7 +3,6 @@ import CreateTreasuryBondService from '../services/CreateTreasuryBondService';
 import { getRepository } from 'typeorm';
 import TreasuryBond from '../models/TreasuryBond';
 import UpdateTreasuryBondService from '../services/UpdateTreasuryBondService';
-
 const treasuryBondsRouter = Router();
 
 // List all treasuryBond endpoint
@@ -64,19 +63,6 @@ treasuryBondsRouter.post('/', async (request, response) => {
       indexedTo,
       texts,
     });
-
-    return response.json(treasuryBond);
-  } catch (error) {
-    return response.status(400).json({ error: error.message });
-  }
-});
-
-// Update (upsert) all treasury bonds endpoint
-treasuryBondsRouter.put('/updateAll', async (request, response) => {
-  try {
-    const updateTreasuryBond = new UpdateTreasuryBondService();
-
-    const treasuryBond = await updateTreasuryBond.execute();
 
     return response.json(treasuryBond);
   } catch (error) {
