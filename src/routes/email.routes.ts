@@ -17,8 +17,8 @@ interface TokenPayload {
 
 const emailRouter = Router();
 
-// Create users endpoint
-emailRouter.put('/confirmation/:token', async (request, response) => {
+// Confirm email (user) endpoint
+emailRouter.get('/confirmation/:token', async (request, response) => {
   try {
     const { token } = request.params;
 
