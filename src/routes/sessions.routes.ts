@@ -3,7 +3,7 @@ import CreateUserSessionService from '../services/CreateUserSessionService';
 
 const sessionsRouter = Router();
 
-// Create sessions endpoint
+// Create session endpoint
 sessionsRouter.post('/', async (request, response) => {
   try {
     const { email, password } = request.body;
@@ -15,6 +15,7 @@ sessionsRouter.post('/', async (request, response) => {
       password,
     });
 
+    // Delete password from user object, for safety
     delete user.password;
 
     return response.json({ user, token });

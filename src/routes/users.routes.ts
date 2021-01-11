@@ -24,10 +24,11 @@ usersRouter.post('/', async (request, response) => {
 
     const user = await createUser.execute({ email, password });
 
+    // Delete password from user object, for safety
     delete user.password;
 
+    // Create confirmation token so the user can confirm their account
     const EMAIL_SECRET = authConfig.jwt.secret;
-
     const emailToken = sign(
       {
         user,
@@ -38,6 +39,7 @@ usersRouter.post('/', async (request, response) => {
       },
     );
 
+    // Send confirmation email
     await Queue.add(SendConfirmAccountMail.key, {
       token: emailToken,
       user,
@@ -49,7 +51,7 @@ usersRouter.post('/', async (request, response) => {
   }
 });
 
-usersRouter.use(ensureAuthenticated); // All user editing routes require authentication
+usersRouter.use(ensureAuthenticated); // All user editing routes (below) require authentication
 
 // Update user endpoint
 usersRouter.put('/', async (request: any, response) => {
@@ -85,6 +87,7 @@ usersRouter.put('/', async (request: any, response) => {
 // Delete user endpoint
 usersRouter.delete('/', async (request: any, response) => {
   try {
+    // Delete the user who sent the request
     const user_id = request.user.id;
 
     const deleteUser = new DeleteUserService();

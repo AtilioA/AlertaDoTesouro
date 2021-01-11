@@ -1,3 +1,5 @@
+// Consume Tesouro Direto's API
+
 import { treasuryBondTexts, Index } from '../models/TreasuryBond';
 const axios = require('axios');
 var https = require('https');

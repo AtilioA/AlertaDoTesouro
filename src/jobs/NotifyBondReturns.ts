@@ -1,3 +1,5 @@
+// Job for mailing bond return notification
+
 // import Mail from '../../lib/Mail';
 import Notification from '../models/Notification';
 import TreasuryBond from '../models/TreasuryBond';

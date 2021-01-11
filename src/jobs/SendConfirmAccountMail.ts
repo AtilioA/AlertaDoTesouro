@@ -1,3 +1,5 @@
+// Job for mailing email confirmation
+
 import MailService from '../services/MailService';
 
 class ConfirmAccountEmail {

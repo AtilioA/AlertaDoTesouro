@@ -1,3 +1,5 @@
+// Middleware that logs requests (method, endpoint, time taken)
+
 import { Request, Response, NextFunction } from 'express';
 
 export default function logRequests(

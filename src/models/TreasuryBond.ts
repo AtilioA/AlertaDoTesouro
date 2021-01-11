@@ -1,3 +1,5 @@
+// Model for a Treasury Bond
+
 import {
   Entity,
   Column,

@@ -4,6 +4,7 @@ import User from '../models/User';
 
 class DeleteUserService {
   public async execute(user_id: string): Promise<DeleteResult> {
+    // Search and delete user from the database
     const userRepository = getRepository(User);
     const findUser = await userRepository.findOne({
       where: { id: user_id },

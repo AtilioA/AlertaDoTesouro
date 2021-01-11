@@ -38,7 +38,7 @@ class CheckNotificationsValueService {
                       active: false,
                     },
                   );
-                  console.log('atualizei o bagui');
+                  console.log('Notification has been updated (now inactive).');
                 }
               }
               break;
@@ -61,7 +61,7 @@ class CheckNotificationsValueService {
                       active: false,
                     },
                   );
-                  console.log('atualizei o bagui');
+                  console.log('Notification has been updated (now inactive).');
                 }
               }
               break;

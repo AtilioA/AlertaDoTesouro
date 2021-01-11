@@ -1,3 +1,5 @@
+// Model for an user of the platform
+
 import {
   Entity,
   Column,
@@ -15,7 +17,7 @@ class User {
 
   @Column('text')
   password: string;
-  
+
   @Column('boolean')
   confirmed: boolean;
 

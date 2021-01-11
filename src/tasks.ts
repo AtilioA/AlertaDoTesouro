@@ -3,7 +3,7 @@ import axios from 'axios';
 import CheckNotificationsValueService from './services/CheckNotificationsValueService';
 import UpdateTreasuryBondService from './services/UpdateTreasuryBondService';
 
-// Update treasury bonds and check notifications
+// Update treasury bonds
 cron.schedule('*/15 * * * *', async () => {
   console.log('Running update-all-treasury-bonds task every 15 minutes...');
   const updateTreasuryBonds = new UpdateTreasuryBondService();
@@ -15,6 +15,7 @@ cron.schedule('*/15 * * * *', async () => {
   }
 });
 
+// Check notifications for treasury bonds rates
 cron.schedule('*/15 * * * *', async () => {
   console.log('Running check-all-notifications task every 15 minutes...');
   const checkNotifications = new CheckNotificationsValueService();

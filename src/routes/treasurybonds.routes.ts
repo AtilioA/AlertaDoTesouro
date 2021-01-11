@@ -13,21 +13,6 @@ treasuryBondsRouter.get('/', async (request, response) => {
   return response.json(treasuryBond);
 });
 
-treasuryBondsRouter.put('/', async (request, response) => {
-  const updateTreasuryBonds = new UpdateTreasuryBondService();
-  try {
-    const checkResult = await updateTreasuryBonds.execute();
-    console.log('Successfully updated all treasury bonds in the database!');
-    response.json({
-      ok: checkResult,
-      message: 'Successfully updated all treasury bonds',
-    });
-  } catch (err) {
-    console.log(err);
-    response.json({ error: err.message });
-  }
-});
-
 // Create treasuryBond endpoint
 treasuryBondsRouter.post('/', async (request, response) => {
   try {
@@ -67,6 +52,22 @@ treasuryBondsRouter.post('/', async (request, response) => {
     return response.json(treasuryBond);
   } catch (error) {
     return response.status(400).json({ error: error.message });
+  }
+});
+
+// Update all treasury bonds
+treasuryBondsRouter.put('/', async (request, response) => {
+  const updateTreasuryBonds = new UpdateTreasuryBondService();
+  try {
+    const checkResult = await updateTreasuryBonds.execute();
+    console.log('Successfully updated all treasury bonds in the database!');
+    response.json({
+      ok: checkResult,
+      message: 'Successfully updated all treasury bonds',
+    });
+  } catch (err) {
+    console.log(err);
+    response.json({ error: err.message });
   }
 });
 

@@ -1,3 +1,5 @@
+// Model for a Notification created by an User
+
 import {
   Entity,
   Column,
