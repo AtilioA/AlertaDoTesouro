@@ -5,7 +5,12 @@ import sessionsRouter from './sessions.routes';
 import treasuryBondsRouter from './treasurybonds.routes';
 import emailRouter from './email.routes';
 
+// Define main Router
 const routes = Router();
+
+routes.get('/', async (request: any, response) => {
+  return response.send("AlertaDoTesouro is online.");
+});
 
 routes.use('/users', usersRouter);
 routes.use('/sessions', sessionsRouter);
