@@ -9,7 +9,7 @@ cron.schedule('*/15 * * * *', async () => {
   const updateTreasuryBonds = new UpdateTreasuryBondService();
   try {
     const checkResult = await updateTreasuryBonds.execute();
-    console.log('Successfully updated all treasury bonds in the database!' + checkResult);
+    console.log('Successfully updated all treasury bonds in the database: ' + checkResult);
   } catch (err) {
     console.log(err);
   }
@@ -20,7 +20,7 @@ cron.schedule('*/15 * * * *', async () => {
   const checkNotifications = new CheckNotificationsValueService();
   try {
     const checkResult = await checkNotifications.execute();
-    console.log('Successfully checked all notifications in the database!' + checkResult);
+    console.log('Successfully checked all notifications in the database: ' + checkResult);
   } catch (err) {
     console.log(err);
   }

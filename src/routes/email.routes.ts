@@ -18,7 +18,7 @@ interface TokenPayload {
 const emailRouter = Router();
 
 // Create users endpoint
-emailRouter.get('/confirmation/:token', async (request, response) => {
+emailRouter.put('/confirmation/:token', async (request, response) => {
   try {
     const { token } = request.params;
 
@@ -28,8 +28,8 @@ emailRouter.get('/confirmation/:token', async (request, response) => {
     const usersRepository = getRepository(User);
     await usersRepository.update({ id: user.id }, { confirmed: true });
 
-    // return response.json({ ok: true, findUser });
-    return response.redirect('/');
+    return response.json({ ok: true, user });
+    // return response.redirect('/');  // Return to homepage
   } catch (error) {
     return response
       .status(400)
