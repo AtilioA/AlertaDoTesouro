@@ -24,7 +24,7 @@ class UpdateTreasuryBondService {
         var lastDateOfNegotiation = currentTb['wdwlDt'];
         var indexedTo = {
           code: currentTb['FinIndxs']['cd'],
-          name: currentTb['FinIndxs']['cd'],
+          name: currentTb['FinIndxs']['nm'],
         };
         var texts = {
           investmentSubtitle: currentTb['invstmtStbl'],
