@@ -53,9 +53,11 @@ export async function fetchListOfTreasuryBonds(): Promise<Array<any>> {
   // Fetch API
   const APIUrl =
     'https://www.tesourodireto.com.br/json/br/com/b3/tesourodireto/service/api/treasurybondsinfo.json';
+
   const agent = new https.Agent({
     rejectUnauthorized: false,
   });
+  
   const response = await axios.get(APIUrl, {
     httpsAgent: agent,
   });
