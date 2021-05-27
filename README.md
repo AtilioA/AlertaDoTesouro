@@ -104,7 +104,7 @@ A typical request would be a simple `GET` request to the `/treasurybonds` endpoi
 2. You'll need to run Postgres for the database and Redis for queues/background jobs. If you already have Docker correctly installed on your system, you can create containers for these two applications with the following commands:
 
    ```bash
-   sudo docker run --name AlertaDoTesouro-postgres -e POSTGRES_PASSWORD=your_postgres_password -p 5433:5432 -d postgres
+   sudo docker run --name AlertaDoTesouro-postgres -e POSTGRES_USER=alertadotesouro POSTGRES_PASSWORD=your_postgres_password -p 5433:5432 -d postgres
 
    sudo docker run --name AlertaDoTesouro-redis -p 6379:6379 -d -t redis:alpine
    ```
@@ -130,4 +130,4 @@ A typical request would be a simple `GET` request to the `/treasurybonds` endpoi
 
 1. Access the `web/` directory with your terminal. Install all front-end dependencies with `npm install` or `yarn`.
 
-2. Start the front-end application with `yarn start`.
+2. Start the front-end application with `yarn start`. Default port is 3000.
