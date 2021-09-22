@@ -17,7 +17,7 @@ A web application that notifies you about Brazilian treasury bond rates.
 </p>
 
 <p align="center">
-  <img alt="HerokuStatus" src="https://heroku-shields.herokuapp.com/covid19nowbot">
+  <!-- <img alt="HerokuStatus" src="https://heroku-shields.herokuapp.com/covid19nowbot"> -->
   <img alt="License" src="https://img.shields.io/badge/License-GPL%20v3-blue.svg">
 </p>
 
@@ -58,7 +58,7 @@ This project was developed using the following tools:
 
 ## ⚙️ Back-end
 
-The back-end REST API was made with Express. Multiple endpoints have been defined and you can test them extensively by referring to the file `.insomnia.json` file, which can be imported into [Insomnia](https://insomnia.rest/) itself or possibly other REST clients.
+The back-end REST API is fully functional and was made with Express. Multiple endpoints have been defined and you can test them extensively by referring to the file `.insomnia.json` file, which can be imported into [Insomnia](https://insomnia.rest/) itself or possibly other REST clients.
 
 ### Example: listing treasury bonds
 
@@ -114,7 +114,7 @@ A typical request would be a simple `GET` request to the `/treasurybonds` endpoi
 3. Rename the `.env.example` file to `.env`. You can change some values if you want, just keep it consistent throughout the application. Some notes:
 
    - The default port is 3333. You might want to change this if this port is already where you're running the application.
-   - You could change JWT_SECRET to another string you desire. It is used by the hashing algorithm for the passwords.
+   - You could change `JWT_SECRET` to another string you desire. It is used by the hashing algorithm for the passwords.
    <!-- - [Sentry](https://sentry.io/for/web/) was added mostly for learning purposes and of course is not required; feel free to leave the string empty. -->
 
 4. To run migrations with TypeORM, run the following command in the root directory:
@@ -127,6 +127,8 @@ A typical request would be a simple `GET` request to the `/treasurybonds` endpoi
 6. Start the server with `yarn dev:server`.
 
 ## Front-end
+
+\* Note that the front-end is not finished
 
 1. Access the `web/` directory with your terminal. Install all front-end dependencies with `npm install` or `yarn`.
 
