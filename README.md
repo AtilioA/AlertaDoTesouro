@@ -27,24 +27,22 @@ AlertaDoTesouro is a project elaborated with the intent of automatically monitor
 
 The application allows users to set one value per treasury bond so they can get notified whenever its rate goes above or below that value. Users can get notified by email or browser notifications and notifications are fully configurable.
 
-<!--
 <table>
     <thead>
         <tr>
-          <th>Sign in</th>
           <th>Dashboard</th>
-          <th>Profile</th>
+          <th>Sign in</th>
+          <th>Notifications</th>
         </tr>
     </thead>
     <tbody>
         <tr>
+            <td><a target="_blank" href=".github/dashboard.png"><img src=".github/dashboard.png" alt="Dashboard page" style="max-width: 100%; --darkreader-inline-outline:#b30000;" title=""/></td>
             <td><a target="_blank" href=".github/sign_in.png"><img src=".github/sign_in.png" alt="Sign in page" style="max-width:100%;"/></td>
-            <td><a target="_blank" href=".github/dashboard.png"><img src=".github/dashboard.png" alt="Dashboard page" style="max-width:100%;"/></td>
-            <td><a target="_blank" href=".github/profile.png"><img src=".github/profile.png" alt="Profile page" style="max-width: 100%; --darkreader-inline-outline:#b30000;" title=""/></td>
+            <td><a target="_blank" href=".github/notifications.png"><img src=".github/notifications.png" alt="Notifications page" style="max-width:100%;"/></td>
         </tr>
     </tbody>
 </table>
--->
 
 ## 🔧 Tools
 
