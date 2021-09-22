@@ -126,7 +126,7 @@ A typical request would be a simple `GET` request to the `/treasurybonds` endpoi
 
 ## Front-end
 
-\* Note that the front-end is not finished
+\* Note that the front-end has not been finished.
 
 1. Access the `web/` directory with your terminal. Install all front-end dependencies with `npm install` or `yarn`.
 
