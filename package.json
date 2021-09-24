@@ -29,7 +29,7 @@
     "nodemailer-express-handlebars": "^4.0.0",
     "pg": "^8.3.0",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.25",
+    "typeorm": "^0.2.32",
     "uuid": "^8.3.0",
     "yup": "^0.29.3"
   },
