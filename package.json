@@ -15,7 +15,6 @@
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
     "lint": "eslint './src/**/*.{js,jsx,ts,tsx}'",
     "pretty": "prettier --write \"./src/**/*.{js,jsx,json,ts,tsx}\""
-
   },
   "dependencies": {
     "axios": "^0.20.0",
@@ -46,9 +45,11 @@
     "@types/uuid": "^8.3.0",
     "@types/yup": "^0.29.6",
     "@typescript-eslint/eslint-plugin": "^3.9.0",
+    "@typescript-eslint/parser": "^5.21.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-import-resolver-typescript": "^2.2.1",
+    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^3.1.4",
     "prettier": "^2.0.5",
     "ts-node-dev": "^1.0.0-pre.57",
