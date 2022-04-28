@@ -15,9 +15,6 @@ sessionsRouter.post('/', async (request, response) => {
       password,
     });
 
-    // Delete password from user object, for safety
-    delete user.password;
-
     return response.json({ user, token });
   } catch (error) {
     return response.status(400).json({ error: error.message });

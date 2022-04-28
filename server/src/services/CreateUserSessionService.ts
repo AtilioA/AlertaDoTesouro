@@ -3,6 +3,7 @@ import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import User from '../models/User';
 import authConfig from '../config/auth';
+import { UserOptionalPassword } from '../@types/alertadotesouro';
 
 interface Request {
   email: string;
@@ -41,7 +42,7 @@ export default class CreateUserSessionService {
       expiresIn,
     });
 
-    delete user.password;
+    delete (user as UserOptionalPassword).password;
 
     return { user, token };
   }

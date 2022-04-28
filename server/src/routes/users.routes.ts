@@ -24,9 +24,6 @@ usersRouter.post('/', async (request, response) => {
 
     const user = await createUser.execute({ email, password });
 
-    // Delete password from user object, for safety
-    delete user.password;
-
     // Create confirmation token so the user can confirm their account
     const EMAIL_SECRET = authConfig.jwt.secret;
     const emailToken = sign(

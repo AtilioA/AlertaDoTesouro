@@ -1,6 +1,7 @@
 import { getRepository } from 'typeorm';
 import { hash } from 'bcryptjs';
 import User from '../models/User';
+import { UserOptionalPassword } from '../@types/alertadotesouro';
 
 interface Request {
   email: string;
@@ -8,6 +9,7 @@ interface Request {
 }
 
 class CreateUserService {
+  /// Returns a user without password field
   public async execute({ email, password }: Request): Promise<User> {
     const usersRepository = getRepository(User);
 
@@ -24,11 +26,13 @@ class CreateUserService {
     const user = usersRepository.create({
       email,
       password: hashedPassword,
-    });
+    }) as UserOptionalPassword;
 
     await usersRepository.save(user);
 
-    return user;
+    delete user.password;
+
+    return user as User;
   }
 }
 
