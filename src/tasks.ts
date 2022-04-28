@@ -4,7 +4,7 @@ import CheckNotificationsValueService from './services/CheckNotificationsValueSe
 import UpdateTreasuryBondService from './services/UpdateTreasuryBondService';
 
 // Update treasury bonds
-cron.schedule('*/15 * * * *', async () => {
+cron.schedule(process.env.UPDATE_CRON, async () => {
   console.log('Running update-all-treasury-bonds task every 15 minutes...');
   const updateTreasuryBonds = new UpdateTreasuryBondService();
   try {
@@ -16,7 +16,7 @@ cron.schedule('*/15 * * * *', async () => {
 });
 
 // Check notifications for treasury bonds rates
-cron.schedule('*/15 * * * *', async () => {
+cron.schedule(process.env.NOTIFICATION_CRON, async () => {
   console.log('Running check-all-notifications task every 15 minutes...');
   const checkNotifications = new CheckNotificationsValueService();
   try {
