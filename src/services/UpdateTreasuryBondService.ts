@@ -1,3 +1,4 @@
+import * as uuid from 'uuid'
 import { getRepository, getConnection } from 'typeorm';
 import TreasuryBond, { treasuryBondTexts, Index } from '../models/TreasuryBond';
 import { fetchListOfTreasuryBonds } from '../utils/fetchTBAPI';
@@ -32,71 +33,45 @@ class UpdateTreasuryBondService {
           recommendedTo: currentTb['rcvgIncm'],
         };
 
-        await getConnection()
-          .createQueryBuilder()
-          .insert()
-          .into(TreasuryBond)
-          .values({
-            code,
-            name,
-            expirationDate,
-            minimumInvestmentAmount,
-            investmentUnitaryValue,
-            semianualInterestIndex,
-            annualInvestmentRate,
-            annualRedRate,
-            minimumRedValue,
-            ISIN,
-            lastDateOfNegotiation,
-            indexedTo,
-            texts,
-          })
-          .orUpdate({
-            conflict_target: ['code'],
-            overwrite: [
-              'code',
-              'name',
-              // 'expirationDate',
-              // 'minimumInvestmentAmount',
-              // 'investmentUnitaryValue',
-              // 'semianualInterestIndex',
-              // 'annualInvestmentRate',
-              // 'annualRedRate',
-              // 'minimumRedValue',
-              // 'ISIN',
-              // 'lastDateOfNegotiation',
-              // 'indexedTo',
-              // 'texts',
-            ],
-          })
-          .execute();
-        const treasuryBond = await treasuryBondsRepository.update(
-          { code },
-          {
-            code,
-            name,
-            expirationDate,
-            minimumInvestmentAmount,
-            investmentUnitaryValue,
-            semianualInterestIndex,
-            annualInvestmentRate,
-            annualRedRate,
-            minimumRedValue,
-            ISIN,
-            lastDateOfNegotiation,
-            indexedTo,
-            texts,
-          },
-        );
-        // console.log(treasuryBond);
-        // await treasuryBondsRepository.save(treasuryBond);
+        // Insert treasurybond into database or update if already exists
+        const treasuryBond = treasuryBondsRepository.create({
+          code,
+          name,
+          expirationDate,
+          minimumInvestmentAmount,
+          investmentUnitaryValue,
+          semianualInterestIndex,
+          annualInvestmentRate,
+          annualRedRate,
+          minimumRedValue,
+          ISIN,
+          lastDateOfNegotiation,
+          indexedTo,
+          texts,
+        });
+        // Generate uuid to be used if TreasuryBond is new
+        treasuryBond.id = uuid.v4();
+
+        const treasuryBondExists = await treasuryBondsRepository.findOne({
+          where: { code },
+        });
+        // console.log("TreasuryBond exists: " + JSON.stringify(treasuryBondExists));
+        // If it doesn't exist, insert it
+        if (treasuryBondExists) {
+          treasuryBond.id = treasuryBondExists.id;
+          treasuryBondsRepository.update(treasuryBond.id, treasuryBond);
+        } else {
+          await treasuryBondsRepository.insert(treasuryBond);
+        }
+        treasuryBondsRepository.save(treasuryBond);
       }
 
       return true;
     } catch (err) {
-      throw new Error(
-        'Failed while trying to update treasury bonds:' + err.message,
+      console.log(
+        'Failed while trying to update treasury bonds:' + err,
       );
+      return false;
     }
   }
 }
