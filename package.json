@@ -12,7 +12,10 @@
     "build": "tsc",
     "dev:server": "ts-node-dev --ignore-watch node_modules src/server.ts",
     "dev:queue": "ts-node-dev --ignore-watch node_modules src/queue.ts",
-    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
+    "lint": "eslint './src/**/*.{js,jsx,ts,tsx}'",
+    "pretty": "prettier --write \"./src/**/*.{js,jsx,json,ts,tsx}\""
+
   },
   "dependencies": {
     "axios": "^0.20.0",
