@@ -51,18 +51,25 @@ export async function fetchTreasuryBondByCode(
 
 export async function fetchListOfTreasuryBonds(): Promise<Array<any>> {
   // Fetch API
+  console.log("Fetching treasury bonds from API...");
   const APIUrl =
     'https://www.tesourodireto.com.br/json/br/com/b3/tesourodireto/service/api/treasurybondsinfo.json';
 
   const agent = new https.Agent({
     rejectUnauthorized: false,
   });
-  
+
   const response = await axios.get(APIUrl, {
     httpsAgent: agent,
   });
 
-  const treasuryBondsList = response['data']['response']['TrsrBdTradgList'];
-
-  return treasuryBondsList;
+  try {
+    const treasuryBondsList: Array<any> = response['data']['response']['TrsrBdTradgList'];
+    // console.log(treasuryBondsList);
+    return treasuryBondsList;
+  } catch (error) {
+    console.log("No treasury bonds found: " + error);
+    console.log("Unable to fetch treasury bonds from API.");
+    return [];
+  }
 }
