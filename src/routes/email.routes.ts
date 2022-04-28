@@ -22,7 +22,7 @@ emailRouter.get('/confirmation/:token', async (request, response) => {
   try {
     const { token } = request.params;
 
-    const decoded = verify(token, authConfig.jwt.secret);
+    const decoded = verify(token, authConfig.jwt.secret as string);
     const { user } = decoded as TokenPayload;
 
     const usersRepository = getRepository(User);

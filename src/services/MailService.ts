@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer';
+const nodemailer = require('nodemailer');
 import { resolve } from 'path';
 import exphbs from 'express-handlebars';
 import nodemailerExpressHandlebars from 'nodemailer-express-handlebars';

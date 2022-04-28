@@ -33,7 +33,7 @@ usersRouter.post('/', async (request, response) => {
       {
         user,
       },
-      EMAIL_SECRET,
+      EMAIL_SECRET as string,
       {
         expiresIn: '1d',
       },
