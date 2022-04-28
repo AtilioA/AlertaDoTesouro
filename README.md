@@ -102,7 +102,7 @@ A typical request would be a simple `GET` request to the `/treasurybonds` endpoi
 2. You'll need to be running Postgres for the database and Redis for queues/background jobs. If you already have Docker correctly installed on your system, you can easily create containers for these two applications with the following commands:
 
    ```bash
-   docker run --name AlertaDoTesouro-postgres -e POSTGRES_USER=alertadotesouro -e POSTGRES_PASSWORD=your_postgres_password -p 5433:5432 -d postgres
+   docker run --name AlertaDoTesouro-postgres -e POSTGRES_USER=alertadotesouro -e POSTGRES_PASSWORD=your_postgres_password -p 5432:5432 -d postgres
 
    docker run --name AlertaDoTesouro-redis -p 6379:6379 -d -t redis:alpine
    ```
