@@ -1,9 +1,12 @@
 import 'reflect-metadata';
 import App from './app';
+import loadRequiredEnv from './utils/loadRequiredEnv';
 
 import './database';
 import './tasks';
 
-App.listen(process.env.PORT, () => {
-  console.log(`Server started on port ${process.env.PORT}!`);
+const PORT = loadRequiredEnv('PORT');
+
+App.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}!`);
 });
