@@ -12,7 +12,7 @@ interface TokenPayload {
 
 export default function ensureAuthenticated(
   request: Request,
-  response: Response,
+  _response: Response,
   next: NextFunction,
 ): void {
   const authHeader = request.headers.authorization;

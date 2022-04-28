@@ -10,8 +10,8 @@
   "scripts": {
     "up": "docker start AlertaDoTesouro-postgres AlertaDoTesouro-redis",
     "build": "tsc",
-    "dev:server": "ts-node-dev --ignore-watch node_modules src/server.ts",
-    "dev:queue": "ts-node-dev --ignore-watch node_modules src/queue.ts",
+    "dev:server": "ts-node-dev --files --ignore-watch node_modules src/server.ts",
+    "dev:queue": "ts-node-dev --files --ignore-watch node_modules src/queue.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
     "lint": "eslint './src/**/*.{js,jsx,ts,tsx}'",
     "lintfix": "eslint --fix './src/**/*.{js,jsx,ts,tsx}'",
@@ -39,6 +39,7 @@
   "devDependencies": {
     "@types/axios": "^0.14.0",
     "@types/bcryptjs": "^2.4.2",
+    "@types/cors": "^2.8.12",
     "@types/express": "^4.17.7",
     "@types/express-handlebars": "^3.1.0",
     "@types/jsonwebtoken": "^8.5.0",

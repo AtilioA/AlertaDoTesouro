@@ -17,13 +17,13 @@ class UpdateUserService {
       oldPassword: Yup.string(),
       newPassword: Yup.string()
         .min(8)
-        .when('oldPassword', (oldPassword: string, field: any) =>
-          oldPassword ? field.required() : field,
+        .when('oldPassword', (oldPasswordIn: string, field: any) =>
+          oldPasswordIn ? field.required() : field,
         ),
       newPasswordConfirmation: Yup.string().when(
         'newPassword',
-        (newPassword: string, field: any) =>
-          newPassword
+        (newPasswordIn: string, field: any) =>
+          newPasswordIn
             ? field.required().oneOf([Yup.ref('newPassword')])
             : field,
       ),
