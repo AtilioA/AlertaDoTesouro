@@ -5,7 +5,7 @@ import loadRequiredEnv from './utils/loadRequiredEnv';
 
 // Update treasury bonds
 cron.schedule(loadRequiredEnv('UPDATE_CRON'), async () => {
-  console.log('Running update-all-treasury-bonds task every 15 minutes...');
+  console.log('Running update-all-treasury-bonds task...');
   const updateTreasuryBonds = new UpdateTreasuryBondService();
   try {
     const checkResult = await updateTreasuryBonds.execute();
@@ -19,7 +19,7 @@ cron.schedule(loadRequiredEnv('UPDATE_CRON'), async () => {
 
 // Check notifications for treasury bonds rates
 cron.schedule(loadRequiredEnv('NOTIFICATIONS_CRON'), async () => {
-  console.log('Running check-all-notifications task every 15 minutes...');
+  console.log('Running check-all-notifications task...');
   const checkNotifications = new CheckNotificationsValueService();
   try {
     const checkResult = await checkNotifications.execute();
