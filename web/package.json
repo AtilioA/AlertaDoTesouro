@@ -32,6 +32,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint './src/**/*.{js,jsx,ts,tsx}'",
+    "lintfix": "eslint --fix './src/**/*.{js,jsx,ts,tsx}'",
     "pretty": "prettier --write \"./src/**/*.{js,jsx,json,ts,tsx}\""
   },
   "browserslist": {

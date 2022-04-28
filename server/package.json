@@ -14,6 +14,7 @@
     "dev:queue": "ts-node-dev --ignore-watch node_modules src/queue.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
     "lint": "eslint './src/**/*.{js,jsx,ts,tsx}'",
+    "lintfix": "eslint --fix './src/**/*.{js,jsx,ts,tsx}'",
     "pretty": "prettier --write \"./src/**/*.{js,jsx,json,ts,tsx}\""
   },
   "dependencies": {
