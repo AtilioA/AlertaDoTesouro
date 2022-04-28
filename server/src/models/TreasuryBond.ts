@@ -28,6 +28,7 @@ class TreasuryBond {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   @OneToMany(type => Notification, notification => notification.bond)
   @JoinColumn({ name: 'notification_id' })
   notifications: Notification[];

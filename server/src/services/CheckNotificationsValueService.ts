@@ -3,7 +3,6 @@ import Notification from '../models/Notification';
 import TreasuryBond from '../models/TreasuryBond';
 import Queue from './Queue';
 import NotifyBondReturns from '../jobs/NotifyBondReturns';
-import { response } from 'express';
 
 class CheckNotificationsValueService {
   public async execute(): Promise<boolean> {
@@ -15,8 +14,8 @@ class CheckNotificationsValueService {
       relations: ['notifications', 'notifications.user'],
     });
 
-    for (let treasuryBond of treasuryBonds) {
-      for (let notification of treasuryBond.notifications) {
+    for (const treasuryBond of treasuryBonds) {
+      for (const notification of treasuryBond.notifications) {
         if (!treasuryBond.lastDateOfNegotiation) {
           switch (notification.type) {
             case 'maior':
@@ -72,11 +71,12 @@ class CheckNotificationsValueService {
 
     return true;
   }
-  catch(err) {
-    throw new Error(
-      "Failed while trying to check notifications' values:" + err.message,
-    );
-  }
+
+  // catch(err) {
+  //   throw new Error(
+  //     `Failed while trying to check notifications' values:${err.message}`,
+  //   );
+  // }
 }
 
 export default CheckNotificationsValueService;

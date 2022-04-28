@@ -18,7 +18,7 @@ cron.schedule(loadRequiredEnv('UPDATE_CRON'), async () => {
 });
 
 // Check notifications for treasury bonds rates
-cron.schedule(loadRequiredEnv("NOTIFICATIONS_CRON"), async () => {
+cron.schedule(loadRequiredEnv('NOTIFICATIONS_CRON'), async () => {
   console.log('Running check-all-notifications task every 15 minutes...');
   const checkNotifications = new CheckNotificationsValueService();
   try {

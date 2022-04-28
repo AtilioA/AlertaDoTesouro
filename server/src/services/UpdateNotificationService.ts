@@ -26,7 +26,7 @@ class UpdateNotificationService {
       throw new Error('This notification was not created by this user.');
     }
 
-    let enumType = notificationsRepository.checkEnum(type);
+    const enumType = notificationsRepository.checkEnum(type);
 
     const updateResult = await notificationsRepository.update(
       { id: notification_id },

@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 import { UpdateResult, getRepository } from 'typeorm';
-import User from '../models/User';
 import { hash } from 'bcryptjs';
+import User from '../models/User';
 
 class UpdateUserService {
   public async execute(
@@ -37,7 +37,7 @@ class UpdateUserService {
         },
       )
       .catch(errors => {
-        throw Error(`Validation failed: ${errors['errors']}`);
+        throw Error(`Validation failed: ${errors.errors}`);
       });
 
     const userRepository = getRepository(User);

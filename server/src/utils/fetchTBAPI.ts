@@ -1,8 +1,9 @@
 // Consume Tesouro Direto's API
 
 import { treasuryBondTexts, Index } from '../models/TreasuryBond';
+
 const axios = require('axios');
-var https = require('https');
+const https = require('https');
 
 interface TreasuryBondJson {
   code: number;
@@ -33,7 +34,7 @@ export async function fetchTreasuryBondByCode(
     httpsAgent: agent,
   });
 
-  const treasuryBondsList = response['data']['response']['TrsrBdTradgList'];
+  const treasuryBondsList = response.data.response.TrsrBdTradgList;
 
   // console.log(treasuryBondsList);
   // for (let tb of treasuryBondsList) {
@@ -42,7 +43,7 @@ export async function fetchTreasuryBondByCode(
 
   // Look for treasury bond by ID
   const treasuryBondJson = treasuryBondsList.find(
-    (tb: any) => tb['TrsrBd']['cd'] === TBCode,
+    (tb: any) => tb.TrsrBd.cd === TBCode,
   );
 
   console.log(treasuryBondJson);
@@ -63,13 +64,14 @@ export async function fetchListOfTreasuryBonds(): Promise<Array<any>> {
   });
 
   try {
-    const treasuryBondsList: Array<any> = response['data']['response']['TrsrBdTradgList'];
+    const treasuryBondsList: Array<any> =
+      response.data.response.TrsrBdTradgList;
     // console.log(treasuryBondsList);
-    console.log("Successfully fetched treasury bonds from API.");
+    console.log('Successfully fetched treasury bonds from API.');
     return treasuryBondsList;
   } catch (error) {
-    console.log("No treasury bonds found: " + error);
-    console.log("Unable to fetch treasury bonds from API.");
+    console.log(`No treasury bonds found: ${error}`);
+    console.log('Unable to fetch treasury bonds from API.');
     return [];
   }
 }

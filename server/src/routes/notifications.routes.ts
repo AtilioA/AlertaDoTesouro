@@ -1,7 +1,7 @@
 import { Router } from 'express';
+import { getCustomRepository, getRepository } from 'typeorm';
 import NotificationsRepository from '../repositories/NotificationsRepository';
 import CreateNotificationService from '../services/CreateNotificationService';
-import { getCustomRepository, getRepository } from 'typeorm';
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 import DeleteNotificationService from '../services/DeleteNotificationService';
 import UpdateNotificationService from '../services/UpdateNotificationService';
@@ -65,7 +65,7 @@ notificationsRouter.post('/', async (request: any, response) => {
 // Update notification endpoint
 notificationsRouter.put('/:notification_id', async (request: any, response) => {
   try {
-    const notification_id = request.params['notification_id'];
+    const { notification_id } = request.params;
     const user_id = request.user.id;
 
     const {
@@ -98,7 +98,7 @@ notificationsRouter.delete(
   '/:notification_id',
   async (request: any, response) => {
     try {
-      const notification_id = request.params['notification_id'];
+      const { notification_id } = request.params;
       const user_id = request.user.id;
 
       const deleteNotification = new DeleteNotificationService();

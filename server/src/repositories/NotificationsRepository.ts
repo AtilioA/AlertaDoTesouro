@@ -1,5 +1,5 @@
-import Notification, { nType } from '../models/Notification';
 import { EntityRepository, Repository } from 'typeorm';
+import Notification, { nType } from '../models/Notification';
 
 @EntityRepository(Notification)
 class NotificationRepository extends Repository<Notification> {

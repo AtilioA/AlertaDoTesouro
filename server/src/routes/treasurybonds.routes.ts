@@ -1,12 +1,13 @@
-import { Router, request, response } from 'express';
-import CreateTreasuryBondService from '../services/CreateTreasuryBondService';
+import { Router } from 'express';
 import { getRepository } from 'typeorm';
+import CreateTreasuryBondService from '../services/CreateTreasuryBondService';
 import TreasuryBond from '../models/TreasuryBond';
 import UpdateTreasuryBondService from '../services/UpdateTreasuryBondService';
+
 const treasuryBondsRouter = Router();
 
 // List all treasuryBond endpoint
-treasuryBondsRouter.get('/', async (request, response) => {
+treasuryBondsRouter.get('/', async (_request, response) => {
   const treasuryBondsRepository = getRepository(TreasuryBond);
   const treasuryBond = await treasuryBondsRepository.find();
 
@@ -56,7 +57,7 @@ treasuryBondsRouter.post('/', async (request, response) => {
 });
 
 // Update all treasury bonds
-treasuryBondsRouter.put('/', async (request, response) => {
+treasuryBondsRouter.put('/', async (_request, response) => {
   const updateTreasuryBonds = new UpdateTreasuryBondService();
   try {
     const checkResult = await updateTreasuryBonds.execute();

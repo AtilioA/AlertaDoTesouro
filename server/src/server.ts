@@ -1,10 +1,9 @@
 import 'reflect-metadata';
-import { app } from './app';
-var cron = require('node-cron');
+import App from './app';
 
 import './database';
 import './tasks';
 
-app.listen(process.env.PORT, () => {
+App.listen(process.env.PORT, () => {
   console.log(`Server started on port ${process.env.PORT}!`);
 });

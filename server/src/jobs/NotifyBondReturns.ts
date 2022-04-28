@@ -29,7 +29,7 @@ class NotifyBondReturns {
       template: 'notify-bond-returns',
       context: {
         treasurybond: treasuryBond,
-        notification: notification,
+        notification,
       },
     });
 

@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { getRepository } from 'typeorm';
-import User from '../models/User';
 import { verify } from 'jsonwebtoken';
+import User from '../models/User';
 import authConfig from '../config/auth';
 
 interface TokenPayload {
@@ -10,7 +10,9 @@ interface TokenPayload {
   user: {
     email: string;
     id: string;
+    // eslint-disable-next-line camelcase
     created_at: string;
+    // eslint-disable-next-line camelcase
     updated_at: string;
   };
 }
@@ -33,7 +35,7 @@ emailRouter.get('/confirmation/:token', async (request, response) => {
   } catch (error) {
     return response
       .status(400)
-      .json({ error: 'Link de confirmação inválido: ' + error.message });
+      .json({ error: `Link de confirmação inválido: ${error.message}` });
   }
 });
 

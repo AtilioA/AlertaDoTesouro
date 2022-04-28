@@ -9,7 +9,7 @@ import emailRouter from './email.routes';
 const routes = Router();
 
 routes.get('/', async (request: any, response) => {
-  return response.send("AlertaDoTesouro is online.");
+  return response.send('AlertaDoTesouro is online.');
 });
 
 routes.use('/users', usersRouter);

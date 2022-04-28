@@ -1,5 +1,4 @@
-import { getConnection, DeleteResult } from 'typeorm';
-import { getRepository } from 'typeorm';
+import { getConnection, DeleteResult, getRepository } from 'typeorm';
 import Notification from '../models/Notification';
 
 class DeleteNotificationService {

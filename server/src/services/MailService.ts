@@ -1,8 +1,9 @@
-const nodemailer = require('nodemailer');
 import { resolve } from 'path';
 import exphbs from 'express-handlebars';
 import nodemailerExpressHandlebars from 'nodemailer-express-handlebars';
+import nodemailer from 'nodemailer';
 import mailConfig from '../config/mail';
+
 class NodeMail {
   public transporter: any;
 

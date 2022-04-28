@@ -18,7 +18,7 @@ class ConfirmAccountEmail {
       text: `<h1>Alerta do Tesouro</h1>`,
       template: 'confirm-account',
       context: {
-        token: token,
+        token,
       },
     });
 

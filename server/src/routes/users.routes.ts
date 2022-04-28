@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { sign } from 'jsonwebtoken';
 import CreateUserService from '../services/CreateUserService';
 import UpdateUserService from '../services/UpdateUserService';
 import DeleteUserService from '../services/DeleteUserService';
@@ -6,7 +7,6 @@ import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 import Queue from '../services/Queue';
 import SendConfirmAccountMail from '../jobs/SendConfirmAccountMail';
 import authConfig from '../config/auth';
-import { sign } from 'jsonwebtoken';
 
 const usersRouter = Router();
 

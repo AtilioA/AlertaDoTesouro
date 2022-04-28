@@ -14,7 +14,9 @@
     "ecmaVersion": 11,
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": [
+    "@typescript-eslint"
+  ],
   "rules": {
     "prettier/prettier": "error",
     "import/extensions": [
@@ -23,7 +25,14 @@
       {
         "ts": "never"
       }
-    ]
+    ],
+    "no-console": [
+      "off"
+    ],
+    "class-methods-use-this": [
+      "off"
+    ],
+    "camelcase": "off"
   },
   "settings": {
     "import/resolver": {

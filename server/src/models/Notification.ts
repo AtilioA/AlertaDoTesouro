@@ -28,6 +28,7 @@ class Notification {
   @Column()
   user_id: string;
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   @ManyToOne(type => User)
   @JoinColumn({ name: 'user_id' })
   user: User;
@@ -35,6 +36,7 @@ class Notification {
   @Column()
   treasurybond_id: string;
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   @ManyToOne(type => TreasuryBond)
   @JoinColumn({ name: 'treasurybond_id' })
   bond: TreasuryBond;

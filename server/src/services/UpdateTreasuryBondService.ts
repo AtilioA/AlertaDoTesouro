@@ -1,6 +1,6 @@
-import * as uuid from 'uuid'
-import { getRepository, getConnection } from 'typeorm';
-import TreasuryBond, { treasuryBondTexts, Index } from '../models/TreasuryBond';
+import * as uuid from 'uuid';
+import { getRepository } from 'typeorm';
+import TreasuryBond from '../models/TreasuryBond';
 import { fetchListOfTreasuryBonds } from '../utils/fetchTBAPI';
 
 class UpdateTreasuryBondService {
@@ -9,27 +9,27 @@ class UpdateTreasuryBondService {
 
     const treasuryBondsList = await fetchListOfTreasuryBonds();
     try {
-      for (let tb of treasuryBondsList) {
-        let currentTb = tb['TrsrBd'];
-        var code = currentTb['cd'];
-        var name = currentTb['nm'];
-        var expirationDate = currentTb['mtrtyDt'];
-        var minimumInvestmentAmount = currentTb['minInvstmtAmt'];
-        var investmentUnitaryValue = currentTb['untrInvstmtVal'];
-        var semianualInterestIndex = currentTb['semiAnulIntrstInd'];
-        var annualInvestmentRate = currentTb['anulInvstmtRate'];
-        var annualRedRate = currentTb['anulRedRate'];
-        var minimumRedValue = currentTb['minRedVal'];
-        var ISIN = currentTb['isinCd'];
-        var lastDateOfNegotiation = currentTb['wdwlDt'];
-        var indexedTo = {
-          code: currentTb['FinIndxs']['cd'],
-          name: currentTb['FinIndxs']['nm'],
+      for (const tb of treasuryBondsList) {
+        const currentTb = tb.TrsrBd;
+        const code = currentTb.cd;
+        const name = currentTb.nm;
+        const expirationDate = currentTb.mtrtyDt;
+        const minimumInvestmentAmount = currentTb.minInvstmtAmt;
+        const investmentUnitaryValue = currentTb.untrInvstmtVal;
+        const semianualInterestIndex = currentTb.semiAnulIntrstInd;
+        const annualInvestmentRate = currentTb.anulInvstmtRate;
+        const annualRedRate = currentTb.anulRedRate;
+        const minimumRedValue = currentTb.minRedVal;
+        const ISIN = currentTb.isinCd;
+        const lastDateOfNegotiation = currentTb.wdwlDt;
+        const indexedTo = {
+          code: currentTb.FinIndxs.cd,
+          name: currentTb.FinIndxs.nm,
         };
-        var texts = {
-          investmentSubtitle: currentTb['invstmtStbl'],
-          features: currentTb['featrs'],
-          recommendedTo: currentTb['rcvgIncm'],
+        const texts = {
+          investmentSubtitle: currentTb.invstmtStbl,
+          features: currentTb.featrs,
+          recommendedTo: currentTb.rcvgIncm,
         };
 
         // Insert treasurybond into database or update if already exists
@@ -67,9 +67,7 @@ class UpdateTreasuryBondService {
 
       return true;
     } catch (err) {
-      console.log(
-        'Failed while trying to update treasury bonds:' + err,
-      );
+      console.log(`Failed while trying to update treasury bonds:${err}`);
       return false;
     }
   }

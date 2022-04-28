@@ -11,7 +11,7 @@ interface TokenPayload {
 }
 
 export default function ensureAuthenticated(
-  request: any,
+  request: Request,
   response: Response,
   next: NextFunction,
 ): void {
@@ -34,6 +34,6 @@ export default function ensureAuthenticated(
 
     return next();
   } catch (err) {
-    throw new Error('Invalid JSON Web Token' + err.message);
+    throw new Error(`Invalid JSON Web Token: ${err.message}`);
   }
 }
