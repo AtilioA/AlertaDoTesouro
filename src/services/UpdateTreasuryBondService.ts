@@ -12,7 +12,6 @@ class UpdateTreasuryBondService {
       for (let tb of treasuryBondsList) {
         let currentTb = tb['TrsrBd'];
         var code = currentTb['cd'];
-        console.log;
         var name = currentTb['nm'];
         var expirationDate = currentTb['mtrtyDt'];
         var minimumInvestmentAmount = currentTb['minInvstmtAmt'];
