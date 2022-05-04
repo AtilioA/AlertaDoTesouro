@@ -23,9 +23,10 @@ A web application that notifies you about Brazilian treasury bond rates.
 
 # 💻 Project
 
-AlertaDoTesouro is a project elaborated with the intent of automatically monitoring Brazilian government bonds and alerting users about them. Tool such as Node.js, Express, PostgreSQL, Docker, Redis, linting and debugging tools, mail delivery systems, etc were employed to achieved this.
+AlertaDoTesouro is a project elaborated with the intent of automatically monitoring Brazilian government bonds and alerting users about them according to their preferences of rates. Tools such as Node.js, Express, PostgreSQL, Docker, Redis, linting and debugging tools, mail delivery systems, among others, were employed to build this system.
+This project was presented as the required assignment for the Integrated Project class during the 2022/1 semester.
 
-The application allows users to set one value per treasury bond so they can get notified whenever its rate goes above or below that value. Users can get notified by email or browser notifications and notifications should be* fully configurable.
+The application allows users to set one value per treasury bond, so they can get notified whenever its rate goes above or below that value. Users should be able to be* notified by email or browser notifications.
 
 <table>
     <thead>
@@ -56,7 +57,7 @@ This project was developed using the following tools:
 
 ## ⚙️ Back-end
 
-The back-end REST API is fully functional and was made with Express. Multiple endpoints have been defined and you can test them extensively by referring to the file `.insomnia.json` file, which can be imported into [Insomnia](https://insomnia.rest/) itself or possibly other REST clients.
+The back-end REST API is fully functional and was made with Express. Multiple endpoints have been defined and they can be explored extensively by referring to the file `.insomnia.json` file, which can be imported into [Insomnia](https://insomnia.rest/) itself or possibly other REST clients.
 
 ### Example: listing treasury bonds
 
@@ -97,7 +98,7 @@ A typical request would be a simple `GET` request to the `/treasurybonds` endpoi
 
 ## Back-end
 
-1. Clone the repository and enter the folder with your terminal. Then, install all back-end dependencies by executing `npm install` or `yarn`.
+1. Clone the repository and enter the folder with your terminal. Then, enter the server folder with `cd server` and install all back-end dependencies by executing `npm install`, or simply `yarn` if you have Yarn installed.
 
 2. You'll need to be running Postgres for the database and Redis for queues/background jobs. If you already have Docker correctly installed on your system, you can easily create containers for these two applications with the following commands:
 
@@ -109,19 +110,19 @@ A typical request would be a simple `GET` request to the `/treasurybonds` endpoi
 
    You'll be able to start the containers afterwards with `yarn up`.
 
-3. Rename the `.env.example` file to `.env`. You can change some values if you want, just keep it consistent throughout the application. Some notes:
+3. Rename the `.env.example` file to `.env`. If you want to change these values, just make sure to keep it consistent throughout the application. Some notes:
 
-   - The default port is 3333. You might want to change this if this port is already where you're running the application.
-   - You could change `JWT_SECRET` to another string you desire. It is used by the hashing algorithm for the passwords.
+   - The default server port is `3333 `. You might want to change this if this port is already in use wherever you are running the server on.
+   - You can and should change `JWT_SECRET` to another string. It is used by the hashing algorithm to generate hashed passwords.
    <!-- - [Sentry](https://sentry.io/for/web/) was added mostly for learning purposes and of course is not required; feel free to leave the string empty. -->
 
-4. To run migrations with TypeORM, run the following command in the root directory:
+4. Run migrations with TypeORM with the following command while in the `server` directory:
 
    ```bash
    yarn typeorm migration:run
    ```
 
-5. Start the queue with `yarn dev:queue`.
+5. Start the Redis-powered queue with `yarn dev:queue`.
 6. Start the server with `yarn dev:server`.
 
 ## Front-end
