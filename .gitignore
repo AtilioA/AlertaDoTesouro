@@ -117,8 +117,6 @@ dist
 .history
 
 # Project folders/files
-server/src/config/*
-!server/src/config/*example*
 !.vscode/launch.json
 *ignore_me*
 ignore/
