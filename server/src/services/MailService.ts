@@ -27,9 +27,9 @@ class NodeMail {
 
   constructor() {
     this.transporter = nodemailer.createTransport({
-      host: mailConfig.host,
-      port: mailConfig.port,
-      secure: mailConfig.secure,
+      port: Number(mailConfig.port),
+      host: String(mailConfig.host),
+      secure: Boolean(mailConfig.secure),
       auth: mailConfig.auth,
       tls: mailConfig.tls,
     });
