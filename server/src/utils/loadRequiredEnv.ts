@@ -3,7 +3,7 @@ export default function loadEnvOrThrow(envName: string): string {
   const env = process.env[`${envName}`];
   if (env === undefined) {
     throw new Error(
-      `Undefined required env '${envName}'. Please define it in yout environment.`,
+      `Undefined required env '${envName}'. Please define it in your environment.`,
     );
   }
   return env;

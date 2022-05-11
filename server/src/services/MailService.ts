@@ -39,7 +39,7 @@ class NodeMail {
 
   sendMail(mailMessage: any): any {
     return this.transporter.sendMail({
-      from: 'alertadotesouro@gmail.com',
+      from: 'centraldoapito@alertadotesouro.com',
       ...mailMessage,
     });
   }
