@@ -1,4 +1,4 @@
-/** Tries to load environment and throws if they are not avaiable. This is used to load required environment variables */
+/** Tries to load environment and throws if they are not available. This is used to load required environment variables */
 export default function loadEnvOrThrow(envName: string): string {
   const env = process.env[`${envName}`];
   if (env === undefined) {
