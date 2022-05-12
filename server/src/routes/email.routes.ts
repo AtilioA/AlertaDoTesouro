@@ -20,7 +20,7 @@ interface TokenPayload {
 const emailRouter = Router();
 
 // Confirm email (user) endpoint
-emailRouter.get('/confirmation/:token', async (request, response) => {
+emailRouter.get('/confirmation/:token', async (request, response, next) => {
   try {
     const { token } = request.params;
 
@@ -30,12 +30,15 @@ emailRouter.get('/confirmation/:token', async (request, response) => {
     const usersRepository = getRepository(User);
     await usersRepository.update({ id: user.id }, { confirmed: true });
 
-    return response.json({ ok: true, user });
+    response.json({ ok: true, user });
     // return response.redirect('/');  // Return to homepage
-  } catch (error) {
-    return response
-      .status(400)
-      .json({ error: `Link de confirmação inválido: ${error.message}` });
+  } catch (err) {
+    if (err instanceof Error) {
+      response
+        .status(400)
+        .json({ error: `Link de confirmação inválido: ${err.message}` });
+    }
+    next(err);
   }
 });
 

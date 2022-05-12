@@ -4,7 +4,7 @@ import TreasuryBond from '../models/TreasuryBond';
 import { fetchListOfTreasuryBonds } from '../utils/fetchTBAPI';
 
 class UpdateTreasuryBondService {
-  public async execute(): Promise<any> {
+  public async execute(): Promise<boolean> {
     const treasuryBondsRepository = getRepository(TreasuryBond);
 
     const treasuryBondsList = await fetchListOfTreasuryBonds();

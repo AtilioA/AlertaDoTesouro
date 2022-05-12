@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getRepository } from 'typeorm';
+import { getRepository, RepositoryNotTreeError } from 'typeorm';
 import CreateTreasuryBondService from '../services/CreateTreasuryBondService';
 import TreasuryBond from '../models/TreasuryBond';
 import UpdateTreasuryBondService from '../services/UpdateTreasuryBondService';
@@ -15,7 +15,7 @@ treasuryBondsRouter.get('/', async (_request, response) => {
 });
 
 // Create treasuryBond endpoint
-treasuryBondsRouter.post('/', async (request, response) => {
+treasuryBondsRouter.post('/', async (request, response, next) => {
   try {
     const {
       code,
@@ -51,24 +51,23 @@ treasuryBondsRouter.post('/', async (request, response) => {
     });
 
     return response.json(treasuryBond);
-  } catch (error) {
-    return response.status(400).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 });
 
 // Update all treasury bonds
-treasuryBondsRouter.put('/', async (_request, response) => {
+treasuryBondsRouter.put('/', async (_request, response, next) => {
   const updateTreasuryBonds = new UpdateTreasuryBondService();
   try {
     const checkResult = await updateTreasuryBonds.execute();
     console.log('Successfully updated all treasury bonds in the database!');
-    response.json({
+    return response.json({
       ok: checkResult,
       message: 'Successfully updated all treasury bonds',
     });
   } catch (err) {
-    console.log(err);
-    response.json({ error: err.message });
+    next(err);
   }
 });
 

@@ -4,7 +4,7 @@ import { Request, Response, NextFunction } from 'express';
 
 export default function logRequests(
   request: Request,
-  response: Response,
+  _: Response,
   next: NextFunction,
 ): void {
   const { method, url } = request;

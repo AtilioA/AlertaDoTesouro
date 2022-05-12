@@ -12,7 +12,7 @@ const notificationsRouter = Router();
 notificationsRouter.use(ensureAuthenticated); // All notifications routes require authentication
 
 // List all notifications endpoint
-notificationsRouter.get('/', async (request: any, response) => {
+notificationsRouter.get('/', async (request, response) => {
   const notificationsRepository = getCustomRepository(NotificationsRepository);
   const user_id = request.user.id;
   const notifications = await notificationsRepository.find({
@@ -23,7 +23,7 @@ notificationsRouter.get('/', async (request: any, response) => {
 });
 
 // Create notification endpoint
-notificationsRouter.post('/', async (request: any, response) => {
+notificationsRouter.post('/', async (request, response, next) => {
   try {
     const {
       treasurybond_id,
@@ -57,46 +57,55 @@ notificationsRouter.post('/', async (request: any, response) => {
     }
 
     return response.json({ notification });
-  } catch (error) {
-    return response.status(400).json({ error: error.message });
+  } catch (err) {
+    if (err instanceof Error) {
+      return response.status(400).json({ error: err.message });
+    }
+    next(err);
   }
 });
 
 // Update notification endpoint
-notificationsRouter.put('/:notification_id', async (request: any, response) => {
-  try {
-    const { notification_id } = request.params;
-    const user_id = request.user.id;
+notificationsRouter.put(
+  '/:notification_id',
+  async (request, response, next) => {
+    try {
+      const { notification_id } = request.params;
+      const user_id = request.user.id;
 
-    const {
-      value,
-      type,
-      notifyByEmail,
-      notifyByBrowser,
-      active,
-    } = request.body;
+      const {
+        value,
+        type,
+        notifyByEmail,
+        notifyByBrowser,
+        active,
+      } = request.body;
 
-    const updateNotification = new UpdateNotificationService();
+      const updateNotification = new UpdateNotificationService();
 
-    const updated = await updateNotification.execute(
-      user_id,
-      notification_id,
-      value,
-      type,
-      notifyByEmail,
-      notifyByBrowser,
-      active,
-    );
-    return response.json({ updated });
-  } catch (error) {
-    return response.status(400).json({ error: error.message });
-  }
-});
+      const updated = await updateNotification.execute(
+        user_id,
+        notification_id,
+        value,
+        type,
+        notifyByEmail,
+        notifyByBrowser,
+        active,
+      );
+      return response.json({ updated });
+    } catch (err) {
+      if (err instanceof Error) {
+        return response.status(400).json({ error: err.message });
+      }
+      next(err);
+    }
+  },
+);
 
 // Delete notification endpoint
 notificationsRouter.delete(
   '/:notification_id',
-  async (request: any, response) => {
+  async (request, response, next) => {
     try {
       const { notification_id } = request.params;
       const user_id = request.user.id;
@@ -108,8 +117,11 @@ notificationsRouter.delete(
         notification_id,
       );
       return response.json({ deleted });
-    } catch (error) {
-      return response.status(400).json({ error: error.message });
+    } catch (err) {
+      if (err instanceof Error) {
+        return response.status(400).json({ error: err.message });
+      }
+      next(err);
     }
   },
 );
