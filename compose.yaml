@@ -43,6 +43,7 @@ services:
       - '${PORT:-3333}:3333'
     volumes:
       - ./server:/app
+      - ./tsconfig.base.json:/tsconfig.base.json
     networks:
       - backend
     working_dir: /app
