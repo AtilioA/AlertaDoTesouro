@@ -1,0 +1,7 @@
+---
+extends: './.eslintrc.base.yaml' # link to not change relative folder when importing
+
+rules:
+  class-methods-use-this:
+    - 'off'
+  camelcase: 'off'
