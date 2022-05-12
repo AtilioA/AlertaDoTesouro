@@ -42,7 +42,11 @@ services:
     ports:
       - '${PORT:-3333}:3333'
     volumes:
-      - ./server:/app
+      - type: bind
+        source: ./server
+        target: /app
+        bind:
+          propagation: rshared
       - ./tsconfig.base.json:/tsconfig.base.json
     networks:
       - backend
