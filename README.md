@@ -53,9 +53,11 @@ This project was developed using the following tools:
 - [Express](https://expressjs.com/)
 - [React.js](http://reactjs.org/)
 - [PostgreSQL](https://www.postgresql.org/)
-- [Docker](https://www.docker.com/)
+- [Docker](https://www.docker.com/) com [Compose __V2__](https://docs.docker.com/compose/#compose-v2-and-the-new-docker-compose-command)
 
 ## ⚙️ Back-end
+
+All files related exlusively to the back-end server are located in `/server`.
 
 The back-end REST API is fully functional and was made with Express. Multiple endpoints have been defined and they can be explored extensively by referring to the `.insomnia.json` file, which can be imported into [Insomnia](https://insomnia.rest/) itself or possibly other REST clients.
 
@@ -96,39 +98,29 @@ A typical request would be a simple `GET` request to the `/treasurybonds` endpoi
 
 # 🏡 Running locally
 
+To start the services, with Compose v2, run the following command while on the project root directory:
+
+   ```bash
+  docker compose up # TODO
+  # Alternatively, if you want to start the development environment, run:
+  docker compose --profile dev up
+   ```
+
+   > In both commands, you can append `-d` or `--detach` to run the services in detached mode.
+
+Rename or copy the `.env.example` file to `.env` in both the `/server` and `/web` directories. If you want to change these values, just make sure to keep it consistent throughout the application.
+
 ## Back-end
 
-1. Clone the repository and enter the folder with your terminal. Then, enter the server folder with `cd server` and install all back-end dependencies by executing `npm install`, or simply `yarn` if you have Yarn installed.
+Some notes:
 
-2. You'll need to be running Postgres for the database and Redis for queues/background jobs. If you already have Docker correctly installed on your system, you can easily create containers for these two applications with the following commands:
-
-   ```bash
-   docker run --name AlertaDoTesouro-postgres -e POSTGRES_USER=alertadotesouro -e POSTGRES_PASSWORD=your_postgres_password -p 5432:5432 -d postgres
-
-   docker run --name AlertaDoTesouro-redis -p 6379:6379 -d -t redis:alpine
-   ```
-
-   You'll be able to start the containers afterwards with `yarn up`.
-
-3. Rename the `.env.example` file to `.env`. If you want to change these values, just make sure to keep it consistent throughout the application. Some notes:
-
-   - The default server port is `3333 `. You might want to change this if this port is already in use wherever you are running the server on.
-   - You can and should change `JWT_SECRET` to another string. It is used by the hashing algorithm to generate hashed passwords.
+- The default server port is `3333`. You might want to change this if this port is already in use wherever you are running the server on.
+- You can and __should__ change `JWT_SECRET` to another string. It is used by the hashing algorithm to generate hashed passwords.
+- Bla bla bla mailtrap.
    <!-- - [Sentry](https://sentry.io/for/web/) was added mostly for learning purposes and of course is not required; feel free to leave the string empty. -->
 
-4. Run migrations with TypeORM with the following command while in the `server` directory:
-
-   ```bash
-   yarn typeorm migration:run
-   ```
-
-5. Start the Redis-powered queue with `yarn dev:queue`.
-6. Start the server with `yarn dev:server`.
+<!-- TODO: Endpoints documentation -->
 
 ## Front-end
 
 \* Note that the front-end has not been finished yet:tm:.
-
-1. Access the `web/` directory with your terminal. Install all front-end dependencies with `npm install` or `yarn`.
-
-2. Start the front-end application with `yarn start`. Default port is 3000.
