@@ -2,8 +2,9 @@ import Bee from 'bee-queue';
 import NotifyBondReturns from '../jobs/NotifyBondReturns';
 import redisConfig from '../config/redis';
 import SendConfirmAccountMail from '../jobs/SendConfirmAccountMail';
+import SendResetPasswordMail from '../jobs/SendResetPasswordMail';
 
-const jobs = [NotifyBondReturns, SendConfirmAccountMail];
+const jobs = [NotifyBondReturns, SendConfirmAccountMail, SendResetPasswordMail];
 
 class Queue {
   public queues: any;

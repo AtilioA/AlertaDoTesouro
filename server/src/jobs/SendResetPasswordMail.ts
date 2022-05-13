@@ -11,7 +11,6 @@ class ResetPasswordEmail {
   // Job task
   async handle(data: any) {
     const { token, user } = data.data;
-    console.log(`Reset password email is being sent to '${user.email}'. Token: ${token}. User: ${JSON.stringify(user)}`);
 
     await MailService.sendMail({
       to: `<${user.email}>`,
