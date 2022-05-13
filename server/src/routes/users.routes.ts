@@ -1,12 +1,15 @@
 import { Router } from 'express';
-import { sign } from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 import CreateUserService from '../services/CreateUserService';
 import UpdateUserService from '../services/UpdateUserService';
 import DeleteUserService from '../services/DeleteUserService';
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 import Queue from '../services/Queue';
 import SendConfirmAccountMail from '../jobs/SendConfirmAccountMail';
+import SendResetPasswordMail from '../jobs/SendResetPasswordMail';
 import authConfig from '../config/auth';
+import { getRepository } from 'typeorm';
+import User from '../models/User';
 
 const usersRouter = Router();
 
@@ -14,6 +17,51 @@ const usersRouter = Router();
  * Repositories - business rules
  * Services - database
  */
+
+// Reset password endpoint
+usersRouter.post('/reset-password', async (request, response) => {
+  try {
+    const { email } = request.body;
+
+    const usersRepository = getRepository(User);
+
+    const checkIfUserExist = await usersRepository.findOne({
+      where: { email },
+    });
+
+    if (checkIfUserExist) {
+      // Create confirmation token so the user can confirm their account
+      const EMAIL_SECRET = authConfig.jwt.secret;
+      const emailToken = sign(
+        {
+          checkIfUserExist,
+        },
+        EMAIL_SECRET as string,
+        {
+          expiresIn: '1d', // TODO: maybe use env variable
+        },
+      );
+
+      // Send reset password email
+      await Queue.add(SendResetPasswordMail.key, {
+        token: emailToken,
+        user: checkIfUserExist,
+      });
+
+      // return response with status 200 and success message
+      return response.status(200).json({
+        message: 'Reset password email sent.',
+      });
+  } else {
+      // return response with status 200 and success message
+      return response.status(400).json({
+        message: `User with email '${email}' not found.`,
+      });
+  }
+  } catch (error) {
+    return response.status(400).json({ error: error.message });
+  }
+});
 
 // Create users endpoint
 usersRouter.post('/', async (request, response, next) => {
@@ -39,7 +87,7 @@ usersRouter.post('/', async (request, response, next) => {
     // Send confirmation email
     await Queue.add(SendConfirmAccountMail.key, {
       token: emailToken,
-      user,
+      user: user,
     });
 
     return response.json(user);
