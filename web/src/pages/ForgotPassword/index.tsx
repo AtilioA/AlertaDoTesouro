@@ -1,8 +1,8 @@
 import React, { useCallback, useRef, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Container } from './styles';
-import { FiLogIn, FiLock, FiUser, FiCheck } from 'react-icons/fi';
+import { Container } from '../SignUp/styles';
+import { FiMail, FiUser } from 'react-icons/fi';
 import Input from '../../components/Input';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
@@ -72,13 +72,13 @@ const ForgotPassword: React.FC = () => {
           </div>
           <Input icon={FiUser} name="email" placeholder="Ex: alan@turing.com" />
 
-          <button type="submit">Solicitar redefinição de senha</button>
+          {/* TODO: Improve icon spacing */}
+          <button type="submit">
+            <FiMail />
+            {' '} Redefinir senha
+          </button>
         </Form>
 
-        <Link to="login">
-          <FiLogIn />
-          &nbsp; Entrar com minha conta
-        </Link>
       </AnimationContainer>
     </Container>
   );
