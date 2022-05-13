@@ -13,11 +13,11 @@ class CreateUserService {
   public async execute({ email, password }: Request): Promise<User> {
     const usersRepository = getRepository(User);
 
-    const checkUserExists = await usersRepository.findOne({
+    const checkIfUserExist = await usersRepository.findOne({
       where: { email },
     });
 
-    if (checkUserExists) {
+    if (checkIfUserExist) {
       throw new Error('E-mail address is already being used.');
     }
 
