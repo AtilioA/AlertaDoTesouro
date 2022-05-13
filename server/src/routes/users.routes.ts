@@ -32,7 +32,7 @@ usersRouter.post('/', async (request, response) => {
       },
       EMAIL_SECRET as string,
       {
-        expiresIn: '1d',
+        expiresIn: '1d', // TODO: maybe use env variable
       },
     );
 
