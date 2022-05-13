@@ -8,7 +8,7 @@ import emailRouter from './email.routes';
 // Define main Router
 const routes = Router();
 
-routes.get('/', async (request: any, response) => {
+routes.get('/', async (_, response) => {
   return response.send('AlertaDoTesouro is online.');
 });
 

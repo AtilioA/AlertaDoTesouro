@@ -16,7 +16,7 @@ const usersRouter = Router();
  */
 
 // Create users endpoint
-usersRouter.post('/', async (request, response) => {
+usersRouter.post('/', async (request, response, next) => {
   try {
     const { email, password } = request.body;
 
@@ -32,7 +32,7 @@ usersRouter.post('/', async (request, response) => {
       },
       EMAIL_SECRET as string,
       {
-        expiresIn: '1d', // TODO: maybe use env variable
+        expiresIn: authConfig.jwt.expiresIn,
       },
     );
 
@@ -43,15 +43,18 @@ usersRouter.post('/', async (request, response) => {
     });
 
     return response.json(user);
-  } catch (error) {
-    return response.status(400).json({ error: error.message });
+  } catch (err) {
+    if (err instanceof Error) {
+      return response.status(400).json({ error: err.message });
+    }
+    next(err);
   }
 });
 
 usersRouter.use(ensureAuthenticated); // All user editing routes (below) require authentication
 
 // Update user endpoint
-usersRouter.put('/', async (request: any, response) => {
+usersRouter.put('/', async (request, response, next) => {
   try {
     const user_id = request.user.id;
 
@@ -76,13 +79,16 @@ usersRouter.put('/', async (request: any, response) => {
       notifyByBrowser,
     );
     return response.json({ ok: 'User was updated', updated });
-  } catch (error) {
-    return response.status(400).json({ error: error.message });
+  } catch (err) {
+    if (err instanceof Error) {
+      return response.status(400).json({ error: err.message });
+    }
+    next(err);
   }
 });
 
 // Delete user endpoint
-usersRouter.delete('/', async (request: any, response) => {
+usersRouter.delete('/', async (request, response, next) => {
   try {
     // Delete the user who sent the request
     const user_id = request.user.id;
@@ -91,8 +97,11 @@ usersRouter.delete('/', async (request: any, response) => {
 
     const deleted = await deleteUser.execute(user_id);
     return response.json({ ok: 'User was deleted', deleted });
-  } catch (error) {
-    return response.status(400).json({ error: error.message });
+  } catch (err) {
+    if (err instanceof Error) {
+      return response.status(400).json({ error: err.message });
+    }
+    next(err);
   }
 });
 

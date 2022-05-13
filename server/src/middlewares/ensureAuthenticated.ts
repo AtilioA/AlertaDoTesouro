@@ -12,7 +12,7 @@ interface TokenPayload {
 
 export default function ensureAuthenticated(
   request: Request,
-  _response: Response,
+  _: Response,
   next: NextFunction,
 ): void {
   const authHeader = request.headers.authorization;
@@ -21,9 +21,9 @@ export default function ensureAuthenticated(
     throw new Error('JSON Web Token is missing');
   }
 
-  const [, token] = authHeader.split(' '); // Do not use "type" of token (Bearer)
-
   try {
+    const [, token] = authHeader.split(' '); // Do not use "type" of token (Bearer)
+
     const decoded = verify(token, authConfig.jwt.secret as string);
 
     const { sub } = decoded as TokenPayload;
@@ -32,8 +32,11 @@ export default function ensureAuthenticated(
       id: sub,
     };
 
-    return next();
+    next();
   } catch (err) {
-    throw new Error(`Invalid JSON Web Token: ${err.message}`);
+    if (err instanceof Error) {
+      next(Error(`Invalid JSON Web Token: ${err.message}`));
+    }
+    next(err);
   }
 }

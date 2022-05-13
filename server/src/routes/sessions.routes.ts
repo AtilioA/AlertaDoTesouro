@@ -4,7 +4,7 @@ import CreateUserSessionService from '../services/CreateUserSessionService';
 const sessionsRouter = Router();
 
 // Create session endpoint
-sessionsRouter.post('/', async (request, response) => {
+sessionsRouter.post('/', async (request, response, next) => {
   try {
     const { email, password } = request.body;
 
@@ -16,8 +16,11 @@ sessionsRouter.post('/', async (request, response) => {
     });
 
     return response.json({ user, token });
-  } catch (error) {
-    return response.status(400).json({ error: error.message });
+  } catch (err) {
+    if (err instanceof Error) {
+      return response.status(400).json({ error: err.message });
+    }
+    next(err);
   }
 });
 
