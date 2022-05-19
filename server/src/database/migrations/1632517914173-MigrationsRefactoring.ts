@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-/* eslint-disable class-methods-use-this */
+
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class MigrationsRefactoring1632517914173 implements MigrationInterface {

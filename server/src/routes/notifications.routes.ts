@@ -56,10 +56,10 @@ notificationsRouter.post('/', async (request, response, next) => {
       throw new Error('User not found when creating notification');
     }
 
-    return response.json({ notification });
+    response.json({ notification });
   } catch (err) {
     if (err instanceof Error) {
-      return response.status(400).json({ error: err.message });
+      response.status(400).json({ error: err.message });
     }
     next(err);
   }
@@ -73,13 +73,8 @@ notificationsRouter.put(
       const { notification_id } = request.params;
       const user_id = request.user.id;
 
-      const {
-        value,
-        type,
-        notifyByEmail,
-        notifyByBrowser,
-        active,
-      } = request.body;
+      const { value, type, notifyByEmail, notifyByBrowser, active } =
+        request.body;
 
       const updateNotification = new UpdateNotificationService();
 
@@ -92,10 +87,10 @@ notificationsRouter.put(
         notifyByBrowser,
         active,
       );
-      return response.json({ updated });
+      response.json({ updated });
     } catch (err) {
       if (err instanceof Error) {
-        return response.status(400).json({ error: err.message });
+        response.status(400).json({ error: err.message });
       }
       next(err);
     }
@@ -116,10 +111,10 @@ notificationsRouter.delete(
         user_id,
         notification_id,
       );
-      return response.json({ deleted });
+      response.json({ deleted });
     } catch (err) {
       if (err instanceof Error) {
-        return response.status(400).json({ error: err.message });
+        response.status(400).json({ error: err.message });
       }
       next(err);
     }
