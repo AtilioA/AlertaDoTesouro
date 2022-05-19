@@ -14,8 +14,11 @@
     "dev:queue": "ts-node-dev --files --ignore-watch node_modules src/queue.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "lintfix": "eslint --fix . --ext .js,.jsx,.ts,.tsx",
-    "pretty": "prettier \"**/*\" --write --ignore-unknown"
+    "lint:fix": "eslint --fix . --ext .js,.jsx,.ts,.tsx",
+    "docker:lint": "docker exec -t alertadotesouro-server-dev-1 yarn lint",
+    "docker:lint:fix": "docker exec -t alertadotesouro-server-dev-1 yarn lint:fix",
+    "pretty": "prettier \"**/*\" --write --ignore-unknown",
+    "docker:pretty": "docker exec -t alertadotesouro-server-dev-1 yarn pretty"
   },
   "dependencies": {
     "axios": "^0.21.0",
