@@ -59,6 +59,7 @@
     "jest": "^28.1.0",
     "prettier": "^2.0.5",
     "ts-node-dev": "^1.0.0-pre.57",
+    "typedoc": "^0.22.15",
     "typescript": "^4.6.4"
   },
   "config": {}
