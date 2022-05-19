@@ -8,11 +8,10 @@
   "private": true,
   "homepage": "https://github.com/AtilioA/AlertaDoTesouro",
   "scripts": {
-    "up": "docker start AlertaDoTesouro-postgres AlertaDoTesouro-redis",
     "build": "tsc",
     "dev:server": "ts-node-dev --files --ignore-watch node_modules src/server.ts",
     "dev:queue": "ts-node-dev --files --ignore-watch node_modules src/queue.ts",
-    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
+    "typeorm": "ts-node ./node_modules/typeorm/cli.js",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint --fix . --ext .js,.jsx,.ts,.tsx",
     "docker:lint": "docker exec -t alertadotesouro-server-dev-1 yarn lint",
