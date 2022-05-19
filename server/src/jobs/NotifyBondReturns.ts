@@ -5,6 +5,12 @@ import Notification from '../models/Notification';
 import TreasuryBond from '../models/TreasuryBond';
 import MailService from '../services/MailService';
 
+/**
+ * @class NotifyBondMailInterface
+ * @description Interface for the mailing of bond returns
+ * @property {Notification} notification - The Notification related to the email
+ * @property {TreasuryBond} bond - The TreasuryBond related to the email
+ */
 interface NotifyBondMailInterface {
   notification: Notification;
   treasuryBond: TreasuryBond;

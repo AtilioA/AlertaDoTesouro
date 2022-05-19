@@ -21,6 +21,20 @@ export enum nType {
 }
 
 @Entity('notifications')
+/**
+ * @class Notification
+ * @public
+ * @description A Notification is a notification request created by an User concerning mainly a TreasuryBond and a value for the bond rate.
+ * @property {number} id - The id of the Notification.
+ * @property {User} user - The User that created the Notification.
+ * @property {TreasuryBond} treasuryBond - The TreasuryBond that the Notification is set to watch.
+ * @property {number} value - The value for the bond rate that the Notification must check against.
+ * @property {NotificationType} type - Whether to check if the bond rate is above or below the {value}.
+ * @property {boolean} active - Whether the Notification is active or not.
+ * @property {boolean} notifyByBrowser - Whether the User should be notified by the browser or not.
+ * @property {boolean} notifyByEmail - Whether the User should be notified by the email or not.
+ *
+ */
 class Notification {
   @PrimaryGeneratedColumn('uuid')
   id: string;
