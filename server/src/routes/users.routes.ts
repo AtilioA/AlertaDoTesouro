@@ -20,11 +20,16 @@ usersRouter.post('/', async (request, response, next) => {
   try {
     const { email, password } = request.body;
 
-    const createUser = new CreateUserService();
+    // Note that this will also be validated by the front-end with Yup schemas
+    if (password.length < 8) {
+      throw new Error('Passwords must be at least 8 characters long.');
+    }
 
+    // Invoke CreateUserService to manipulate data
+    const createUser = new CreateUserService();
     const user = await createUser.execute({ email, password });
 
-    // Create confirmation token so the user can confirm their account
+    // Create confirmation token so that the user can confirm their account
     const EMAIL_SECRET = authConfig.jwt.secret;
     const emailToken = sign(
       {
@@ -36,7 +41,7 @@ usersRouter.post('/', async (request, response, next) => {
       },
     );
 
-    // Send confirmation email
+    // Add confirmation email task to the queue, so that it will be sent to the user
     await Queue.add(SendConfirmAccountMail.key, {
       token: emailToken,
       user,
@@ -68,7 +73,6 @@ usersRouter.put('/', async (request, response, next) => {
     } = request.body;
 
     const updateUser = new UpdateUserService();
-
     const updated = await updateUser.execute(
       user_id,
       oldPassword,
@@ -78,6 +82,7 @@ usersRouter.put('/', async (request, response, next) => {
       notifyByEmail,
       notifyByBrowser,
     );
+
     return response.json({ ok: 'User was updated', updated });
   } catch (err) {
     if (err instanceof Error) {
@@ -94,8 +99,8 @@ usersRouter.delete('/', async (request, response, next) => {
     const user_id = request.user.id;
 
     const deleteUser = new DeleteUserService();
-
     const deleted = await deleteUser.execute(user_id);
+
     return response.json({ ok: 'User was deleted', deleted });
   } catch (err) {
     if (err instanceof Error) {
