@@ -19,8 +19,7 @@ interface TokenPayload {
 }
 
 /**
- * @function ensureAuthenticated
- * @description Middleware that checks if an user is authenticated (proceed if they are)
+ * Middleware that checks if an user is authenticated (proceed if they are)
  *
  * @param request Express request object
  * @param _ (unused) Response object

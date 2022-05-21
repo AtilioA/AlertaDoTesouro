@@ -3,8 +3,7 @@
 import { Request, Response, NextFunction } from 'express';
 
 /**
- * @function logRequest
- * @description Middleware that logs requests (method, endpoint, time taken)
+ * Middleware that logs requests (method, endpoint, time taken)
  *
  * @param request Express request object
  * @param _ (unused) Response object
