@@ -9,9 +9,12 @@ import User from '../models/User';
 
 const notificationsRouter = Router();
 
-notificationsRouter.use(ensureAuthenticated); // All notifications routes require authentication
+// All notifications routes require authentication
+notificationsRouter.use(ensureAuthenticated);
 
-// List all notifications endpoint
+/**
+ * Endpoint for listing all notifications for a given User.
+ */
 notificationsRouter.get('/', async (request, response) => {
   const notificationsRepository = getCustomRepository(NotificationsRepository);
   const user_id = request.user.id;
@@ -22,7 +25,9 @@ notificationsRouter.get('/', async (request, response) => {
   return response.json(notifications);
 });
 
-// Create notification endpoint
+/**
+ * Endpoint for creating a new Notification for a given User.
+ */
 notificationsRouter.post('/', async (request, response, next) => {
   try {
     const {
@@ -65,7 +70,10 @@ notificationsRouter.post('/', async (request, response, next) => {
   }
 });
 
-// Update notification endpoint
+/**
+ * Endpoint for updating a Notification for a given User.
+ * @param {string} notification_id - ID of the Notification to be updated
+ */
 notificationsRouter.put(
   '/:notification_id',
   async (request, response, next) => {
@@ -97,7 +105,10 @@ notificationsRouter.put(
   },
 );
 
-// Delete notification endpoint
+/**
+ * Endpoint for deleting a Notification for a given User.
+ * @param {string} notification_id - ID of the Notification to be deleted
+ */
 notificationsRouter.delete(
   '/:notification_id',
   async (request, response, next) => {

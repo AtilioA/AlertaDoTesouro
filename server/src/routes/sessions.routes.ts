@@ -3,7 +3,9 @@ import CreateUserSessionService from '../services/CreateUserSessionService';
 
 const sessionsRouter = Router();
 
-// Create session endpoint
+/**
+ * Endpoint for creating a new User session.
+ */
 sessionsRouter.post('/', async (request, response, next) => {
   try {
     const { email, password } = request.body;

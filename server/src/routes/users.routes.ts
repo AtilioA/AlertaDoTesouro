@@ -15,7 +15,9 @@ const usersRouter = Router();
  * Services - database
  */
 
-// Create users endpoint
+/**
+ * Endpoint for creating a new User.
+ */
 usersRouter.post('/', async (request, response, next) => {
   try {
     const { email, password } = request.body;
@@ -58,7 +60,9 @@ usersRouter.post('/', async (request, response, next) => {
 
 usersRouter.use(ensureAuthenticated); // All user editing routes (below) require authentication
 
-// Update user endpoint
+/**
+ * Endpoint for updating a given User.
+ */
 usersRouter.put('/', async (request, response, next) => {
   try {
     const user_id = request.user.id;
@@ -92,7 +96,9 @@ usersRouter.put('/', async (request, response, next) => {
   }
 });
 
-// Delete user endpoint
+/**
+ * Endpoint for deleting a given User.
+ */
 usersRouter.delete('/', async (request, response, next) => {
   try {
     // Delete the user who sent the request
