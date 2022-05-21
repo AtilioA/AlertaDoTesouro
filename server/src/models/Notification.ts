@@ -15,6 +15,12 @@ import User from './User';
  * greater than or less than the given value
  */
 export type NotificationType = 'maior' | 'menor';
+/**
+ * @class nType
+ * @description Enum for the NotificationType
+ * @see NotificationType
+ * @see Notification
+ */
 export enum nType {
   GREATER = 'maior',
   LESS = 'menor',
