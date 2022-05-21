@@ -16,6 +16,10 @@ interface NotifyBondMailInterface {
   treasuryBond: TreasuryBond;
 }
 
+/**
+ * @class NotifyBondReturns
+ * @description BeeQueue Job for mailing bond return notification
+ */
 class NotifyBondReturns {
   // Unique job key
   get key() {
