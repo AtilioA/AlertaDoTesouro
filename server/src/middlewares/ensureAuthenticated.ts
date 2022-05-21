@@ -4,12 +4,29 @@ import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
 import authConfig from '../config/auth';
 
+/**
+ * @class TokenPayload
+ * @description Interface for the payload of the JWT token
+ *
+ * @property {number} iat - 'Issued at' timestamp
+ * @property {number} exp - 'Expiration' timestamp
+ * @property {string} sub - 'Subject' (user id)
+ */
 interface TokenPayload {
   iat: number;
   exp: number;
   sub: string;
 }
 
+/**
+ * @function ensureAuthenticated
+ * @description Middleware that checks if an user is authenticated (proceed if they are)
+ *
+ * @param request Express request object
+ * @param _ (unused) Response object
+ * @param next Next function
+ * @returns void
+ */
 export default function ensureAuthenticated(
   request: Request,
   _: Response,

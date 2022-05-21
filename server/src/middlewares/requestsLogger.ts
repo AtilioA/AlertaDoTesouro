@@ -2,7 +2,15 @@
 
 import { Request, Response, NextFunction } from 'express';
 
-export default function logRequests(
+/**
+ * @function logRequest
+ * @description Middleware that logs requests (method, endpoint, time taken)
+ *
+ * @param request Express request object
+ * @param _ (unused) Response object
+ * @param next Next function
+ */
+export default function logRequest(
   request: Request,
   _: Response,
   next: NextFunction,
