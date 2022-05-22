@@ -53,7 +53,7 @@ const Account: React.FC = () => {
           <div id="input-header">
             <h2>EMAIL</h2>
           </div>
-          <Input icon={FiAtSign} name="email" placeholder="alan@turing.com" />
+          <Input icon={FiAtSign} name="email" placeholder="turing@inf.ufes.br" />
 
           <div id="input-header">
             <h2>SENHA</h2>
