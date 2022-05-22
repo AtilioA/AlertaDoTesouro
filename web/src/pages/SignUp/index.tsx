@@ -101,7 +101,7 @@ const SignUp: React.FC = () => {
           />
 
           <input required name="acceptTerms" type="checkbox" id="acceptTerms" />
-          <label htmlFor="acceptTerms"> Aceito os Termos e Condições Gerais de Uso</label>
+          <label htmlFor="acceptTerms"> Aceito os <a href='/privacidade'>Termos e Condições Gerais de Uso</a></label>
 
           <button type="submit">Cadastrar-se</button>
         </Form>

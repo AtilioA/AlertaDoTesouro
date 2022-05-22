@@ -15,6 +15,10 @@ export const Container = styled.div`
       margin-right: 4px;
   }
 
+  label a {
+      display: inline;
+    }
+
   Form {
     margin: 80px;
     width: 340px;
