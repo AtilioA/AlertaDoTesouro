@@ -20,8 +20,8 @@ interface SignInFormData {
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
-  const {user, signIn} = useContext(AuthContext);
-  const {addToast, removeToast} = useContext(ToastContext);
+  const { user, signIn } = useContext(AuthContext);
+  const { addToast, removeToast } = useContext(ToastContext);
 
   const handleSubmit = useCallback(async (data: SignInFormData) => {
     try {
@@ -51,10 +51,10 @@ const SignIn: React.FC = () => {
         return;
       } else {
         addToast({
-        type: 'error',
-        title: 'Erro na autenticação',
-        description: 'Ocorreu um erro ao fazer login. Cheque suas credenciais.'
-      });
+          type: 'error',
+          title: 'Erro na autenticação',
+          description: 'Ocorreu um erro ao fazer login. Cheque suas credenciais ou verifique seu e-mail.'
+        });
       }
     }
   }, [signIn]);
