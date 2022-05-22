@@ -74,7 +74,7 @@ const SignIn: React.FC = () => {
 
           <div id="input-header">
             <h2>SENHA</h2>
-            <Link to="forgot">Esqueci minha senha</Link>
+            <Link to="esqueci-minha-senha">Esqueci minha senha</Link>
           </div>
           <Input
             icon={FiLock}
