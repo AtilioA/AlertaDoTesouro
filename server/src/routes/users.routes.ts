@@ -72,7 +72,7 @@ usersRouter.post('/reset-password', async (request, response) => {
         },
         EMAIL_SECRET as string,
         {
-          expiresIn: '1d', // TODO: maybe use env variable
+          expiresIn: authConfig.jwt.expiresIn,
         },
       );
 
@@ -86,14 +86,16 @@ usersRouter.post('/reset-password', async (request, response) => {
       return response.status(200).json({
         message: 'Reset password email sent.',
       });
-  } else {
+    }
+
       // Return response with status 400 and error message, since the user was not found
-      return response.status(400).json({
+    response.status(400).json({
         message: `User with email '${email}' not found.`,
       });
+  } catch (err) {
+    if (err instanceof Error) {
+      return response.status(400).json({ error: err.message });
   }
-  } catch (error) {
-    return response.status(400).json({ error: error.message });
   }
 });
 
