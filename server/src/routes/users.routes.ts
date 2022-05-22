@@ -1,14 +1,15 @@
 import { Router } from 'express';
 import { sign, verify } from 'jsonwebtoken';
+import { getRepository } from 'typeorm';
 import CreateUserService from '../services/CreateUserService';
 import UpdateUserService from '../services/UpdateUserService';
+import ResetUserPasswordService from '../services/ResetUserPasswordService';
 import DeleteUserService from '../services/DeleteUserService';
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 import Queue from '../services/Queue';
 import SendConfirmAccountMail from '../jobs/SendConfirmAccountMail';
 import SendResetPasswordMail from '../jobs/SendResetPasswordMail';
 import authConfig from '../config/auth';
-import { getRepository } from 'typeorm';
 import User from '../models/User';
 
 const usersRouter = Router();
@@ -30,18 +31,30 @@ interface TokenPayload {
  */
 
 // Confirm email (user) endpoint
-usersRouter.get('/reset-password/:token', async (request, response, next) => {
+usersRouter.put('/reset-password/:token', async (request, response, next) => {
   try {
     const { token } = request.params;
+    console.log(request.params);
+
+    const { newPassword, newPasswordConfirmation } = request.body;
+    console.log(`token (reset-password/:token): ${token}`);
 
     const decoded = verify(token, authConfig.jwt.secret as string);
     const { user } = decoded as TokenPayload;
+    console.log(`user: ${user}`);
 
-    // const usersRepository = getRepository(User);
-    // await usersRepository.update({ id: user.id }, { confirmed: true });
+    const resetUserPassword = new ResetUserPasswordService();
 
-    response.json({ ok: true, user });
-    // return response.redirect('/');  // Return to homepage
+    const updated = await resetUserPassword.execute(
+      user.id,
+      newPassword,
+      newPasswordConfirmation,
+    );
+
+    console.log(updated);
+
+    // Return to login page
+    return response.redirect('/login');
   } catch (err) {
     if (err instanceof Error) {
       response
@@ -88,14 +101,14 @@ usersRouter.post('/reset-password', async (request, response) => {
       });
     }
 
-      // Return response with status 400 and error message, since the user was not found
+    // Return response with status 400 and error message, since the user was not found
     response.status(400).json({
-        message: `User with email '${email}' not found.`,
-      });
+      message: `User with email '${email}' not found.`,
+    });
   } catch (err) {
     if (err instanceof Error) {
       return response.status(400).json({ error: err.message });
-  }
+    }
   }
 });
 
@@ -122,7 +135,7 @@ usersRouter.post('/', async (request, response, next) => {
     // Send confirmation email
     await Queue.add(SendConfirmAccountMail.key, {
       token: emailToken,
-      user: user,
+      user,
     });
 
     return response.json(user);
@@ -178,7 +191,7 @@ usersRouter.delete('/', async (request, response, next) => {
 
     const deleteUser = new DeleteUserService();
     const deleted = await deleteUser.execute(user_id);
-    
+
     return response.json({ ok: 'User was deleted', deleted });
   } catch (err) {
     if (err instanceof Error) {
