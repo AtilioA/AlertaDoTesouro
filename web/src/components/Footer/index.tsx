@@ -10,6 +10,9 @@ const Footer: React.FC = () => (
           <a target="_blank" rel="noopener noreferrer" href="https://www.github.com/AtilioA/AlertaDoTesouro">
             AtilioA
           </a>
+          {' '}e{' '}<a target="_blank" rel="noopener noreferrer" href="https://www.github.com/Henriquelay">
+            Henriquelay
+          </a>
           .
         </p>
         <p>
