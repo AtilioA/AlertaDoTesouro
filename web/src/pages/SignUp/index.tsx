@@ -35,12 +35,12 @@ const SignUp: React.FC = () => {
           (password: string, field: any) =>
             password
               ? field
-                .required('Senhas não batem')
-                .oneOf([Yup.ref('password')], 'Senhas não batem')
+                .required('Senhas devem ser iguais')
+                .oneOf([Yup.ref('password')], 'Senhas devem ser iguais')
               : field,
         ),
         acceptTerms: Yup.bool()
-          .oneOf([true], 'É necessário concordar com os Termos.'),
+          .oneOf([true], 'É necessário concordar com os Termos para concluir o cadastro'),
       });
 
       await schema.validate(data, {
