@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Container } from '../SignUp/styles';
-import { FiMail, FiUser } from 'react-icons/fi';
+import { FiMail, FiAtSign } from 'react-icons/fi';
 import Input from '../../components/Input';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
@@ -35,7 +35,7 @@ const ForgotPassword: React.FC = () => {
         abortEarly: false,
       });
 
-      await api.post('/users', data);
+      await api.post('/users/reset-password', data);
 
       addToast({
         type: 'info',
@@ -70,7 +70,7 @@ const ForgotPassword: React.FC = () => {
           <div id="input-header">
             <h3>Informe o e-mail de sua conta para redefinir sua senha:</h3>
           </div>
-          <Input icon={FiUser} name="email" placeholder="Ex: alan@turing.com" />
+          <Input icon={FiAtSign} name="email" placeholder="Ex: alan@turing.com" />
 
           {/* TODO: Improve icon spacing */}
           <button type="submit">
