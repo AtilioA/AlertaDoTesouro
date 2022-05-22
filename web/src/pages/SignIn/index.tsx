@@ -1,7 +1,7 @@
 import React, { useRef, useCallback, useContext } from 'react';
 
 import { Container, AnimationContainer } from './styles';
-import { FiKey, FiLock, FiUser } from 'react-icons/fi';
+import { FiKey, FiLock, FiAtSign } from 'react-icons/fi';
 import Input from '../../components/Input';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
@@ -70,7 +70,7 @@ const SignIn: React.FC = () => {
           <div id="input-header">
             <h2>EMAIL</h2>
           </div>
-          <Input icon={FiUser} name="email" placeholder="Ex: alan@turing.com" />
+          <Input icon={FiAtSign} name="email" placeholder="Ex: alan@turing.com" />
 
           <div id="input-header">
             <h2>SENHA</h2>

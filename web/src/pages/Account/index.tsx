@@ -6,7 +6,7 @@ import { FormHandles } from '@unform/core';
 import * as Yup from 'yup'
 import getValidationErrors from '../../utils/getValidationErrors';
 import { Form } from '@unform/web';
-import { FiUser, FiCheck, FiLock, FiPlus } from 'react-icons/fi';
+import { FiAtSign, FiCheck, FiLock, FiPlus } from 'react-icons/fi';
 
 const Account: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
@@ -53,7 +53,7 @@ const Account: React.FC = () => {
           <div id="input-header">
             <h2>EMAIL</h2>
           </div>
-          <Input icon={FiUser} name="email" placeholder="alan@turing.com" />
+          <Input icon={FiAtSign} name="email" placeholder="alan@turing.com" />
 
           <div id="input-header">
             <h2>SENHA</h2>
