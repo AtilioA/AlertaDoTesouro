@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Container } from './styles';
-import { FiLogIn, FiLock, FiUser, FiCheck } from 'react-icons/fi';
+import { FiLogIn, FiLock, FiAtSign, FiCheck } from 'react-icons/fi';
 import Input from '../../components/Input';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
@@ -35,8 +35,8 @@ const SignUp: React.FC = () => {
           (password: string, field: any) =>
             password
               ? field
-                  .required('Senhas não batem')
-                  .oneOf([Yup.ref('password')], 'Senhas não batem')
+                .required('Senhas não batem')
+                .oneOf([Yup.ref('password')], 'Senhas não batem')
               : field,
         ),
       });
@@ -79,7 +79,7 @@ const SignUp: React.FC = () => {
           <div id="input-header">
             <h2>EMAIL</h2>
           </div>
-          <Input icon={FiUser} name="email" placeholder="Ex: alan@turing.com" />
+          <Input icon={FiAtSign} name="email" placeholder="Ex: alan@turing.com" />
 
           <div id="input-header">
             <h2>SENHA</h2>
