@@ -6,7 +6,9 @@ import UpdateTreasuryBondService from '../services/UpdateTreasuryBondService';
 
 const treasuryBondsRouter = Router();
 
-// List all treasuryBond endpoint
+/**
+ * Endpoint for listing all treasury bonds.
+ */
 treasuryBondsRouter.get('/', async (_request, response) => {
   const treasuryBondsRepository = getRepository(TreasuryBond);
   const treasuryBond = await treasuryBondsRepository.find();
@@ -14,7 +16,9 @@ treasuryBondsRouter.get('/', async (_request, response) => {
   return response.json(treasuryBond);
 });
 
-// Update all treasury bonds
+/**
+ * Endpoint for updating all treasury bonds. // REVIEW: this shouldn't exist...
+ */
 treasuryBondsRouter.put('/', async (_request, response, next) => {
   const updateTreasuryBonds = new UpdateTreasuryBondService();
   try {

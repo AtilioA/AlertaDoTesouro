@@ -1,6 +1,9 @@
 import { getConnection, DeleteResult, getRepository } from 'typeorm';
 import Notification from '../models/Notification';
 
+/**
+ * Service for deleting a Notification.
+ */
 class DeleteNotificationService {
   public async execute(
     user_id: string,

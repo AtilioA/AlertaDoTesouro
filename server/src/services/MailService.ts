@@ -4,9 +4,16 @@ import nodemailerExpressHandlebars from 'nodemailer-express-handlebars';
 import nodemailer from 'nodemailer';
 import mailConfig from '../config/mail';
 
+/**
+ * @class NodeMail
+ * @description Class for sending emails
+ */
 class NodeMail {
   public transporter: any;
 
+  /**
+   * Configure the templates for the emails to be sent, using handlebars for the template engine.
+   */
   configureTemplates() {
     const viewPath = resolve(__dirname, '..', 'views', 'emails');
 
@@ -37,6 +44,11 @@ class NodeMail {
     this.configureTemplates();
   }
 
+  /**
+   * Send an email.
+   *
+   * @param mailMessage - The message to be sent
+   */
   sendMail(mailMessage: any): any {
     return this.transporter.sendMail({
       from: 'centraldoapito@alertadotesouro.com',

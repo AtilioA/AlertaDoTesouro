@@ -4,6 +4,9 @@ import axios from 'axios';
 import https from 'https';
 import { treasuryBondTexts, Index } from '../models/TreasuryBond';
 
+/**
+ * Interface for the TreasuryBond object with data from the API.
+ */
 interface TreasuryBondJson {
   code: number;
   name: string;
@@ -20,6 +23,12 @@ interface TreasuryBondJson {
   texts?: treasuryBondTexts;
 }
 
+/**
+ * Fetches a specific TreasuryBond from Tesouro Direto's API with the given code.
+ *
+ * @param TBCode - Treasury bond code
+ * @returns Treasury bond data
+ */
 export async function fetchTreasuryBondByCode(
   TBCode: number,
 ): Promise<TreasuryBondJson> {
@@ -35,11 +44,6 @@ export async function fetchTreasuryBondByCode(
 
   const treasuryBondsList = response.data.response.TrsrBdTradgList;
 
-  // console.log(treasuryBondsList);
-  // for (let tb of treasuryBondsList) {
-  //   console.log(tb['TrsrBd']['cd']);
-  // }
-
   // Look for treasury bond by ID
   const treasuryBondJson = treasuryBondsList.find(
     (tb: any) => tb.TrsrBd.cd === TBCode,
@@ -49,6 +53,11 @@ export async function fetchTreasuryBondByCode(
   return treasuryBondJson;
 }
 
+/**
+ * Request treasury bonds from Tesouro Direto's API
+ *
+ * @returns {Promise<Array<any>> | Promise<void>} - Array with treasury bonds data or void if request fails
+ */
 export async function fetchListOfTreasuryBonds(): Promise<Array<any>> {
   // Fetch API
   const APIUrl =

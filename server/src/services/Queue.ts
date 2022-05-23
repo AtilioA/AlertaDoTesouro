@@ -5,6 +5,10 @@ import SendConfirmAccountMail from '../jobs/SendConfirmAccountMail';
 
 const jobs = [NotifyBondReturns, SendConfirmAccountMail];
 
+/**
+ * @class Queue
+ * @description Class for managing the queue.
+ */
 class Queue {
   public queues: any;
 
@@ -14,7 +18,9 @@ class Queue {
     this.init();
   }
 
-  // Init jobs from queue with Redis
+  /**
+   * Init jobs from queue with Redis
+   */
   init() {
     jobs.forEach(({ key, handle }) => {
       this.queues[key] = {
@@ -26,12 +32,20 @@ class Queue {
     });
   }
 
-  // Add new job to queue
+  /**
+   * Add a job to the queue
+   *
+   * @param queue - Queue to add job
+   * @param job - Job to be added
+   * @returns Queue with job added
+   */
   add(queue: any, job: any) {
     return this.queues[queue].bee.createJob(job).save();
   }
 
-  // Process jobs from queue
+  /**
+   * Process jobs from queue
+   */
   processQueue() {
     jobs.forEach(job => {
       const { bee, handle } = this.queues[job.key];
@@ -40,6 +54,12 @@ class Queue {
     });
   }
 
+  /**
+   * Handle failure of a job.
+   * 
+   * @param job - Job that failed
+   * @param err - Error that occurred
+   */
   handleFailure(job: any, err: Error) {
     console.log(`Queue ${job.queue.name}: FAILED -`, err);
   }

@@ -8,10 +8,14 @@ import emailRouter from './email.routes';
 // Define main Router
 const routes = Router();
 
+/**
+ * Root route of the API (/); returns a plain text message.
+ */
 routes.get('/', async (_, response) => {
   return response.send('🌐 AlertaDoTesouro is online.');
 });
 
+// Define all main routes of the API with their respective sub-routes
 routes.use('/users', usersRouter);
 routes.use('/sessions', sessionsRouter);
 routes.use('/treasurybonds', treasuryBondsRouter);

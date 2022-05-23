@@ -3,11 +3,18 @@ import { hash } from 'bcryptjs';
 import User from '../models/User';
 import { UserOptionalPassword } from '../@types/alertadotesouro';
 
+/**
+ * Interface for the request object for creating a new User.
+ */
 interface Request {
   email: string;
   password: string;
 }
 
+/**
+ * @class CreateUserService
+ * @description Service for creating a new User.
+ */
 class CreateUserService {
   // Returns a user without password field
   public async execute({ email, password }: Request): Promise<User> {

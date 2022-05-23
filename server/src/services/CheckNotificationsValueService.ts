@@ -4,6 +4,9 @@ import TreasuryBond from '../models/TreasuryBond';
 import Queue from './Queue';
 import NotifyBondReturns from '../jobs/NotifyBondReturns';
 
+/**
+ * Service for checking if a notification needs to be sent to a User.
+ */
 class CheckNotificationsValueService {
   public async execute(): Promise<boolean> {
     const notificationRepository = getRepository(Notification);
@@ -14,6 +17,7 @@ class CheckNotificationsValueService {
       relations: ['notifications', 'notifications.user'],
     });
 
+    // Check if there are any treasury bonds that exceed the conditions of any notification
     for (const treasuryBond of treasuryBonds) {
       for (const notification of treasuryBond.notifications) {
         if (!treasuryBond.lastDateOfNegotiation) {
@@ -71,12 +75,6 @@ class CheckNotificationsValueService {
 
     return true;
   }
-
-  // catch(err) {
-  //   throw new Error(
-  //     `Failed while trying to check notifications' values:${err.message}`,
-  //   );
-  // }
 }
 
 export default CheckNotificationsValueService;
