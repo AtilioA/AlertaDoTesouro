@@ -1,0 +1,10 @@
+---
+extends:
+  - plugin:react/recommended
+  - ./.eslintrc.base.yaml # link to not change relative folder when importing
+
+plugins:
+  - react
+
+rules:
+  camelcase: 'off'

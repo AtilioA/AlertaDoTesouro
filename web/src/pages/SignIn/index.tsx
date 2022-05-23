@@ -1,7 +1,7 @@
 import React, { useRef, useCallback, useContext } from 'react';
 
 import { Container, AnimationContainer } from './styles';
-import { FiKey, FiLock, FiUser } from 'react-icons/fi';
+import { FiKey, FiLock, FiAtSign } from 'react-icons/fi';
 import Input from '../../components/Input';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
@@ -20,8 +20,8 @@ interface SignInFormData {
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
-  const {user, signIn} = useContext(AuthContext);
-  const {addToast, removeToast} = useContext(ToastContext);
+  const { user, signIn } = useContext(AuthContext);
+  const { addToast, removeToast } = useContext(ToastContext);
 
   const handleSubmit = useCallback(async (data: SignInFormData) => {
     try {
@@ -51,10 +51,10 @@ const SignIn: React.FC = () => {
         return;
       } else {
         addToast({
-        type: 'error',
-        title: 'Erro na autenticação',
-        description: 'Ocorreu um erro ao fazer login. Cheque suas credenciais.'
-      });
+          type: 'error',
+          title: 'Erro na autenticação',
+          description: 'Ocorreu um erro ao fazer login. Cheque suas credenciais.'
+        });
       }
     }
   }, [signIn]);
@@ -70,7 +70,7 @@ const SignIn: React.FC = () => {
           <div id="input-header">
             <h2>EMAIL</h2>
           </div>
-          <Input icon={FiUser} name="email" placeholder="Ex: alan@turing.com" />
+          <Input icon={FiAtSign} name="email" placeholder="Ex: turing@inf.ufes.br" />
 
           <div id="input-header">
             <h2>SENHA</h2>

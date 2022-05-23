@@ -1,6 +1,8 @@
-require('dotenv').config();
+import dotenv from 'dotenv';
 
-module.exports = {
+dotenv.config();
+
+export = {
   type: process.env.DB_TYPE,
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
@@ -12,5 +14,5 @@ module.exports = {
   cli: {
     migrationsDir: './src/database/migrations',
   },
-  migrationsTransactionMode: "each"
+  migrationsTransactionMode: 'each',
 };

@@ -1,1 +1,622 @@
-{"_type":"export","__export_format":4,"__export_date":"2021-01-11T13:41:26.180Z","__export_source":"insomnia.desktop.app:v2020.3.3","resources":[{"_id":"req_7602870aa8b84d02a1c611f0a030f6e3","authentication":{},"body":{},"created":1598199051954,"description":"","headers":[{"description":"","id":"pair_9c025f0c20f14ceba51b698fdc01fbdf","name":"User-Agent","value":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.94 Safari/537.36"}],"isPrivate":false,"metaSortKey":-1598635041732,"method":"GET","modified":1610372419022,"name":"API TD","parameters":[],"parentId":"wrk_37eef8ddc0034da5a3331d14411851a0","settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingFollowRedirects":"global","settingRebuildPath":true,"settingSendCookies":true,"settingStoreCookies":true,"url":"https://www.tesourodireto.com.br/json/br/com/b3/tesourodireto/service/api/treasurybondsinfo.json","_type":"request"},{"_id":"wrk_37eef8ddc0034da5a3331d14411851a0","created":1597617809078,"description":"","modified":1597617809078,"name":"AlertaDoTesouro","parentId":null,"scope":null,"_type":"workspace"},{"_id":"req_ac4436042642423fb739b0ba8ae07f60","authentication":{},"body":{},"created":1598635052821,"description":"","headers":[],"isPrivate":false,"metaSortKey":-1598635052821,"method":"GET","modified":1598635067727,"name":"Confirm email","parameters":[],"parentId":"fld_a35cd240c0a145b786c11a5d81bff86e","settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingFollowRedirects":"global","settingRebuildPath":true,"settingSendCookies":true,"settingStoreCookies":true,"url":"{{ baseURL }}/email/confirmation/1","_type":"request"},{"_id":"fld_a35cd240c0a145b786c11a5d81bff86e","created":1598635041682,"description":"","environment":{},"environmentPropertyOrder":null,"metaSortKey":-1598635041682,"modified":1598635041682,"name":"Email","parentId":"wrk_37eef8ddc0034da5a3331d14411851a0","_type":"request_group"},{"_id":"req_f6e084ae84dc43089173665b626cf9e9","authentication":{},"body":{},"created":1598209090094,"description":"","headers":[],"isPrivate":false,"metaSortKey":-1598209090094,"method":"PUT","modified":1598212311229,"name":"Update all treasury bonds","parameters":[],"parentId":"fld_2a24df81d4fc40299c24389a4fedc93b","settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingFollowRedirects":"global","settingRebuildPath":true,"settingSendCookies":true,"settingStoreCookies":true,"url":"{{ baseURL }}/treasurybonds/updateAll","_type":"request"},{"_id":"fld_2a24df81d4fc40299c24389a4fedc93b","created":1598048831768,"description":"","environment":{},"environmentPropertyOrder":null,"metaSortKey":-1598048831768,"modified":1598048831768,"name":"TreasuryBonds","parentId":"wrk_37eef8ddc0034da5a3331d14411851a0","_type":"request_group"},{"_id":"req_115e19369b9e4862bde3800085371dc4","authentication":{},"body":{},"created":1598048882726,"description":"","headers":[],"isPrivate":false,"metaSortKey":-1598048882726,"method":"PUT","modified":1598199046986,"name":"Update Treasury bond","parameters":[],"parentId":"fld_2a24df81d4fc40299c24389a4fedc93b","settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingFollowRedirects":"global","settingRebuildPath":true,"settingSendCookies":true,"settingStoreCookies":true,"url":"{{ baseURL }}/treasurybonds","_type":"request"},{"_id":"req_f7c04d2633cd4eec83843b89a4581cc1","authentication":{},"body":{"mimeType":"application/json","text":"{\n\t\"code\": 155,\n\t\"name\": \"Tesouro Prefixado 2023\",\n\t\"expirationDate\": \"2023-01-01T00:00:00\",\n\t\"minimumInvestmentAmount\": 36.42,\n\t\"investmentUnitaryValue\": 910.53,\n\t\"semianualInterestIndex\": false,\n\t\"annualInvestmentRate\": 4.07,\n\t\"annualRedRate\": 4.19,\n\t\"minimumRedValue\": 9.08,\n\t\"ISIN\": \"BRSTNCLTN7D3\",\n\t\"indexedTo\": {\"code\": 19, \"name\": \"PREFIXADO\"},\n\t\"texts\": {\n\t\t\"features\": \"Título prefixado, ou seja, no momento da compra, você já sabe exatamente quanto irá receber no futuro (sempre R$ 1.000 por unidade de título).\",\n\t\t\"investmentSubtitle\": \"nada\",\n\t\t\"recommendedFor\": \"ngm\"\n\t}\n}"},"created":1598048877613,"description":"","headers":[{"id":"pair_6a09f5873f00417eb336c80c9949338f","name":"Content-Type","value":"application/json"}],"isPrivate":false,"metaSortKey":-1598048877613,"method":"POST","modified":1599592278061,"name":"Create Treasury bond","parameters":[],"parentId":"fld_2a24df81d4fc40299c24389a4fedc93b","settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingFollowRedirects":"global","settingRebuildPath":true,"settingSendCookies":true,"settingStoreCookies":true,"url":"{{ baseURL }}/treasurybonds","_type":"request"},{"_id":"req_0edbb06936644beb930b22d4ef96984c","authentication":{},"body":{},"created":1598048869452,"description":"","headers":[],"isPrivate":false,"metaSortKey":-1598048869452,"method":"GET","modified":1598199043855,"name":"List Treasury bonds","parameters":[],"parentId":"fld_2a24df81d4fc40299c24389a4fedc93b","settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingFollowRedirects":"global","settingRebuildPath":true,"settingSendCookies":true,"settingStoreCookies":true,"url":"{{ baseURL }}/treasurybonds","_type":"request"},{"_id":"req_fe9dd271bc4d433d92927f3e0297df15","authentication":{"token":"","type":"bearer"},"body":{"mimeType":"application/json","text":"{\n\t\"email\": \"atiliodadalto@protonmail.com\",\n\t\"password\": \"12345678\"\n}"},"created":1598048916565,"description":"","headers":[{"id":"pair_d4e2b15d796d423fb92b2e70af569b57","name":"Content-Type","value":"application/json"}],"isPrivate":false,"metaSortKey":-1598048916565,"method":"POST","modified":1599591820904,"name":"Create session","parameters":[],"parentId":"fld_c0aae0ef64c148259e016b206d3f9d45","settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingFollowRedirects":"global","settingRebuildPath":true,"settingSendCookies":true,"settingStoreCookies":true,"url":"{{ baseURL }}/sessions","_type":"request"},{"_id":"fld_c0aae0ef64c148259e016b206d3f9d45","created":1597617882175,"description":"","environment":{},"environmentPropertyOrder":null,"metaSortKey":-1597617882175,"modified":1597617882175,"name":"Sessions","parentId":"wrk_37eef8ddc0034da5a3331d14411851a0","_type":"request_group"},{"_id":"req_91658af098cb4e75a97f58e0bec0f560","authentication":{"token":"{% response 'body', 'req_fe9dd271bc4d433d92927f3e0297df15', 'b64::JC50b2tlbg==::46b', 'when-expired', 7200 %}","type":"bearer"},"body":{},"created":1598048908044,"description":"","headers":[],"isPrivate":false,"metaSortKey":-1598048908044,"method":"DELETE","modified":1598303945530,"name":"Delete user","parameters":[],"parentId":"fld_5d26db067c2d424fa1b79eb83513ec02","settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingFollowRedirects":"global","settingRebuildPath":true,"settingSendCookies":true,"settingStoreCookies":true,"url":"{{ baseURL }}/users","_type":"request"},{"_id":"fld_5d26db067c2d424fa1b79eb83513ec02","created":1597617879612,"description":"","environment":{},"environmentPropertyOrder":null,"metaSortKey":-1597617879612,"modified":1597617879612,"name":"Users","parentId":"wrk_37eef8ddc0034da5a3331d14411851a0","_type":"request_group"},{"_id":"req_3e329859625c42d2a1268cb3e9b2a5cd","authentication":{"token":"{% response 'body', 'req_fe9dd271bc4d433d92927f3e0297df15', 'b64::JC50b2tlbg==::46b', 'when-expired', 7200 %}","type":"bearer"},"body":{"mimeType":"application/json","text":"{\n\t\"oldPassword\": \"12345678\",\n\t\"newPassword\": \"12345678\",\n\t\"newPasswordConfirmation\": \"12345678\",\n\t\"notify\": false,\n\t\"notifyByEmail\": false,\n\t\"notifyByBrowser\": false\n}"},"created":1598048903667,"description":"","headers":[{"id":"pair_796e36d5c9b749249b1bb7e7ba2253fe","name":"Content-Type","value":"application/json"}],"isPrivate":false,"metaSortKey":-1598048903667,"method":"PUT","modified":1598304894719,"name":"Update user","parameters":[],"parentId":"fld_5d26db067c2d424fa1b79eb83513ec02","settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingFollowRedirects":"global","settingRebuildPath":true,"settingSendCookies":true,"settingStoreCookies":true,"url":"{{ baseURL }}/users","_type":"request"},{"_id":"req_3e861bdbc229477ba67a20076ea91f42","authentication":{},"body":{"mimeType":"application/json","text":"{\n\t\"email\": \"atiliodadaltoaa@protonmail.com\",\n\t\"password\": \"12345678\"\n}"},"created":1597867852152,"description":"","headers":[{"id":"pair_e596a30d0d444cef9b2059c14014dbea","name":"Content-Type","value":"application/json"}],"isPrivate":false,"metaSortKey":-1597867852152,"method":"POST","modified":1599592603913,"name":"Create user","parameters":[],"parentId":"fld_5d26db067c2d424fa1b79eb83513ec02","settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingFollowRedirects":"global","settingRebuildPath":true,"settingSendCookies":true,"settingStoreCookies":true,"url":"{{ baseURL }}/users","_type":"request"},{"_id":"req_1c4f8c408fae48a8b70fdcd8c1a10784","authentication":{},"body":{},"created":1599589635474,"description":"","headers":[],"isPrivate":false,"metaSortKey":-1599589635474,"method":"PUT","modified":1599592734078,"name":"Update all notifications","parameters":[],"parentId":"fld_d57af499854240898c073124904e1cdf","settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingFollowRedirects":"global","settingRebuildPath":true,"settingSendCookies":true,"settingStoreCookies":true,"url":"{{ baseURL }}/notifications","_type":"request"},{"_id":"fld_d57af499854240898c073124904e1cdf","created":1597617877010,"description":"","environment":{},"environmentPropertyOrder":null,"metaSortKey":-1597617877010,"modified":1597617877010,"name":"Notifications","parentId":"wrk_37eef8ddc0034da5a3331d14411851a0","_type":"request_group"},{"_id":"req_3cd11607168a44dc8723264560f670c2","authentication":{},"body":{},"created":1598739622779,"description":"","headers":[],"isPrivate":false,"metaSortKey":-1598277691494,"method":"GET","modified":1598745369747,"name":"Check test","parameters":[],"parentId":"fld_d57af499854240898c073124904e1cdf","settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingFollowRedirects":"global","settingRebuildPath":true,"settingSendCookies":true,"settingStoreCookies":true,"url":"{{ baseURL }}/notifications/test","_type":"request"},{"_id":"req_b01e031503974a908e64009c68e029f2","authentication":{"token":"{% response 'body', 'req_fe9dd271bc4d433d92927f3e0297df15', 'b64::JC50b2tlbg==::46b', 'when-expired', 7200 %}","type":"bearer"},"body":{},"created":1598277691444,"description":"","headers":[],"isPrivate":false,"metaSortKey":-1598277691444,"method":"DELETE","modified":1598298257759,"name":"Delete notification","parameters":[],"parentId":"fld_d57af499854240898c073124904e1cdf","settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingFollowRedirects":"global","settingRebuildPath":true,"settingSendCookies":true,"settingStoreCookies":true,"url":"{{ baseURL }}/notifications/6665cfb0-aec1-4387-98c2-f277a6fbae96","_type":"request"},{"_id":"req_061c7dffe74544109cf809766a6df830","authentication":{"token":"{% response 'body', 'req_fe9dd271bc4d433d92927f3e0297df15', 'b64::JC50b2tlbg==::46b', 'when-expired', 7200 %}","type":"bearer"},"body":{"mimeType":"application/json","text":"{\n\t\"value\": 10,\n\t\"type\": \"maior\",\n\t\"notifyByEmail\": false,\n\t\"notifyByBrowser\": false,\n\t\"active\": false\t\n}"},"created":1598048928914,"description":"","headers":[{"id":"pair_63a295ed49c441f58e3695dbe584ec26","name":"Content-Type","value":"application/json"}],"isPrivate":false,"metaSortKey":-1598048928914,"method":"PUT","modified":1598299444600,"name":"Update notification","parameters":[],"parentId":"fld_d57af499854240898c073124904e1cdf","settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingFollowRedirects":"global","settingRebuildPath":true,"settingSendCookies":true,"settingStoreCookies":true,"url":"{{ baseURL }}/notifications/6665cfb0-aec1-4387-98c2-f277a6fbae96","_type":"request"},{"_id":"req_aa4d922ac1ff4320bd6da5c2b6a8cddc","authentication":{"token":"{% response 'body', 'req_fe9dd271bc4d433d92927f3e0297df15', 'b64::JC50b2tlbg==::46b', 'when-expired', 7200 %}","type":"bearer"},"body":{},"created":1597716196912,"description":"","headers":[{"description":"","id":"pair_8f80389c663e48f0b4b210ff53ebb6c6","name":"","value":""}],"isPrivate":false,"metaSortKey":-1597716196912,"method":"GET","modified":1598139638349,"name":"List notifications","parameters":[],"parentId":"fld_d57af499854240898c073124904e1cdf","settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingFollowRedirects":"global","settingRebuildPath":true,"settingSendCookies":true,"settingStoreCookies":true,"url":"{{ baseURL }}/notifications","_type":"request"},{"_id":"req_f7077e82145d4ea6a134b2e31d9dbce5","authentication":{"token":"{% response 'body', 'req_fe9dd271bc4d433d92927f3e0297df15', 'b64::JC50b2tlbg==::46b', 'when-expired', 7200 %}","type":"bearer"},"body":{"mimeType":"application/json","text":"{\n\t\"treasurybond_id\": \"1cd8a05f-2728-4362-bca5-4d84bcfd2b7b\",\n\t\"value\": 1,\n\t\"type\": \"maior\",\n\t\"notifyByEmail\": true,\n\t\"notifyByBrowser\": true,\n\t\"active\": true\n}"},"created":1597617890083,"description":"","headers":[{"id":"pair_a71714c34a264cb1adaf03de2bbe005d","name":"Content-Type","value":"application/json"}],"isPrivate":false,"metaSortKey":-1597617890083,"method":"POST","modified":1599592856027,"name":"Create notification","parameters":[],"parentId":"fld_d57af499854240898c073124904e1cdf","settingDisableRenderRequestBody":false,"settingEncodeUrl":true,"settingFollowRedirects":"global","settingRebuildPath":true,"settingSendCookies":true,"settingStoreCookies":true,"url":"{{ baseURL }}/notifications","_type":"request"},{"_id":"env_c70df4393f5a49c2fe7c522d2551a993cc4032f8","color":null,"created":1597617809133,"data":{},"dataPropertyOrder":null,"isPrivate":false,"metaSortKey":1597617809134,"modified":1597617809133,"name":"Base Environment","parentId":"wrk_37eef8ddc0034da5a3331d14411851a0","_type":"environment"},{"_id":"jar_c70df4393f5a49c2fe7c522d2551a993cc4032f8","cookies":[{"creation":"2020-08-23T16:11:28.966Z","domain":"tesourodireto.com.br","hostOnly":false,"id":"6281043215833493","key":"dtCookie","lastAccessed":"2021-01-11T13:40:22.866Z","path":"/","value":"v_4_srv_24_sn_C67721881FCDAC4895B454A4E6643773_perc_100000_ol_0_mul_1"},{"creation":"2020-08-23T16:11:28.967Z","domain":"www.tesourodireto.com.br","hostOnly":true,"httpOnly":true,"id":"7590030573246187","key":"TS01871345","lastAccessed":"2021-01-11T13:40:22.866Z","path":"/","value":"011d592ce10bf28bc2282d7747c9f5ca974daaa3a626f4a285a7f943184f32a57da5c356e3f197cb3d31391f3c2679e642a52111b6"},{"creation":"2020-08-23T16:11:28.967Z","domain":"tesourodireto.com.br","hostOnly":false,"httpOnly":true,"id":"7835621038632381","key":"TS01f326dc","lastAccessed":"2021-01-11T13:40:22.866Z","path":"/","value":"011d592ce1397609e1ae3bfb5ee1412fbbdb898c1326f4a285a7f943184f32a57da5c356e3300716233aa4e496b0fde2fe50f23f8584b9e5b06e8fec4ce649866e69c1777a"},{"creation":"2020-08-23T16:11:28.967Z","domain":"www.tesourodireto.com.br","hostOnly":true,"httpOnly":true,"id":"09420668301739998","key":"BIGipServerpool_www.tesourodireto.com.br_443_WAF","lastAccessed":"2021-01-11T13:40:22.866Z","path":"/","secure":true,"value":"1111036938.64288.0000"}],"created":1597617809135,"modified":1610372422866,"name":"Default Jar","parentId":"wrk_37eef8ddc0034da5a3331d14411851a0","_type":"cookie_jar"},{"_id":"spc_195e02e9c8c04a93a2aac0c7ccd52f26","contentType":"yaml","contents":"","created":1597617809084,"fileName":"AlertaDoTesouro","modified":1597617809084,"parentId":"wrk_37eef8ddc0034da5a3331d14411851a0","_type":"api_spec"},{"_id":"env_30b2fa03c7c14c6193209f0a7ed69b3f","color":"#00aa60","created":1597617822940,"data":{"baseURL":"http://localhost:3333"},"dataPropertyOrder":{"&":["baseURL"]},"isPrivate":false,"metaSortKey":1597617822940,"modified":1597617915367,"name":"Development","parentId":"env_c70df4393f5a49c2fe7c522d2551a993cc4032f8","_type":"environment"}]}
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2021-01-11T13:41:26.180Z",
+  "__export_source": "insomnia.desktop.app:v2020.3.3",
+  "resources": [
+    {
+      "_id": "req_7602870aa8b84d02a1c611f0a030f6e3",
+      "authentication": {},
+      "body": {},
+      "created": 1598199051954,
+      "description": "",
+      "headers": [
+        {
+          "description": "",
+          "id": "pair_9c025f0c20f14ceba51b698fdc01fbdf",
+          "name": "User-Agent",
+          "value": "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.94 Safari/537.36"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598635041732,
+      "method": "GET",
+      "modified": 1610372419022,
+      "name": "API TD",
+      "parameters": [],
+      "parentId": "wrk_37eef8ddc0034da5a3331d14411851a0",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "https://www.tesourodireto.com.br/json/br/com/b3/tesourodireto/service/api/treasurybondsinfo.json",
+      "_type": "request"
+    },
+    {
+      "_id": "wrk_37eef8ddc0034da5a3331d14411851a0",
+      "created": 1597617809078,
+      "description": "",
+      "modified": 1597617809078,
+      "name": "AlertaDoTesouro",
+      "parentId": null,
+      "scope": null,
+      "_type": "workspace"
+    },
+    {
+      "_id": "req_ac4436042642423fb739b0ba8ae07f60",
+      "authentication": {},
+      "body": {},
+      "created": 1598635052821,
+      "description": "",
+      "headers": [],
+      "isPrivate": false,
+      "metaSortKey": -1598635052821,
+      "method": "GET",
+      "modified": 1598635067727,
+      "name": "Confirm email",
+      "parameters": [],
+      "parentId": "fld_a35cd240c0a145b786c11a5d81bff86e",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{baseURL}}/email/confirmation/1",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_a35cd240c0a145b786c11a5d81bff86e",
+      "created": 1598635041682,
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1598635041682,
+      "modified": 1598635041682,
+      "name": "Email",
+      "parentId": "wrk_37eef8ddc0034da5a3331d14411851a0",
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_f6e084ae84dc43089173665b626cf9e9",
+      "authentication": {},
+      "body": {},
+      "created": 1598209090094,
+      "description": "",
+      "headers": [],
+      "isPrivate": false,
+      "metaSortKey": -1598209090094,
+      "method": "PUT",
+      "modified": 1598212311229,
+      "name": "Update all treasury bonds",
+      "parameters": [],
+      "parentId": "fld_2a24df81d4fc40299c24389a4fedc93b",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{baseURL}}/treasurybonds/updateAll",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_2a24df81d4fc40299c24389a4fedc93b",
+      "created": 1598048831768,
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1598048831768,
+      "modified": 1598048831768,
+      "name": "TreasuryBonds",
+      "parentId": "wrk_37eef8ddc0034da5a3331d14411851a0",
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_115e19369b9e4862bde3800085371dc4",
+      "authentication": {},
+      "body": {},
+      "created": 1598048882726,
+      "description": "",
+      "headers": [],
+      "isPrivate": false,
+      "metaSortKey": -1598048882726,
+      "method": "PUT",
+      "modified": 1598199046986,
+      "name": "Update Treasury bond",
+      "parameters": [],
+      "parentId": "fld_2a24df81d4fc40299c24389a4fedc93b",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{baseURL}}/treasurybonds",
+      "_type": "request"
+    },
+    {
+      "_id": "req_f7c04d2633cd4eec83843b89a4581cc1",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"code\": 155,\n\t\"name\": \"Tesouro Prefixado 2023\",\n\t\"expirationDate\": \"2023-01-01T00:00:00\",\n\t\"minimumInvestmentAmount\": 36.42,\n\t\"investmentUnitaryValue\": 910.53,\n\t\"semianualInterestIndex\": false,\n\t\"annualInvestmentRate\": 4.07,\n\t\"annualRedRate\": 4.19,\n\t\"minimumRedValue\": 9.08,\n\t\"ISIN\": \"BRSTNCLTN7D3\",\n\t\"indexedTo\": {\"code\": 19, \"name\": \"PREFIXADO\"},\n\t\"texts\": {\n\t\t\"features\": \"Título prefixado, ou seja, no momento da compra, você já sabe exatamente quanto irá receber no futuro (sempre R$ 1.000 por unidade de título).\",\n\t\t\"investmentSubtitle\": \"nada\",\n\t\t\"recommendedFor\": \"ngm\"\n\t}\n}"
+      },
+      "created": 1598048877613,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_6a09f5873f00417eb336c80c9949338f",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598048877613,
+      "method": "POST",
+      "modified": 1599592278061,
+      "name": "Create Treasury bond",
+      "parameters": [],
+      "parentId": "fld_2a24df81d4fc40299c24389a4fedc93b",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{baseURL}}/treasurybonds",
+      "_type": "request"
+    },
+    {
+      "_id": "req_0edbb06936644beb930b22d4ef96984c",
+      "authentication": {},
+      "body": {},
+      "created": 1598048869452,
+      "description": "",
+      "headers": [],
+      "isPrivate": false,
+      "metaSortKey": -1598048869452,
+      "method": "GET",
+      "modified": 1598199043855,
+      "name": "List Treasury bonds",
+      "parameters": [],
+      "parentId": "fld_2a24df81d4fc40299c24389a4fedc93b",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{baseURL}}/treasurybonds",
+      "_type": "request"
+    },
+    {
+      "_id": "req_fe9dd271bc4d433d92927f3e0297df15",
+      "authentication": { "token": "", "type": "bearer" },
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"email\": \"redacteduser@privacydomain.com\",\n\t\"password\": \"12345678\"\n}"
+      },
+      "created": 1598048916565,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_d4e2b15d796d423fb92b2e70af569b57",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598048916565,
+      "method": "POST",
+      "modified": 1599591820904,
+      "name": "Create session",
+      "parameters": [],
+      "parentId": "fld_c0aae0ef64c148259e016b206d3f9d45",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{baseURL}}/sessions",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_c0aae0ef64c148259e016b206d3f9d45",
+      "created": 1597617882175,
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1597617882175,
+      "modified": 1597617882175,
+      "name": "Sessions",
+      "parentId": "wrk_37eef8ddc0034da5a3331d14411851a0",
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_91658af098cb4e75a97f58e0bec0f560",
+      "authentication": {
+        "token": "{% response 'body', 'req_fe9dd271bc4d433d92927f3e0297df15', 'b64::JC50b2tlbg==::46b', 'when-expired', 7200 %}",
+        "type": "bearer"
+      },
+      "body": {},
+      "created": 1598048908044,
+      "description": "",
+      "headers": [],
+      "isPrivate": false,
+      "metaSortKey": -1598048908044,
+      "method": "DELETE",
+      "modified": 1598303945530,
+      "name": "Delete user",
+      "parameters": [],
+      "parentId": "fld_5d26db067c2d424fa1b79eb83513ec02",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{baseURL}}/users",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_5d26db067c2d424fa1b79eb83513ec02",
+      "created": 1597617879612,
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1597617879612,
+      "modified": 1597617879612,
+      "name": "Users",
+      "parentId": "wrk_37eef8ddc0034da5a3331d14411851a0",
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_3e329859625c42d2a1268cb3e9b2a5cd",
+      "authentication": {
+        "token": "{% response 'body', 'req_fe9dd271bc4d433d92927f3e0297df15', 'b64::JC50b2tlbg==::46b', 'when-expired', 7200 %}",
+        "type": "bearer"
+      },
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"oldPassword\": \"12345678\",\n\t\"newPassword\": \"12345678\",\n\t\"newPasswordConfirmation\": \"12345678\",\n\t\"notify\": false,\n\t\"notifyByEmail\": false,\n\t\"notifyByBrowser\": false\n}"
+      },
+      "created": 1598048903667,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_796e36d5c9b749249b1bb7e7ba2253fe",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598048903667,
+      "method": "PUT",
+      "modified": 1598304894719,
+      "name": "Update user",
+      "parameters": [],
+      "parentId": "fld_5d26db067c2d424fa1b79eb83513ec02",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{baseURL}}/users",
+      "_type": "request"
+    },
+    {
+      "_id": "req_3e861bdbc229477ba67a20076ea91f42",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"email\": \"atiliodadaltoaa@protonmail.com\",\n\t\"password\": \"12345678\"\n}"
+      },
+      "created": 1597867852152,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_e596a30d0d444cef9b2059c14014dbea",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1597867852152,
+      "method": "POST",
+      "modified": 1599592603913,
+      "name": "Create user",
+      "parameters": [],
+      "parentId": "fld_5d26db067c2d424fa1b79eb83513ec02",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{baseURL}}/users",
+      "_type": "request"
+    },
+    {
+      "_id": "req_1c4f8c408fae48a8b70fdcd8c1a10784",
+      "authentication": {},
+      "body": {},
+      "created": 1599589635474,
+      "description": "",
+      "headers": [],
+      "isPrivate": false,
+      "metaSortKey": -1599589635474,
+      "method": "PUT",
+      "modified": 1599592734078,
+      "name": "Update all notifications",
+      "parameters": [],
+      "parentId": "fld_d57af499854240898c073124904e1cdf",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{baseURL}}/notifications",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_d57af499854240898c073124904e1cdf",
+      "created": 1597617877010,
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1597617877010,
+      "modified": 1597617877010,
+      "name": "Notifications",
+      "parentId": "wrk_37eef8ddc0034da5a3331d14411851a0",
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_3cd11607168a44dc8723264560f670c2",
+      "authentication": {},
+      "body": {},
+      "created": 1598739622779,
+      "description": "",
+      "headers": [],
+      "isPrivate": false,
+      "metaSortKey": -1598277691494,
+      "method": "GET",
+      "modified": 1598745369747,
+      "name": "Check test",
+      "parameters": [],
+      "parentId": "fld_d57af499854240898c073124904e1cdf",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{baseURL}}/notifications/test",
+      "_type": "request"
+    },
+    {
+      "_id": "req_b01e031503974a908e64009c68e029f2",
+      "authentication": {
+        "token": "{% response 'body', 'req_fe9dd271bc4d433d92927f3e0297df15', 'b64::JC50b2tlbg==::46b', 'when-expired', 7200 %}",
+        "type": "bearer"
+      },
+      "body": {},
+      "created": 1598277691444,
+      "description": "",
+      "headers": [],
+      "isPrivate": false,
+      "metaSortKey": -1598277691444,
+      "method": "DELETE",
+      "modified": 1598298257759,
+      "name": "Delete notification",
+      "parameters": [],
+      "parentId": "fld_d57af499854240898c073124904e1cdf",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{baseURL}}/notifications/6665cfb0-aec1-4387-98c2-f277a6fbae96",
+      "_type": "request"
+    },
+    {
+      "_id": "req_061c7dffe74544109cf809766a6df830",
+      "authentication": {
+        "token": "{% response 'body', 'req_fe9dd271bc4d433d92927f3e0297df15', 'b64::JC50b2tlbg==::46b', 'when-expired', 7200 %}",
+        "type": "bearer"
+      },
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"value\": 10,\n\t\"type\": \"maior\",\n\t\"notifyByEmail\": false,\n\t\"notifyByBrowser\": false,\n\t\"active\": false\t\n}"
+      },
+      "created": 1598048928914,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_63a295ed49c441f58e3695dbe584ec26",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598048928914,
+      "method": "PUT",
+      "modified": 1598299444600,
+      "name": "Update notification",
+      "parameters": [],
+      "parentId": "fld_d57af499854240898c073124904e1cdf",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{baseURL}}/notifications/6665cfb0-aec1-4387-98c2-f277a6fbae96",
+      "_type": "request"
+    },
+    {
+      "_id": "req_aa4d922ac1ff4320bd6da5c2b6a8cddc",
+      "authentication": {
+        "token": "{% response 'body', 'req_fe9dd271bc4d433d92927f3e0297df15', 'b64::JC50b2tlbg==::46b', 'when-expired', 7200 %}",
+        "type": "bearer"
+      },
+      "body": {},
+      "created": 1597716196912,
+      "description": "",
+      "headers": [
+        {
+          "description": "",
+          "id": "pair_8f80389c663e48f0b4b210ff53ebb6c6",
+          "name": "",
+          "value": ""
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1597716196912,
+      "method": "GET",
+      "modified": 1598139638349,
+      "name": "List notifications",
+      "parameters": [],
+      "parentId": "fld_d57af499854240898c073124904e1cdf",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{baseURL}}/notifications",
+      "_type": "request"
+    },
+    {
+      "_id": "req_f7077e82145d4ea6a134b2e31d9dbce5",
+      "authentication": {
+        "token": "{% response 'body', 'req_fe9dd271bc4d433d92927f3e0297df15', 'b64::JC50b2tlbg==::46b', 'when-expired', 7200 %}",
+        "type": "bearer"
+      },
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"treasurybond_id\": \"1cd8a05f-2728-4362-bca5-4d84bcfd2b7b\",\n\t\"value\": 1,\n\t\"type\": \"maior\",\n\t\"notifyByEmail\": true,\n\t\"notifyByBrowser\": true,\n\t\"active\": true\n}"
+      },
+      "created": 1597617890083,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_a71714c34a264cb1adaf03de2bbe005d",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1597617890083,
+      "method": "POST",
+      "modified": 1599592856027,
+      "name": "Create notification",
+      "parameters": [],
+      "parentId": "fld_d57af499854240898c073124904e1cdf",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{baseURL}}/notifications",
+      "_type": "request"
+    },
+    {
+      "_id": "env_c70df4393f5a49c2fe7c522d2551a993cc4032f8",
+      "color": null,
+      "created": 1597617809133,
+      "data": {},
+      "dataPropertyOrder": null,
+      "isPrivate": false,
+      "metaSortKey": 1597617809134,
+      "modified": 1597617809133,
+      "name": "Base Environment",
+      "parentId": "wrk_37eef8ddc0034da5a3331d14411851a0",
+      "_type": "environment"
+    },
+    {
+      "_id": "jar_c70df4393f5a49c2fe7c522d2551a993cc4032f8",
+      "cookies": [
+        {
+          "creation": "2020-08-23T16:11:28.966Z",
+          "domain": "tesourodireto.com.br",
+          "hostOnly": false,
+          "id": "6281043215833493",
+          "key": "dtCookie",
+          "lastAccessed": "2021-01-11T13:40:22.866Z",
+          "path": "/",
+          "value": "v_4_srv_24_sn_C67721881FCDAC4895B454A4E6643773_perc_100000_ol_0_mul_1"
+        },
+        {
+          "creation": "2020-08-23T16:11:28.967Z",
+          "domain": "www.tesourodireto.com.br",
+          "hostOnly": true,
+          "httpOnly": true,
+          "id": "7590030573246187",
+          "key": "TS01871345",
+          "lastAccessed": "2021-01-11T13:40:22.866Z",
+          "path": "/",
+          "value": "011d592ce10bf28bc2282d7747c9f5ca974daaa3a626f4a285a7f943184f32a57da5c356e3f197cb3d31391f3c2679e642a52111b6"
+        },
+        {
+          "creation": "2020-08-23T16:11:28.967Z",
+          "domain": "tesourodireto.com.br",
+          "hostOnly": false,
+          "httpOnly": true,
+          "id": "7835621038632381",
+          "key": "TS01f326dc",
+          "lastAccessed": "2021-01-11T13:40:22.866Z",
+          "path": "/",
+          "value": "011d592ce1397609e1ae3bfb5ee1412fbbdb898c1326f4a285a7f943184f32a57da5c356e3300716233aa4e496b0fde2fe50f23f8584b9e5b06e8fec4ce649866e69c1777a"
+        },
+        {
+          "creation": "2020-08-23T16:11:28.967Z",
+          "domain": "www.tesourodireto.com.br",
+          "hostOnly": true,
+          "httpOnly": true,
+          "id": "09420668301739998",
+          "key": "BIGipServerpool_www.tesourodireto.com.br_443_WAF",
+          "lastAccessed": "2021-01-11T13:40:22.866Z",
+          "path": "/",
+          "secure": true,
+          "value": "1111036938.64288.0000"
+        }
+      ],
+      "created": 1597617809135,
+      "modified": 1610372422866,
+      "name": "Default Jar",
+      "parentId": "wrk_37eef8ddc0034da5a3331d14411851a0",
+      "_type": "cookie_jar"
+    },
+    {
+      "_id": "spc_195e02e9c8c04a93a2aac0c7ccd52f26",
+      "contentType": "yaml",
+      "contents": "",
+      "created": 1597617809084,
+      "fileName": "AlertaDoTesouro",
+      "modified": 1597617809084,
+      "parentId": "wrk_37eef8ddc0034da5a3331d14411851a0",
+      "_type": "api_spec"
+    },
+    {
+      "_id": "env_30b2fa03c7c14c6193209f0a7ed69b3f",
+      "color": "#00aa60",
+      "created": 1597617822940,
+      "data": { "baseURL": "http://localhost:3333" },
+      "dataPropertyOrder": { "&": ["baseURL"] },
+      "isPrivate": false,
+      "metaSortKey": 1597617822940,
+      "modified": 1597617915367,
+      "name": "Development",
+      "parentId": "env_c70df4393f5a49c2fe7c522d2551a993cc4032f8",
+      "_type": "environment"
+    }
+  ]
+}

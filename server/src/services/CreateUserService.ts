@@ -9,7 +9,7 @@ interface Request {
 }
 
 class CreateUserService {
-  /// Returns a user without password field
+  // Returns a user without password field
   public async execute({ email, password }: Request): Promise<User> {
     const usersRepository = getRepository(User);
 

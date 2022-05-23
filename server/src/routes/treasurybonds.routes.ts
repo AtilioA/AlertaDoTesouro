@@ -14,48 +14,6 @@ treasuryBondsRouter.get('/', async (_request, response) => {
   return response.json(treasuryBond);
 });
 
-// Create treasuryBond endpoint
-treasuryBondsRouter.post('/', async (request, response, next) => {
-  try {
-    const {
-      code,
-      name,
-      expirationDate,
-      minimumInvestmentAmount,
-      investmentUnitaryValue,
-      semianualInterestIndex,
-      annualInvestmentRate,
-      annualRedRate,
-      minimumRedValue,
-      ISIN,
-      indexedTo,
-      texts,
-    } = request.body;
-
-    const createTreasuryBond = new CreateTreasuryBondService();
-
-    // Create and save it in the database
-    const treasuryBond = await createTreasuryBond.execute({
-      code,
-      name,
-      expirationDate,
-      minimumInvestmentAmount,
-      investmentUnitaryValue,
-      semianualInterestIndex,
-      annualInvestmentRate,
-      annualRedRate,
-      minimumRedValue,
-      ISIN,
-      indexedTo,
-      texts,
-    });
-
-    return response.json(treasuryBond);
-  } catch (err) {
-    next(err);
-  }
-});
-
 // Update all treasury bonds
 treasuryBondsRouter.put('/', async (_request, response, next) => {
   const updateTreasuryBonds = new UpdateTreasuryBondService();

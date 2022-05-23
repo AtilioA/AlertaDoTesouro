@@ -12,13 +12,19 @@ A web application that notifies you about Brazilian treasury bond rates.
 <p align="center">
   <a href="#-project">Project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-tools">Tools</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-tools">Developing</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-back-end">Back-end</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-running-locally">Running locally</a>
 </p>
 
 <p align="center">
   <!-- <img alt="HerokuStatus" src="https://heroku-shields.herokuapp.com/covid19nowbot"> -->
-  <img alt="License" src="https://img.shields.io/badge/License-GPL%20v3-blue.svg">
+  <a href="./LICENSE">
+    <img alt="License" src="https://img.shields.io/badge/License-GPL%20v3-blue.svg" />
+  </a>
+  <a href="https://github.com/pre-commit/pre-commit">
+    <img src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white" alt="pre-commit" style="max-width:100%;">
+  </a>
 </p>
 
 # 💻 Project
@@ -54,14 +60,23 @@ This project was developed using the following tools:
 - [React.js](http://reactjs.org/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [Docker](https://www.docker.com/) with [Compose __V2__](https://docs.docker.com/compose/#compose-v2-and-the-new-docker-compose-command)
+- [pre-commit]
 
-## ⚙️ Back-end
+[pre-commit]: https://pre-commit.com/
+
+## Development
+
+After cloning the branch and installing [pre-commit], and running `pre-commit install`, you can start to develop the application. Mind that before every commit, you should run `pre-commit run` to check if there are any linting errors, and if you commit anything with linting errors, the command should fail.
+
+> __Note:__ _pre-commit_ is using `server/`'s ESLint configuration, for the whole project
+
+### ⚙️ Back-end
 
 All files related exlusively to the back-end server are located in `/server`.
 
 The back-end REST API is fully functional and was made with Express. Multiple endpoints have been defined and they can be explored extensively by referring to the `.insomnia.json` file, which can be imported into [Insomnia](https://insomnia.rest/) itself or possibly other REST clients.
 
-### Example: listing treasury bonds
+#### Example: listing treasury bonds
 
 A typical request would be a simple `GET` request to the `/treasurybonds` endpoint. Response example:
 
@@ -96,11 +111,11 @@ A typical request would be a simple `GET` request to the `/treasurybonds` endpoi
 ]
 ```
 
-## 🖥 Front-end
+### 🖥 Front-end
 
-Zoomer stuff 
+Zoomer stuff
 
-# 🏡 Running locally
+## 🏡 Running locally
 
 Clone the repository and enter the folder with your terminal. To start the services with Compose v2, run the following command while on the project root directory:
 
@@ -114,7 +129,7 @@ Clone the repository and enter the folder with your terminal. To start the servi
 
 Rename or copy the `.env.example` file to `.env` in both the `/server` and `/web` directories and change values whenever needed.
 
-## Back-end considerations
+### Back-end considerations
 
 - The default server port is `3333`. You might want to change this if this port is already in use wherever you are running the server on.
 - You can and __should__ change `JWT_SECRET` to another string. It is used by the hashing algorithm to generate hashed passwords.
@@ -123,7 +138,7 @@ Rename or copy the `.env.example` file to `.env` in both the `/server` and `/web
 
 <!-- TODO: Endpoints documentation -->
 
-## Front-end considerations
+### Front-end considerations
 
 \* Note that the front-end has not been finished yet:tm:.
-\* Where's Julio?
+\* Where's Julio? 😔

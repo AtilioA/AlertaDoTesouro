@@ -42,15 +42,20 @@ services:
     ports:
       - '${PORT:-3333}:3333'
     volumes:
-      - ./server:/app
+      - type: bind
+        source: ./server
+        target: /app
+        bind:
+          propagation: rshared
+      - ./.prettierrc.yaml:/app/.prettierrc.yaml
     networks:
       - backend
     working_dir: /app
-    command: >-
-      sh -c 'yarn &&
-            yarn typeorm migration:run &&
-            yarn dev:queue &
-            yarn dev:server'
+    command: sh -c '
+      yarn &&
+      yarn typeorm migration:run &&
+      yarn dev:queue &
+      yarn dev:server'
 
   server:
     image: node:lts-alpine
