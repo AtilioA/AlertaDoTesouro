@@ -7,6 +7,9 @@ import './tasks';
 
 const PORT = loadRequiredEnv('PORT');
 
+/**
+ * Start the server
+ */
 App.listen(PORT, () => {
   console.log(`Server started on port ${PORT}!`);
 });

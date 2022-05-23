@@ -2,6 +2,10 @@
 
 import MailService from '../services/MailService';
 
+/**
+ * @class ConfirmAccountEmail
+ * @description BeeQueue Job for mailing email confirmation
+ */
 class ConfirmAccountEmail {
   // Unique job key
   get key() {

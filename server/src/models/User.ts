@@ -7,6 +7,18 @@ import {
   CreateDateColumn,
 } from 'typeorm';
 
+/**
+ * @class User
+ * @description Model for an user of the platform
+ * @property {number} id - User id
+ * @property {string} email - User's email
+ * @param {string} password - User's hashed password
+ * @property {boolean} confirmed - Whether the user's email has been confirmed
+ * @property {boolean} notify - Whether the user wants to receive notifications
+ * @property {boolean} notifyByBrowser - Whether the user wants to receive notifications by browser
+ * @property {boolean} notifyByEmail - Whether the user wants to receive notifications by email
+ *
+ */
 @Entity('users')
 class User {
   @PrimaryGeneratedColumn('uuid')

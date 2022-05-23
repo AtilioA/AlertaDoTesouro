@@ -5,16 +5,26 @@ import User from '../models/User';
 import authConfig from '../config/auth';
 import { UserOptionalPassword } from '../@types/alertadotesouro';
 
+/**
+ * Interface for the request object for creating a new User session.
+ */
 interface Request {
   email: string;
   password: string;
 }
 
+/**
+ * Interface for the response object for creating a new User session.
+ */
 interface Response {
   user: User;
   token: string;
 }
 
+/**
+ * @class CreateUserSessionService
+ * @description Service for creating a new User session.
+ */
 export default class CreateUserSessionService {
   public async execute({ email, password }: Request): Promise<Response> {
     const usersRepository = getRepository(User);
