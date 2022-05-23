@@ -24,8 +24,11 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint './src/**/*.{js,jsx,ts,tsx}'",
-    "lintfix": "eslint --fix './src/**/*.{js,jsx,ts,tsx}'",
-    "pretty": "prettier --write \"./src/**/*.{js,jsx,json,ts,tsx}\""
+    "docker:lint": "docker exec -t alertadotesouro-web-dev-1 yarn lint",
+    "lint:fix": "eslint --fix './src/**/*.{js,jsx,ts,tsx}'",
+    "docker:lint:fix": "docker exec -t alertadotesouro-web-dev-1 yarn lint:fix",
+    "pretty": "prettier --write \"./src/**/*.{js,jsx,json,ts,tsx}\"",
+    "docker:pretty": "docker exec -t alertadotesouro-web-dev-1 yarn pretty"
   },
   "browserslist": {
     "production": [
