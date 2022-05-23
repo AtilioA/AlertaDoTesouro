@@ -35,10 +35,12 @@ const SignUp: React.FC = () => {
           (password: string, field: any) =>
             password
               ? field
-                .required('Senhas não batem')
-                .oneOf([Yup.ref('password')], 'Senhas não batem')
+                .required('Senhas devem ser iguais')
+                .oneOf([Yup.ref('password')], 'Senhas devem ser iguais')
               : field,
         ),
+        acceptTerms: Yup.bool()
+          .oneOf([true], 'É necessário concordar com os Termos para concluir o cadastro'),
       });
 
       await schema.validate(data, {
@@ -62,7 +64,7 @@ const SignUp: React.FC = () => {
         addToast({
           type: 'error',
           title: 'Erro no cadastro',
-          description: 'Ocorreu um erro ao realizar o cadastro. Tente se cadastrar com outro email.'
+          description: 'Ocorreu um erro ao realizar o cadastro. Tente novamente mais tarde.'
         });
       }
     }
@@ -97,6 +99,9 @@ const SignUp: React.FC = () => {
             type="password"
             placeholder="Confirmação da sua senha"
           />
+
+          <input required name="acceptTerms" type="checkbox" id="acceptTerms" />
+          <label htmlFor="acceptTerms"> Aceito os <a href='/privacidade'>Termos e Condições Gerais de Uso</a></label>
 
           <button type="submit">Cadastrar-se</button>
         </Form>

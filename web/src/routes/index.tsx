@@ -8,16 +8,18 @@ import SignUp from '../pages/SignUp';
 import SignIn from '../pages/SignIn';
 import Account from '../pages/Account';
 import Notifications from '../pages/Notifications';
+import ToS from '../pages/ToS';
 
 const Routes: React.FC = () => (
   <Switch>
-    <Route path="/" exact component={Dashboard}/>
-    <Route path="/dashboard" component={Dashboard}/>
+    <Route path="/" exact component={Dashboard} />
+    <Route path="/dashboard" component={Dashboard} />
 
-    <Route path="/login" component={SignIn}/>
-    <Route path="/registrar" component={SignUp}/>
-    <Route path="/conta"  component={Account} isPrivate />
-    <Route path="/notificacoes" component={Notifications}/>
+    <Route path="/login" component={SignIn} />
+    <Route path="/registrar" component={SignUp} />
+    <Route path="/conta" component={Account} isPrivate />
+    <Route path="/notificacoes" component={Notifications} />
+    <Route path="/privacidade" component={ToS} />
   </Switch>
 )
 

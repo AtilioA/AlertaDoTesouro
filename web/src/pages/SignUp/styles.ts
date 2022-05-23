@@ -9,6 +9,16 @@ export const Container = styled.div`
   align-items: center;
   flex-direction: column;
 
+  input[type=checkbox] {
+      margin-top: 20px;
+      margin-bottom: 10px;
+      margin-right: 4px;
+  }
+
+  label a {
+      display: inline;
+    }
+
   Form {
     margin: 80px;
     width: 340px;
