@@ -41,7 +41,17 @@ const ResetPassword: React.FC = () => {
         abortEarly: false,
       });
 
-      await api.post('/users', data);
+      // Get token from URL query params and send it to the backend endpoint
+      try {
+        const token: string | null = new URLSearchParams(window.location.search).get('token');
+
+        await api.put(`/users/reset-password/${token}`, data);
+
+      } catch (err) {
+        if (err instanceof Error) {
+          console.log(`Link de redefinição inválido: ${err.message}`);
+        }
+      }
 
       addToast({
         type: 'info',
