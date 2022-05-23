@@ -17,7 +17,8 @@ const usersRouter = Router();
 interface TokenPayload {
   iat: number;
   exp: number;
-  user: {
+  // FIXME: not sure why I can't call this 'user'
+  checkIfUserExist: {
     email: string;
     id: string;
     created_at: string;
@@ -37,21 +38,17 @@ usersRouter.put('/reset-password/:token', async (request, response, next) => {
     console.log(request.params);
 
     const { newPassword, newPasswordConfirmation } = request.body;
-    console.log(`token (reset-password/:token): ${token}`);
 
     const decoded = verify(token, authConfig.jwt.secret as string);
-    const { user } = decoded as TokenPayload;
-    console.log(`user: ${user}`);
+    const { checkIfUserExist } = decoded as TokenPayload;
 
     const resetUserPassword = new ResetUserPasswordService();
 
     const updated = await resetUserPassword.execute(
-      user.id,
+      checkIfUserExist.id,
       newPassword,
       newPasswordConfirmation,
     );
-
-    console.log(updated);
 
     // Return to login page
     return response.redirect('/login');
