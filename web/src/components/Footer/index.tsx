@@ -7,10 +7,19 @@ const Footer: React.FC = () => (
       <FooterBody>
         <p>
           Feito por{' '}
-          <a target="_blank" rel="noopener noreferrer" href="https://www.github.com/AtilioA/AlertaDoTesouro">
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.github.com/AtilioA/AlertaDoTesouro"
+          >
             AtilioA
-          </a>
-          {' '}e{' '}<a target="_blank" rel="noopener noreferrer" href="https://www.github.com/Henriquelay">
+          </a>{' '}
+          e{' '}
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.github.com/Henriquelay"
+          >
             Henriquelay
           </a>
           .

@@ -29,7 +29,7 @@ export const Container = styled.div<ContainerProps>`
     margin-right: 10px;
   }
 
-  ${(props) =>
+  ${props =>
     props.isErrored &&
     css`
       border-color: #e63232;
@@ -39,7 +39,7 @@ export const Container = styled.div<ContainerProps>`
       }
     `}
 
-  ${(props) =>
+  ${props =>
     props.isFocused &&
     css`
       color: #1d498b;
@@ -50,7 +50,7 @@ export const Container = styled.div<ContainerProps>`
       }
     `}
 
-  ${(props) =>
+  ${props =>
     props.isFilled &&
     css`
       svg {

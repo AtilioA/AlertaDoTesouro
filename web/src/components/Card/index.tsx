@@ -1,15 +1,15 @@
 import React from 'react';
+import { FiInfo } from 'react-icons/fi';
 import { Container, CardHeader, CardBody, CardFooter } from './styles';
-import { FiInfo } from "react-icons/fi";
 
 const Card: React.FC = () => (
   <>
     <Container>
       <CardHeader>
         <h2>Tesouro IPCA+ 2026</h2>
-        <FiInfo size={24}/>
+        <FiInfo size={24} />
       </CardHeader>
-        <hr/>
+      <hr />
       <CardBody>
         <div id="bond-info">
           <div id="line">
@@ -26,16 +26,18 @@ const Card: React.FC = () => (
           </div>
         </div>
       </CardBody>
-      <hr/>
+      <hr />
       <CardFooter>
         <div id="card-notify">
           <p>Notifique-me quando o rendimento for</p>
-          <label>[MAIOR/MENOR] que <input type="number" placeholder="XX.XX"/>%</label>
+          <label>
+            [MAIOR/MENOR] que <input type="number" placeholder="XX.XX" />%
+          </label>
           <button>Criar notificação</button>
         </div>
       </CardFooter>
     </Container>
   </>
-)
+);
 
 export default Card;

@@ -95,7 +95,7 @@ export const BondsList = styled.div`
       width: 100%;
       padding: 30px 30px 60px 30px;
 
-      background: #FF6712;
+      background: #ff6712;
     }
 
     div#fixed-rate {
@@ -106,7 +106,7 @@ export const BondsList = styled.div`
       width: 100%;
       padding: 30px 30px 60px 30px;
 
-      background: #00D2AD;
+      background: #00d2ad;
     }
 
     div#postfixed {
@@ -118,7 +118,7 @@ export const BondsList = styled.div`
       width: 100%;
       padding: 30px 30px 60px 30px;
 
-      background: #9557FF;
+      background: #9557ff;
     }
   }
 `;

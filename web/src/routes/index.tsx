@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Switch } from "react-router-dom";
+import { Switch } from 'react-router-dom';
 
 import Route from './Route';
 import Dashboard from '../pages/Dashboard';
@@ -21,6 +21,6 @@ const Routes: React.FC = () => (
     <Route path="/notificacoes" component={Notifications} />
     <Route path="/privacidade" component={ToS} />
   </Switch>
-)
+);
 
 export default Routes;

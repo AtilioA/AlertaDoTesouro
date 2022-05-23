@@ -1,12 +1,12 @@
 import React, { useCallback, useRef, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Container } from './styles';
 import { FiLogIn, FiLock, FiAtSign, FiCheck } from 'react-icons/fi';
-import Input from '../../components/Input';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
+import Input from '../../components/Input';
+import { Container } from './styles';
 import getValidationErrors from '../../utils/getValidationErrors';
 import { AnimationContainer } from '../SignIn/styles';
 import api from '../../services/api';
@@ -21,54 +21,58 @@ const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const { addToast } = useContext(ToastContext);
 
-  const handleSubmit = useCallback(async (data: SignUpFormData) => {
-    try {
-      formRef.current?.setErrors({});
+  const handleSubmit = useCallback(
+    async (data: SignUpFormData) => {
+      try {
+        formRef.current?.setErrors({});
 
-      const schema = Yup.object().shape({
-        email: Yup.string()
-          .required('Email é obrigatório')
-          .email('Digite um email válido'),
-        password: Yup.string().min(8, 'Mínimo de 8 caracteres'),
-        confirmPassword: Yup.string().when(
-          'password',
-          (password: string, field: any) =>
-            password
-              ? field
-                .required('Senhas devem ser iguais')
-                .oneOf([Yup.ref('password')], 'Senhas devem ser iguais')
-              : field,
-        ),
-        acceptTerms: Yup.bool()
-          .oneOf([true], 'É necessário concordar com os Termos para concluir o cadastro'),
-      });
-
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-
-      await api.post('/users', data);
-
-      addToast({
-        type: 'info',
-        title: "Cadastro realizado com sucesso!",
-        description: 'Por favor, cheque seu email para confirmar sua conta.'
-      });
-    } catch (err) {
-      if (err instanceof Yup.ValidationError) {
-        const errors = getValidationErrors(err);
-        formRef.current?.setErrors(errors);
-
-        return;
-      } else {
-        addToast({
-          type: 'error',
-          title: 'Erro no cadastro',
-          description: 'Ocorreu um erro ao realizar o cadastro. Tente novamente mais tarde.'
+        const schema = Yup.object().shape({
+          email: Yup.string()
+            .required('Email é obrigatório')
+            .email('Digite um email válido'),
+          password: Yup.string().min(8, 'Mínimo de 8 caracteres'),
+          confirmPassword: Yup.string().when(
+            'password',
+            (password: string, field: any) =>
+              password
+                ? field
+                    .required('Senhas devem ser iguais')
+                    .oneOf([Yup.ref('password')], 'Senhas devem ser iguais')
+                : field,
+          ),
+          acceptTerms: Yup.bool().oneOf(
+            [true],
+            'É necessário concordar com os Termos para concluir o cadastro',
+          ),
         });
+
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        await api.post('/users', data);
+
+        addToast({
+          type: 'info',
+          title: 'Cadastro realizado com sucesso!',
+          description: 'Por favor, cheque seu email para confirmar sua conta.',
+        });
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
+          formRef.current?.setErrors(errors);
+        } else {
+          addToast({
+            type: 'error',
+            title: 'Erro no cadastro',
+            description:
+              'Ocorreu um erro ao realizar o cadastro. Tente novamente mais tarde.',
+          });
+        }
       }
-    }
-  }, [addToast]);
+    },
+    [addToast],
+  );
 
   return (
     <Container>
@@ -81,7 +85,11 @@ const SignUp: React.FC = () => {
           <div id="input-header">
             <h2>EMAIL</h2>
           </div>
-          <Input icon={FiAtSign} name="email" placeholder="Ex: turing@inf.ufes.br" />
+          <Input
+            icon={FiAtSign}
+            name="email"
+            placeholder="Ex: turing@inf.ufes.br"
+          />
 
           <div id="input-header">
             <h2>SENHA</h2>
@@ -101,7 +109,11 @@ const SignUp: React.FC = () => {
           />
 
           <input required name="acceptTerms" type="checkbox" id="acceptTerms" />
-          <label htmlFor="acceptTerms"> Aceito os <a href='/privacidade'>Termos e Condições Gerais de Uso</a></label>
+          <label htmlFor="acceptTerms">
+            {' '}
+            Aceito os{' '}
+            <a href="/privacidade">Termos e Condições Gerais de Uso</a>
+          </label>
 
           <button type="submit">Cadastrar-se</button>
         </Form>

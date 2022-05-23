@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import Toggle from 'react-toggle';
 
+import { FiEdit, FiTrash } from 'react-icons/fi';
 import {
   Container,
   AnimationContainer,
@@ -8,7 +9,6 @@ import {
   NotificationsContainer,
   NotificationContainer,
 } from './styles';
-import { FiEdit, FiTrash } from 'react-icons/fi';
 // import Input from '../../components/Input';
 
 const Notifications: React.FC = () => {

@@ -1,13 +1,11 @@
 import React, { useCallback } from 'react';
 
-import { Container, BondsList } from './styles';
 import { FiCheckCircle, FiClock, FiRefreshCw } from 'react-icons/fi';
+import { Container, BondsList } from './styles';
 import Card from '../../components/Card';
 
 const Dashboard: React.FC = () => {
-  const getTreasuryBondTitles = useCallback(async () => {
-    
-  }, []);
+  const getTreasuryBondTitles = useCallback(async () => {}, []);
 
   return (
     <>

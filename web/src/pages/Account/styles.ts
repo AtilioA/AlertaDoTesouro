@@ -25,7 +25,6 @@ export const Container = styled.div`
       /* padding-bottom: 50px; */
     }
 
-
     div#input-header {
       font-size: 20px;
       text-align: left;
@@ -81,8 +80,8 @@ const appearFromLeft = keyframes`
     opacity: 1;
     transform: translateX(0px);
   }
-`
+`;
 
 export const AnimationContainer = styled.div`
   animation: ${appearFromLeft} 1s;
-`
+`;

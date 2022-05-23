@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import Markdown from 'markdown-to-jsx';
 import { Container, TextContainer } from './styles';
 import { AnimationContainer } from '../SignIn/styles';
 
-import Markdown from 'markdown-to-jsx';
-
 function ToS() {
-  const tosFilepath = "./ToS.md";
+  const tosFilepath = './ToS.md';
   const [post, setPost] = useState('');
 
   useEffect(() => {
@@ -23,12 +22,8 @@ function ToS() {
     <Container>
       <TextContainer>
         <AnimationContainer>
-
           <div className="container">
-            <Markdown>
-              {post}
-            </Markdown>
-
+            <Markdown>{post}</Markdown>
           </div>
         </AnimationContainer>
       </TextContainer>

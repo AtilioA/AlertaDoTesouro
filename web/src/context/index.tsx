@@ -5,9 +5,7 @@ import { AuthProvider } from './AuthContext';
 
 const AppProvider: React.FC = ({ children }) => (
   <AuthProvider>
-    <ToastProvider>
-      { children }
-    </ToastProvider>
+    <ToastProvider>{children}</ToastProvider>
   </AuthProvider>
 );
 

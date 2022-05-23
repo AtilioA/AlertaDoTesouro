@@ -13,7 +13,8 @@ export const Container = styled.div`
     margin-left: 25px;
   }
 
-  h1, h2 {
+  h1,
+  h2 {
     margin-top: 10px;
     margin-bottom: 10px;
   }
