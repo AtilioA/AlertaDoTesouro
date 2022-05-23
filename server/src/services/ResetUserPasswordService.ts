@@ -3,7 +3,7 @@ import { UpdateResult, getRepository } from 'typeorm';
 import { hash } from 'bcryptjs';
 import User from '../models/User';
 
-class UpdateUserService {
+class ResetPasswordService {
   public async execute(
     user_id: string,
     newPassword: string,
@@ -56,4 +56,4 @@ class UpdateUserService {
   }
 }
 
-export default UpdateUserService;
+export default ResetPasswordService;
