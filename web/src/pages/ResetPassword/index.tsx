@@ -11,27 +11,28 @@ import { AnimationContainer } from '../SignIn/styles';
 import api from '../../services/api';
 import { ToastContext } from '../../context/ToastContext';
 
-interface SignUpFormData {
-  password: string;
+interface ResetPasswordFormData {
+  newPassword: string;
+  newPasswordConfirmation: string;
 }
 
-const SignUp: React.FC = () => {
+const ResetPassword: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const { addToast } = useContext(ToastContext);
 
-  const handleSubmit = useCallback(async (data: SignUpFormData) => {
+  const handleSubmit = useCallback(async (data: ResetPasswordFormData) => {
     try {
       formRef.current?.setErrors({});
 
       const schema = Yup.object().shape({
-        password: Yup.string().min(8, 'Mínimo de 8 caracteres'),
-        confirmPassword: Yup.string().when(
-          'password',
-          (password: string, field: any) =>
-            password
+        newPassword: Yup.string().min(8, 'Mínimo de 8 caracteres'),
+        newPasswordConfirmation: Yup.string().when(
+          'newPassword',
+          (newPassword: string, field: any) =>
+            newPassword
               ? field
-                  .required('Senhas não batem')
-                  .oneOf([Yup.ref('password')], 'Senhas não batem')
+                .required('Senhas devem ser iguais')
+                .oneOf([Yup.ref('newPassword')], 'Senhas devem ser iguais')
               : field,
         ),
       });
@@ -57,7 +58,7 @@ const SignUp: React.FC = () => {
         addToast({
           type: 'error',
           title: 'Erro na redefinição de senha',
-          description: 'Ocorreu um erro ao redefinir sua senha. Por favor, tente novamente.'
+          description: 'Ocorreu um erro ao redefinir sua senha. Por favor, solicite outro e-mail de redefinição de senha.'
         });
       }
     }
@@ -73,14 +74,14 @@ const SignUp: React.FC = () => {
 
           <Input
             icon={FiLock}
-            name="password"
+            name="newPassword"
             type="password"
             placeholder="Sua nova senha"
           />
 
           <Input
             icon={FiCheck}
-            name="confirmPassword"
+            name="newPasswordConfirmation"
             type="password"
             placeholder="Confirmação da senha"
           />
@@ -95,4 +96,4 @@ const SignUp: React.FC = () => {
   );
 };
 
-export default SignUp;
+export default ResetPassword;
