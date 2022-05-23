@@ -18,7 +18,7 @@ interface TokenPayload {
   iat: number;
   exp: number;
   // FIXME: not sure why I can't call this 'user'
-  checkIfUserExist: {
+  user: {
     email: string;
     id: string;
     created_at: string;
@@ -33,17 +33,16 @@ interface TokenPayload {
 usersRouter.put('/reset-password/:token', async (request, response, next) => {
   try {
     const { token } = request.params;
-    console.log(request.params);
 
     const { newPassword, newPasswordConfirmation } = request.body;
 
     const decoded = verify(token, authConfig.jwt.secret as string);
-    const { checkIfUserExist } = decoded as TokenPayload;
+    const { user } = decoded as TokenPayload;
 
     const resetUserPassword = new ResetUserPasswordService();
 
     const updated = await resetUserPassword.execute(
-      checkIfUserExist.id,
+      user.id,
       newPassword,
       newPasswordConfirmation,
     );
@@ -67,16 +66,17 @@ usersRouter.post('/reset-password', async (request, response) => {
 
     const usersRepository = getRepository(User);
 
-    const checkIfUserExist = await usersRepository.findOne({
+    const findUser = await usersRepository.findOne({
       where: { email },
     });
 
-    if (checkIfUserExist) {
+    // User has been found
+    if (findUser) {
       // Create confirmation token so the user can confirm their account
       const EMAIL_SECRET = authConfig.jwt.secret;
       const emailToken = sign(
         {
-          checkIfUserExist,
+          user: findUser,
         },
         EMAIL_SECRET as string,
         {
@@ -87,7 +87,7 @@ usersRouter.post('/reset-password', async (request, response) => {
       // Send reset password email
       await Queue.add(SendResetPasswordMail.key, {
         token: emailToken,
-        user: checkIfUserExist,
+        user: findUser,
       });
 
       // Return response with status 200 and success message, since the user was found
