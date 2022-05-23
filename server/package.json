@@ -12,6 +12,8 @@
     "dev:server": "ts-node-dev --files --ignore-watch node_modules src/server.ts",
     "dev:queue": "ts-node-dev --files --ignore-watch node_modules src/queue.ts",
     "typeorm": "ts-node ./node_modules/typeorm/cli.js",
+    "docs": "typedoc --out docs",
+    "docker:docs": "docker exec -t alertadotesouro-server-dev-1 yarn docs",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint --fix . --ext .js,.jsx,.ts,.tsx",
     "docker:lint": "docker exec -t alertadotesouro-server-dev-1 yarn lint",
