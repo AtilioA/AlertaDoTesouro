@@ -38,7 +38,7 @@ const ForgotPassword: React.FC = () => {
       await api.post('/users/reset-password', data);
 
       addToast({
-        type: 'info',
+        type: 'success',
         title: "Solicitação recebida com sucesso!",
         description: 'Por favor, cheque seu email para redefinir sua senha.'
       });

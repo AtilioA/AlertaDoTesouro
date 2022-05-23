@@ -54,7 +54,7 @@ const ResetPassword: React.FC = () => {
       }
 
       addToast({
-        type: 'info',
+        type: 'success',
         title: "Senha redefinida com sucesso!",
         description: 'Agora você pode utilizar a nova senha para fazer login.'
       });
