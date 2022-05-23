@@ -13,20 +13,33 @@ extends:
   - plugin:react/recommended
   - plugin:react-hooks/recommended
   - plugin:prettier/recommended # This comes last
-parser: '@typescript-eslint/parser'
+parser: "@typescript-eslint/parser"
 parserOptions:
   ecmaVersion: 11
   sourceType: module
 plugins:
   - prettier
-  - '@typescript-eslint'
+  - "@typescript-eslint"
   - react
   - react-hooks
   - jest
+settings:
+  import/resolver:
+    typescript:
+  react:
+    version: detect
 rules:
-  class-methods-use-this:
-    - 'off'
-  camelcase: 'off'
+  no-unused-vars: off
+  '@typescript-eslint/no-unused-vars':
+    - warn
+    - vars: local
+      varsIgnorePattern: ^_
+      argsIgnorePattern: ^_
+      destructuredArrayIgnorePattern: ^_
+      ignoreRestSiblings: false
+  react/jsx-uses-react: off
+  react/react-in-jsx-scope: off
+  camelcase: off
   prettier/prettier: error
   import/extensions:
     - error
@@ -34,9 +47,4 @@ rules:
     - ts: never
       tsx: never
   no-console:
-    - 'off'
-settings:
-  import/resolver:
-    typescript:
-  react:
-    version: detect
+    - off
