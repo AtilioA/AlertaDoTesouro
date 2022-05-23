@@ -1,20 +1,20 @@
 version: '3.9'
 
 services:
-  # web-dev:
-  #   image: node:lts-alpine
-  #   profiles:
-  #     - dev
-  #   env_file: web/.env
-  #   environment:
-  #     - NODE_ENV=development
-  #   restart: unless-stopped
-  #   ports:
-  #     - '${PORT:-3000}:3000'
-  #   volumes:
-  #     - ./web:/app
-  #   working_dir: /app
-  #   command: sh -c 'yarn && yarn start'
+  web-dev:
+    image: node:lts-alpine
+    profiles:
+      - dev
+    env_file: web/.env
+    environment:
+      - NODE_ENV=development
+    restart: unless-stopped
+    ports:
+      - '${PORT:-3000}:3000'
+    volumes:
+      - ./web:/app
+    working_dir: /app
+    command: sh -c 'yarn && yarn start'
 
   # web:
   #   image: node:lts-alpine
