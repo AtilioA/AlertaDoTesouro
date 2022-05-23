@@ -20,13 +20,13 @@ const Account: React.FC = () => {
           .required('Email é obrigatório')
           .email('Digite um email válido'),
         password: Yup.string().required('Informe sua senha'),
-        newPassword: Yup.string().oneOf([Yup.ref('confirmPassword')], 'Senhas não batem'),
+        newPassword: Yup.string().oneOf([Yup.ref('confirmPassword')], 'Senhas devem ser iguais'),
         confirmPassword: Yup.string().when(
           'newPassword',
           (newPassword: string, field: any) =>
             newPassword
               ? field
-                .required('É necessário confirmar sua senha').min(8, 'Mínimo de 8 caracteres').oneOf([Yup.ref('newPassword')], 'Senhas não batem')
+                .required('É necessário confirmar sua senha').min(8, 'Mínimo de 8 caracteres').oneOf([Yup.ref('newPassword')], 'Senhas devem ser iguais')
               : field,
         ),
       });
