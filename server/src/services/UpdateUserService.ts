@@ -48,7 +48,7 @@ class UpdateUserService {
 
     const userRepository = getRepository(User);
 
-    const findUser = await userRepository.findOne({
+    const findUser: User | undefined  = await userRepository.findOne({
       where: { id: user_id },
     });
 

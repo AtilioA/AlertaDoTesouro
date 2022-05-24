@@ -30,6 +30,10 @@ interface TokenPayload {
  * Repositories - business rules
  * Services - database
  */
+
+/**
+ * Endpoint for updating a user's password given a valid JWT token (user is obtained from the token payload)
+ */
 usersRouter.put('/reset-password/:token', async (request, response, next) => {
   try {
     const { token } = request.params;
@@ -59,14 +63,16 @@ usersRouter.put('/reset-password/:token', async (request, response, next) => {
   }
 });
 
-// Reset password endpoint
+/**
+ * Endpoint for requesting a password reset email for a given user/email.
+ */
 usersRouter.post('/reset-password', async (request, response) => {
   try {
     const { email } = request.body;
 
     const usersRepository = getRepository(User);
 
-    const findUser = await usersRepository.findOne({
+    const findUser: User | undefined = await usersRepository.findOne({
       where: { email },
     });
 

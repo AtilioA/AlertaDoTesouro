@@ -20,7 +20,7 @@ class CreateUserService {
   public async execute({ email, password }: Request): Promise<User> {
     const usersRepository = getRepository(User);
 
-    const findUser = await usersRepository.findOne({
+    const findUser: User | undefined  = await usersRepository.findOne({
       where: { email },
     });
 

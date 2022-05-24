@@ -41,7 +41,7 @@ class CreateTreasuryBondService {
   }: Request): Promise<TreasuryBond> {
     const treasuryBondsRepository = getRepository(TreasuryBond);
 
-    const checkIfTreasuryBondExists = await treasuryBondsRepository.findOne({
+    const checkIfTreasuryBondExists: TreasuryBond | undefined  = await treasuryBondsRepository.findOne({
       where: { code },
     });
 

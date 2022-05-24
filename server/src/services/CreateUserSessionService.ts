@@ -29,7 +29,7 @@ export default class CreateUserSessionService {
   public async execute({ email, password }: Request): Promise<Response> {
     const usersRepository = getRepository(User);
 
-    const user = await usersRepository.findOne({ where: { email } });
+    const user: User | undefined  = await usersRepository.findOne({ where: { email } });
 
     if (!user) {
       throw new Error('Incorrect email/password combination.');
