@@ -3,30 +3,24 @@ name: Running Code Coverage
 on: [push, pull_request]
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [10.x, 12.x, 14.x, 16.x]
+    defaults:
+      run:
+        working-directory: server
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 2
+      - uses: actions/checkout@v1
+      - uses: actions/cache@v2
+        with:
+          path: server/node_modules
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
-    - name: Set up Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Install packages
+        run: yarn install
 
-    - name: Install dependencies
-      run: npm install
+      - name: Run Tests
+        run: yarn test
 
-    - name: Run the tests
-      run: npm test -- --coverage
-
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v2
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
