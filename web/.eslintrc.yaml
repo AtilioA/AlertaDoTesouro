@@ -3,48 +3,48 @@ root: true
 env:
   es2020: true
   node: true
-  jest/globals: true
+  jest: true
 extends:
-  - airbnb-base
+  - airbnb
+  - airbnb-typescript
+  - airbnb/hooks
+  - "plugin:@typescript-eslint/recommended"
+  - "plugin:@typescript-eslint/recommended-requiring-type-checking"
   - plugin:import/recommended
-  - plugin:@typescript-eslint/recommended
+  - plugin:react/jsx-runtime # After react/recommended
+  # - "plugin:react-hooks/recommended"
   - plugin:jest/recommended
   - plugin:jest/style
-  - plugin:react/recommended
-  - plugin:react-hooks/recommended
   - plugin:prettier/recommended # This comes last
-parser: "@typescript-eslint/parser"
 parserOptions:
-  ecmaVersion: 11
-  sourceType: module
-plugins:
-  - prettier
-  - "@typescript-eslint"
-  - react
-  - react-hooks
-  - jest
+  project: tsconfig.json
+plugins: [prettier, "@typescript-eslint", jest, react, react-hooks]
 settings:
-  import/resolver:
-    typescript:
   react:
     version: detect
 rules:
+  jsx-a11y/label-has-associated-control: off
+  no-underscore-dangle: off
   no-unused-vars: off
-  '@typescript-eslint/no-unused-vars':
-    - warn
-    - vars: local
-      varsIgnorePattern: ^_
+  react/jsx-props-no-spreading: off
+  "@typescript-eslint/unbound-method": off # FIXME (?)
+  "@typescript-eslint/no-misused-promises":
+    - error
+    - checksVoidReturn: false
+  "@typescript-eslint/no-unused-vars":
+    - error
+    - varsIgnorePattern: ^_
       argsIgnorePattern: ^_
       destructuredArrayIgnorePattern: ^_
-      ignoreRestSiblings: false
-  react/jsx-uses-react: off
-  react/react-in-jsx-scope: off
-  camelcase: off
-  prettier/prettier: error
-  import/extensions:
+      ignoreRestSiblings: true
+  "@typescript-eslint/naming-convention":
     - error
-    - ignorePackages
-    - ts: never
-      tsx: never
-  no-console:
-    - off
+    - format:
+        - "camelCase"
+        - "PascalCase"
+        - "UPPER_CASE"
+      selector: "default"
+      leadingUnderscore: allow
+  prettier/prettier: warn
+  react-hooks/exhaustive-deps: warn
+  no-console: off
