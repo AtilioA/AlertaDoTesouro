@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { shade } from 'polished';
+// import { shade } from 'polished';
 import Tooltip from '../Tooltip';
 
 interface ContainerProps {

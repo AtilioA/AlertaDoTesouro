@@ -20,7 +20,7 @@ interface ContainerProps {
   type?: 'success' | 'error' | 'info';
   hasDescription?: boolean;
 }
-export const Container = styled(animated.div)<ContainerProps>`
+export default styled(animated.div)<ContainerProps>`
   display: flex;
   width: 360px;
 
@@ -73,4 +73,12 @@ export const Container = styled(animated.div)<ContainerProps>`
         margin-top: 0px;
       }
     `}
+`;
+
+export const Container = styled.div`
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 30px;
+  overflow: hidden;
 `;

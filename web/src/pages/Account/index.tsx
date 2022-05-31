@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import { useRef, useCallback } from 'react';
 
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
@@ -8,7 +8,7 @@ import getValidationErrors from '../../utils/getValidationErrors';
 import Input from '../../components/Input';
 import { Container, AnimationContainer } from './styles';
 
-const Account: React.FC = () => {
+export default function Account() {
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit = useCallback(async (data: object) => {
@@ -26,7 +26,7 @@ const Account: React.FC = () => {
         ),
         confirmPassword: Yup.string().when(
           'newPassword',
-          (newPassword: string, field: any) =>
+          (newPassword: string, field: Yup.StringSchema) =>
             newPassword
               ? field
                   .required('É necessário confirmar sua senha')
@@ -40,8 +40,10 @@ const Account: React.FC = () => {
         abortEarly: false,
       });
     } catch (err) {
-      const errors = getValidationErrors(err);
-      formRef.current?.setErrors(errors);
+      if (err instanceof Yup.ValidationError) {
+        const errors = getValidationErrors(err);
+        formRef.current?.setErrors(errors);
+      } else throw err;
     }
   }, []);
 
@@ -95,6 +97,4 @@ const Account: React.FC = () => {
       </AnimationContainer>
     </Container>
   );
-};
-
-export default Account;
+}

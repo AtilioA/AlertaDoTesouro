@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useContext } from 'react';
+import { useRef, useCallback, useContext } from 'react';
 
 import { FiKey, FiLock, FiAtSign } from 'react-icons/fi';
 import { Form } from '@unform/web';
@@ -17,11 +17,11 @@ interface SignInFormData {
   password: string;
 }
 
-const SignIn: React.FC = () => {
+export default function SignIn() {
   const formRef = useRef<FormHandles>(null);
 
-  const { user, signIn } = useContext(AuthContext);
-  const { addToast, removeToast } = useContext(ToastContext);
+  const { user: _user, signIn } = useContext(AuthContext);
+  const { addToast, removeToast: _removeToast } = useContext(ToastContext);
 
   const handleSubmit = useCallback(
     async (data: SignInFormData) => {
@@ -98,6 +98,4 @@ const SignIn: React.FC = () => {
       </AnimationContainer>
     </Container>
   );
-};
-
-export default SignIn;
+}

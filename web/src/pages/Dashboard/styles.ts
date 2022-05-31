@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { shade } from 'polished';
-import Card from '../../components/Card';
+// import { shade } from 'polished';
+// import Card from '../../components/Card';
 
 export const Container = styled.div`
   display: flex;

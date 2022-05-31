@@ -1,9 +1,8 @@
-import React from 'react';
 import { FiInfo } from 'react-icons/fi';
 import { Container, CardHeader, CardBody, CardFooter } from './styles';
 
-const Card: React.FC = () => (
-  <>
+export default function Card() {
+  return (
     <Container>
       <CardHeader>
         <h2>Tesouro IPCA+ 2026</h2>
@@ -33,11 +32,9 @@ const Card: React.FC = () => (
           <label>
             [MAIOR/MENOR] que <input type="number" placeholder="XX.XX" />%
           </label>
-          <button>Criar notificação</button>
+          <button type="button">Criar notificação</button>
         </div>
       </CardFooter>
     </Container>
-  </>
-);
-
-export default Card;
+  );
+}

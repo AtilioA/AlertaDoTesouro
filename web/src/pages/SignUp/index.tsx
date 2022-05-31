@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useContext } from 'react';
+import { useCallback, useRef, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import { FiLogIn, FiLock, FiAtSign, FiCheck } from 'react-icons/fi';
@@ -17,7 +17,7 @@ interface SignUpFormData {
   password: string;
 }
 
-const SignUp: React.FC = () => {
+export default function SignUp() {
   const formRef = useRef<FormHandles>(null);
   const { addToast } = useContext(ToastContext);
 
@@ -33,7 +33,7 @@ const SignUp: React.FC = () => {
           password: Yup.string().min(8, 'Mínimo de 8 caracteres'),
           confirmPassword: Yup.string().when(
             'password',
-            (password: string, field: any) =>
+            (password: string, field: Yup.StringSchema) =>
               password
                 ? field
                     .required('Senhas devem ser iguais')
@@ -125,6 +125,4 @@ const SignUp: React.FC = () => {
       </AnimationContainer>
     </Container>
   );
-};
-
-export default SignUp;
+}
