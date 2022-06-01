@@ -99,7 +99,7 @@ usersRouter.use(ensureAuthenticated); // All user editing routes (below) require
 
       return response.json({ ok: `Data export was sent to ${findUser.email}` });
     }
-
+    return response.status(400).json({ error: 'User not found' });
   } catch (err) {
     if (err instanceof Error) {
       return response.status(400).json({ error: err.message });
