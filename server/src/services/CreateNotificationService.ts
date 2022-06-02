@@ -53,7 +53,7 @@ class CreateNotificationService {
 
     // Fetch the TreasuryBond to be included related to the Notification
     const treasuryBondRepository = getRepository(TreasuryBond);
-    const bond = await treasuryBondRepository.findOne({ id: treasurybond_id });
+    const bond: TreasuryBond | undefined  = await treasuryBondRepository.findOne({ id: treasurybond_id });
 
     const notification = notificationsRepository.create({
       user_id,

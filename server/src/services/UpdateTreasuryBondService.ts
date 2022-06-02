@@ -55,7 +55,7 @@ class UpdateTreasuryBondService {
         // Generate uuid to be used if TreasuryBond is new
         treasuryBond.id = uuid.v4();
 
-        const treasuryBondExists = await treasuryBondsRepository.findOne({
+        const treasuryBondExists: TreasuryBond | undefined  = await treasuryBondsRepository.findOne({
           where: { code },
         });
         // If it doesn't exist, insert it

@@ -10,7 +10,7 @@ class DeleteNotificationService {
     notification_id: string,
   ): Promise<DeleteResult> {
     const notificationRepository = getRepository(Notification);
-    const findNotification = await notificationRepository.findOne({
+    const findNotification: Notification | undefined  = await notificationRepository.findOne({
       where: { user_id },
     });
 
