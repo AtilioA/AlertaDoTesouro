@@ -20,20 +20,21 @@ function PrivateRoute({ navigateTo }: { navigateTo: string }) {
 export default function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Dashboard />}>
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="registrar" element={<SignUp />} />
-        <Route path="login" element={<SignIn />} />
-        <Route path="conta" element={<PrivateRoute navigateTo="/login" />}>
-          <Route path="" element={<Account />} />
-        </Route>
-        <Route
-          path="notificacoes"
-          element={<PrivateRoute navigateTo="/login" />}
-        />
-        <Route path="" element={<Notifications />} />
-        <Route path="tos" element={<ToS />} />
+      <Route path="/" element={<Dashboard />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/registrar" element={<SignUp />} />
+      <Route path="/login" element={<SignIn />} />
+      <Route path="/conta" element={<PrivateRoute navigateTo="/login" />}>
+        <Route path="" element={<Account />} />
       </Route>
+      <Route
+        path="/notificacoes"
+        element={<PrivateRoute navigateTo="/login" />}
+      />
+      <Route path="/" element={<Notifications />} />
+      <Route path="/tos" element={<ToS />} />
+
+      <Route path="*" element={<p>Não tem nada aqui!</p>} />
     </Routes>
   );
 }
