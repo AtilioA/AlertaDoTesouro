@@ -1,0 +1,64 @@
+[
+  {
+    "_id": "322f5698-0674-4053-af06-78aa8fe9a378",
+    "colName": "AlertaDoTesouro",
+    "created": "2022-06-02T04:17:51.872Z",
+    "sortNum": 10000,
+    "folders": [
+      {
+        "_id": "0fb342d9-407c-4ba8-b986-024a34af01a0",
+        "name": "Email",
+        "containerId": "",
+        "created": "2022-06-02T04:17:51.874Z",
+        "sortNum": 1
+      },
+      {
+        "_id": "9fbecb26-ed75-4c52-9f2a-8c41e4c66f50",
+        "name": "TreasuryBonds",
+        "containerId": "",
+        "created": "2022-06-02T04:17:51.875Z",
+        "sortNum": 2
+      },
+      {
+        "_id": "f3c11d7c-dc1b-4800-9d96-06c9aaaa7fa4",
+        "name": "Sessions",
+        "containerId": "",
+        "created": "2022-06-02T04:17:51.876Z",
+        "sortNum": 3,
+        "settings": {
+          "headers": [],
+          "tests": [
+            {
+              "type": "set-env-var",
+              "custom": "json.token",
+              "action": "setto",
+              "value": "{{auth}}"
+            }
+          ]
+        }
+      },
+      {
+        "_id": "cea8ca6f-9b33-4ece-b623-ec41ee43d615",
+        "name": "Users",
+        "containerId": "",
+        "created": "2022-06-02T04:17:51.877Z",
+        "sortNum": 4
+      },
+      {
+        "_id": "321d245d-f25d-4c11-a1b2-10e0eba0a272",
+        "name": "Notifications",
+        "containerId": "",
+        "created": "2022-06-02T04:17:51.878Z",
+        "sortNum": 5
+      }
+    ],
+    "settings": {
+      "headers": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{auth}}"
+      },
+      "tests": []
+    }
+  }
+]
