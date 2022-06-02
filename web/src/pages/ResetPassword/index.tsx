@@ -1,4 +1,5 @@
 import React, { useCallback, useRef, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { Container } from '../SignUp/styles';
 import { FiLock, FiCheck, FiRefreshCcw } from 'react-icons/fi';
@@ -19,60 +20,69 @@ interface ResetPasswordFormData {
 const ResetPassword: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const { addToast } = useContext(ToastContext);
+  const history = useHistory();
 
-  const handleSubmit = useCallback(async (data: ResetPasswordFormData) => {
-    try {
-      formRef.current?.setErrors({});
-
-      const schema = Yup.object().shape({
-        newPassword: Yup.string().min(8, 'Mínimo de 8 caracteres'),
-        newPasswordConfirmation: Yup.string().when(
-          'newPassword',
-          (newPassword: string, field: any) =>
-            newPassword
-              ? field
-                .required('Senhas devem ser iguais')
-                .oneOf([Yup.ref('newPassword')], 'Senhas devem ser iguais')
-              : field,
-        ),
-      });
-
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-
-      // Get token from URL query params and send it to the backend endpoint
+  const handleSubmit = useCallback(
+    async (data: ResetPasswordFormData) => {
       try {
-        const token: string | null = new URLSearchParams(window.location.search).get('token');
+        formRef.current?.setErrors({});
 
-        await api.put(`/users/reset-password/${token}`, data);
+        const schema = Yup.object().shape({
+          newPassword: Yup.string().min(8, 'Mínimo de 8 caracteres'),
+          newPasswordConfirmation: Yup.string().when(
+            'newPassword',
+            (newPassword: string, field: any) =>
+              newPassword
+                ? field
+                    .required('Senhas devem ser iguais')
+                    .oneOf([Yup.ref('newPassword')], 'Senhas devem ser iguais')
+                : field,
+          ),
+        });
 
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        // Get token from URL query params and send it to the backend endpoint
+        try {
+          const token: string | null = new URLSearchParams(
+            window.location.search,
+          ).get('token');
+
+          await api.put(`/users/reset-password/${token}`, data);
+        } catch (err) {
+          if (err instanceof Error) {
+            console.log(`Link de redefinição inválido: ${err.message}`);
+          }
+        }
+
+        addToast({
+          type: 'success',
+          title: 'Senha redefinida com sucesso!',
+          description:
+            'Agora você pode utilizar a nova senha para fazer login.',
+        });
+
+        history.push('/login');
       } catch (err) {
-        if (err instanceof Error) {
-          console.log(`Link de redefinição inválido: ${err.message}`);
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
+          formRef.current?.setErrors(errors);
+
+          return;
+        } else {
+          addToast({
+            type: 'error',
+            title: 'Erro na redefinição de senha',
+            description:
+              'Ocorreu um erro ao redefinir sua senha. Por favor, solicite outro e-mail de redefinição de senha.',
+          });
         }
       }
-
-      addToast({
-        type: 'success',
-        title: "Senha redefinida com sucesso!",
-        description: 'Agora você pode utilizar a nova senha para fazer login.'
-      });
-    } catch (err) {
-      if (err instanceof Yup.ValidationError) {
-        const errors = getValidationErrors(err);
-        formRef.current?.setErrors(errors);
-
-        return;
-      } else {
-        addToast({
-          type: 'error',
-          title: 'Erro na redefinição de senha',
-          description: 'Ocorreu um erro ao redefinir sua senha. Por favor, solicite outro e-mail de redefinição de senha.'
-        });
-      }
-    }
-  }, [addToast]);
+    },
+    [addToast],
+  );
 
   return (
     <Container>
@@ -98,8 +108,8 @@ const ResetPassword: React.FC = () => {
 
           {/* TODO: Improve icon spacing */}
           <button type="submit">
-            < FiRefreshCcw />
-            {" "} Redefinir senha</button>
+            <FiRefreshCcw /> Redefinir senha
+          </button>
         </Form>
       </AnimationContainer>
     </Container>

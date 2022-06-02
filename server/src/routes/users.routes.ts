@@ -51,8 +51,8 @@ usersRouter.put('/reset-password/:token', async (request, response, next) => {
       newPasswordConfirmation,
     );
 
-    // Return to login page
-    return response.redirect('/login');
+    // Responds sucessfully with no content
+    return response.status(204).json();
   } catch (err) {
     if (err instanceof Error) {
       response
