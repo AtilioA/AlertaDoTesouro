@@ -5,6 +5,8 @@ import { Routes, Route } from 'react-router-dom';
 import Dashboard from '../pages/Dashboard';
 import SignUp from '../pages/SignUp';
 import SignIn from '../pages/SignIn';
+import ForgotPassword from '../pages/ForgotPassword';
+import ResetPassword from '../pages/ResetPassword';
 import Account from '../pages/Account';
 import Notifications from '../pages/Notifications';
 import ToS from '../pages/ToS';
@@ -12,7 +14,6 @@ import { AuthContext } from '../context/AuthContext';
 
 function PrivateRoute({ navigateTo }: { navigateTo: string }) {
   const { user } = useContext(AuthContext);
-
   // If autenticated context is present
   return user ? <Outlet /> : <Navigate to={navigateTo} />;
 }
@@ -33,7 +34,6 @@ export default function AppRoutes() {
       />
       <Route path="/" element={<Notifications />} />
       <Route path="/tos" element={<ToS />} />
-
       <Route path="*" element={<p>Não tem nada aqui!</p>} />
     </Routes>
   );

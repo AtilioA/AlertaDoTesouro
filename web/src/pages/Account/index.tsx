@@ -7,9 +7,19 @@ import { FiAtSign, FiCheck, FiLock, FiPlus } from 'react-icons/fi';
 import getValidationErrors from '../../utils/getValidationErrors';
 import Input from '../../components/Input';
 import { Container, AnimationContainer } from './styles';
+import api from '../../services/api';
 
 export default function Account() {
   const formRef = useRef<FormHandles>(null);
+
+  const handleDataExport = async () => {
+    // GET request + bearer token to data export endpoint
+    const response = await api.get('/users/export', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('@AlertaDoTesouro:token')}`
+      }
+    });
+  }
 
   const handleSubmit = useCallback(async (data: object) => {
     try {
@@ -93,6 +103,7 @@ export default function Account() {
           <button id="deletar-conta" type="submit">
             Deletar conta
           </button>
+          <button id="exportar-dados" type="button" onClick={() => handleDataExport()}>Exportar dados</button>
         </Form>
       </AnimationContainer>
     </Container>

@@ -3,23 +3,13 @@ import { UpdateResult, getRepository } from 'typeorm';
 import { hash } from 'bcryptjs';
 import User from '../models/User';
 
-/**
- * @class UpdateUserService
- * @description Service for updating a User.
- */
-class UpdateUserService {
+class ResetPasswordService {
   public async execute(
     user_id: string,
-    oldPassword: string,
     newPassword: string,
     newPasswordConfirmation: string,
-    notify: boolean,
-    notifyByEmail: boolean,
-    notifyByBrowser: boolean,
   ): Promise<UpdateResult> {
-    // Define the validation schema
     const schema = Yup.object().shape({
-      oldPassword: Yup.string(),
       newPassword: Yup.string()
         .min(8)
         .when('oldPassword', (oldPasswordIn: string, field: any) =>
@@ -34,10 +24,9 @@ class UpdateUserService {
       ),
     });
 
-    // Validate the request data against the schema
     await schema
       .validate(
-        { oldPassword, newPassword, newPasswordConfirmation },
+        { newPassword, newPasswordConfirmation },
         {
           abortEarly: false,
         },
@@ -60,11 +49,11 @@ class UpdateUserService {
 
     const updateResult = await userRepository.update(
       { id: user_id },
-      { password: hashedPassword, notify, notifyByBrowser, notifyByEmail },
+      { password: hashedPassword },
     );
 
     return updateResult;
   }
 }
 
-export default UpdateUserService;
+export default ResetPasswordService;

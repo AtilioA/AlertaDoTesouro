@@ -2,8 +2,10 @@ import Bee from 'bee-queue';
 import NotifyBondReturns from '../jobs/NotifyBondReturns';
 import redisConfig from '../config/redis';
 import SendConfirmAccountMail from '../jobs/SendConfirmAccountMail';
+import SendResetPasswordMail from '../jobs/SendResetPasswordMail';
+import SendDataExportMail from '../jobs/SendDataExportMail';
 
-const jobs = [NotifyBondReturns, SendConfirmAccountMail];
+const jobs = [NotifyBondReturns, SendConfirmAccountMail, SendResetPasswordMail, SendDataExportMail];
 
 /**
  * @class Queue
@@ -56,7 +58,7 @@ class Queue {
 
   /**
    * Handle failure of a job.
-   * 
+   *
    * @param job - Job that failed
    * @param err - Error that occurred
    */

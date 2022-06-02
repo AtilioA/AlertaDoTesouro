@@ -20,11 +20,11 @@ class CreateUserService {
   public async execute({ email, password }: Request): Promise<User> {
     const usersRepository = getRepository(User);
 
-    const checkUserExists = await usersRepository.findOne({
+    const findUser: User | undefined  = await usersRepository.findOne({
       where: { email },
     });
 
-    if (checkUserExists) {
+    if (findUser) {
       throw new Error('E-mail address is already being used.');
     }
 
