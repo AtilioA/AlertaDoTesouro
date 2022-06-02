@@ -1,4 +1,5 @@
 import React, { useRef, useCallback, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { Container, AnimationContainer } from './styles';
 import { FiKey, FiLock, FiAtSign } from 'react-icons/fi';
@@ -19,45 +20,51 @@ interface SignInFormData {
 
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const history = useHistory();
 
   const { user, signIn } = useContext(AuthContext);
   const { addToast, removeToast } = useContext(ToastContext);
 
-  const handleSubmit = useCallback(async (data: SignInFormData) => {
-    try {
-      formRef.current?.setErrors({});
+  const handleSubmit = useCallback(
+    async (data: SignInFormData) => {
+      try {
+        formRef.current?.setErrors({});
 
-      const schema = Yup.object().shape({
-        email: Yup.string()
-          .required('Email é obrigatório')
-          .email('Digite um email válido'),
-        password: Yup.string().required('Informe sua senha'),
-      });
-
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-
-      await signIn({
-        email: data.email,
-        password: data.password
-      });
-
-    } catch (err) {
-      if (err instanceof Yup.ValidationError) {
-        const errors = getValidationErrors(err);
-        formRef.current?.setErrors(errors);
-
-        return;
-      } else {
-        addToast({
-          type: 'error',
-          title: 'Erro na autenticação',
-          description: 'Ocorreu um erro ao fazer login. Cheque suas credenciais ou verifique seu e-mail.'
+        const schema = Yup.object().shape({
+          email: Yup.string()
+            .required('Email é obrigatório')
+            .email('Digite um email válido'),
+          password: Yup.string().required('Informe sua senha'),
         });
+
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        await signIn({
+          email: data.email,
+          password: data.password,
+        });
+
+        history.push('/dashboard');
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
+          formRef.current?.setErrors(errors);
+
+          return;
+        } else {
+          addToast({
+            type: 'error',
+            title: 'Erro na autenticação',
+            description:
+              'Ocorreu um erro ao fazer login. Cheque suas credenciais ou verifique seu e-mail.',
+          });
+        }
       }
-    }
-  }, [signIn]);
+    },
+    [signIn],
+  );
 
   return (
     <Container>
@@ -70,7 +77,11 @@ const SignIn: React.FC = () => {
           <div id="input-header">
             <h2>EMAIL</h2>
           </div>
-          <Input icon={FiAtSign} name="email" placeholder="Ex: turing@inf.ufes.br" />
+          <Input
+            icon={FiAtSign}
+            name="email"
+            placeholder="Ex: turing@inf.ufes.br"
+          />
 
           <div id="input-header">
             <h2>SENHA</h2>

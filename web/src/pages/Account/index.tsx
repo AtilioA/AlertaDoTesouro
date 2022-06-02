@@ -7,9 +7,19 @@ import * as Yup from 'yup'
 import getValidationErrors from '../../utils/getValidationErrors';
 import { Form } from '@unform/web';
 import { FiAtSign, FiCheck, FiLock, FiPlus } from 'react-icons/fi';
+import api from '../../services/api';
 
 const Account: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+
+  const handleDataExport = async () => {
+    // GET request + bearer token to data export endpoint
+    const response = await api.get('/users/export', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('@AlertaDoTesouro:token')}`
+      }
+    });
+  }
 
   const handleSubmit = useCallback(async (data: object) => {
     try {
@@ -63,8 +73,7 @@ const Account: React.FC = () => {
           <Input icon={FiCheck} name="confirmPassword" type="password" placeholder="Confirmação de sua nova senha" />
 
           <button type="submit">Atualizar dados</button>
-          <button id="sair" type="submit">Sair</button>
-          <button id="deletar-conta" type="submit">Deletar conta</button>
+          <button id="exportar-dados" type="button" onClick={() => handleDataExport()}>Exportar dados</button>
 
         </Form>
       </AnimationContainer>
