@@ -10,16 +10,16 @@ services:
       - NODE_ENV=development
       - BACKEND_BASE_URL=http://server-dev:3333
       - REACT_APP_BASE_URL=http://server-dev:3000
-    restart: unless-stopped
+    restart: on-failure
     networks:
       - backend
     ports:
       - '${PORT:-3000}:3000'
     volumes:
       - ./web:/app
-      - ./.prettierrc.yaml:/app/.prettierrc.yaml
+      - ./.prettierrc.yaml:/.prettierrc.yaml
     working_dir: /app
-    command: sh -c 'yarn && yarn start'
+    command: sh -c 'yarn install && yarn start'
 
   # web:
   #   image: node:lts-alpine
@@ -43,20 +43,16 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=3333
-    restart: unless-stopped
+    restart: on-failure
     ports:
       - '${PORT:-3333}:3333'
-    volumes:
-      - ./server:/app
-      - ./.prettierrc.yaml:/app/.prettierrc.yaml
-    working_dir: /app
     networks:
       - backend
-    command: sh -c '
-      yarn &&
-      yarn typeorm migration:run &&
-      yarn dev:queue &
-      yarn dev:server'
+    volumes:
+      - ./server:/app
+      - ./.prettierrc.yaml:/.prettierrc.yaml
+    working_dir: /app
+    command: sh -c 'yarn install && yarn typeorm migration:run && (yarn dev:queue & yarn dev:server)'
 
   # server:
   #   image: node:lts-alpine
