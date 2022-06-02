@@ -10,7 +10,7 @@ import Notifications from '../pages/Notifications';
 import ToS from '../pages/ToS';
 import { AuthContext } from '../context/AuthContext';
 
-function PrivateRoute({navigateTo}:{navigateTo: string;}) {
+function PrivateRoute({ navigateTo }: { navigateTo: string }) {
   const { user } = useContext(AuthContext);
 
   // If autenticated context is present
@@ -27,7 +27,10 @@ export default function AppRoutes() {
         <Route path="conta" element={<PrivateRoute navigateTo="/login" />}>
           <Route path="" element={<Account />} />
         </Route>
-        <Route path="notificacoes" element={<PrivateRoute navigateTo="/login" />} />
+        <Route
+          path="notificacoes"
+          element={<PrivateRoute navigateTo="/login" />}
+        />
         <Route path="" element={<Notifications />} />
         <Route path="tos" element={<ToS />} />
       </Route>
