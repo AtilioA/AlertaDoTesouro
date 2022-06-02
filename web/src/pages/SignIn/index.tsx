@@ -1,10 +1,11 @@
 import { useRef, useCallback, useContext } from 'react';
+import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { FiKey, FiLock, FiAtSign } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
-import { Link } from 'react-router-dom';
 import getValidationErrors from '../../utils/getValidationErrors';
 import Input from '../../components/Input';
 import { Container, AnimationContainer } from './styles';
@@ -19,6 +20,7 @@ interface SignInFormData {
 
 export default function SignIn() {
   const formRef = useRef<FormHandles>(null);
+  const navigate = useNavigate();
 
   const { user: _user, signIn } = useContext(AuthContext);
   const { addToast, removeToast: _removeToast } = useContext(ToastContext);
@@ -43,6 +45,8 @@ export default function SignIn() {
           email: data.email,
           password: data.password,
         });
+
+        navigate('/dashboard');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
