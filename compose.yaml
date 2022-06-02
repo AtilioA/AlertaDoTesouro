@@ -54,8 +54,8 @@ services:
     command: sh -c '
       yarn &&
       yarn typeorm migration:run &&
-      yarn dev:queue &
-      yarn dev:server'
+      (yarn dev:queue &
+      yarn dev:server)'
 
   server:
     image: node:lts-alpine
