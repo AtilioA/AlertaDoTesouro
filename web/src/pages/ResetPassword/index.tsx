@@ -1,12 +1,12 @@
-import React, { useCallback, useRef, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useCallback, useRef, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { Container } from '../SignUp/styles';
 import { FiLock, FiCheck, FiRefreshCcw } from 'react-icons/fi';
-import Input from '../../components/Input';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
+import Input from '../../components/Input';
+import { Container } from '../SignUp/styles';
 import getValidationErrors from '../../utils/getValidationErrors';
 import { AnimationContainer } from '../SignIn/styles';
 import api from '../../services/api';
@@ -17,10 +17,10 @@ interface ResetPasswordFormData {
   newPasswordConfirmation: string;
 }
 
-const ResetPassword: React.FC = () => {
+export default function ResetPassword() {
   const formRef = useRef<FormHandles>(null);
   const { addToast } = useContext(ToastContext);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleSubmit = useCallback(
     async (data: ResetPasswordFormData) => {
@@ -31,11 +31,11 @@ const ResetPassword: React.FC = () => {
           newPassword: Yup.string().min(8, 'Mínimo de 8 caracteres'),
           newPasswordConfirmation: Yup.string().when(
             'newPassword',
-            (newPassword: string, field: any) =>
+            (newPassword: string, field: Yup.StringSchema) =>
               newPassword
                 ? field
-                    .required('Senhas devem ser iguais')
-                    .oneOf([Yup.ref('newPassword')], 'Senhas devem ser iguais')
+                  .required('Senhas devem ser iguais')
+                  .oneOf([Yup.ref('newPassword')], 'Senhas devem ser iguais')
                 : field,
           ),
         });
@@ -50,7 +50,11 @@ const ResetPassword: React.FC = () => {
             window.location.search,
           ).get('token');
 
-          await api.put(`/users/reset-password/${token}`, data);
+          if (token) {
+            await api.put(`/users/reset-password/${token}`, data);
+          } else {
+            throw new Error('Token de autenticação JWT não encontrado.');
+          }
         } catch (err) {
           if (err instanceof Error) {
             console.log(`Link de redefinição inválido: ${err.message}`);
@@ -64,13 +68,11 @@ const ResetPassword: React.FC = () => {
             'Agora você pode utilizar a nova senha para fazer login.',
         });
 
-        history.push('/login');
+        navigate('/login');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
           formRef.current?.setErrors(errors);
-
-          return;
         } else {
           addToast({
             type: 'error',
@@ -114,6 +116,4 @@ const ResetPassword: React.FC = () => {
       </AnimationContainer>
     </Container>
   );
-};
-
-export default ResetPassword;
+}
