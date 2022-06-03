@@ -34,8 +34,8 @@ export default function ResetPassword() {
             (newPassword: string, field: Yup.StringSchema) =>
               newPassword
                 ? field
-                  .required('Senhas devem ser iguais')
-                  .oneOf([Yup.ref('newPassword')], 'Senhas devem ser iguais')
+                    .required('Senhas devem ser iguais')
+                    .oneOf([Yup.ref('newPassword')], 'Senhas devem ser iguais')
                 : field,
           ),
         });

@@ -10,9 +10,10 @@ class DeleteNotificationService {
     notification_id: string,
   ): Promise<DeleteResult> {
     const notificationRepository = getRepository(Notification);
-    const findNotification: Notification | undefined  = await notificationRepository.findOne({
-      where: { user_id },
-    });
+    const findNotification: Notification | undefined =
+      await notificationRepository.findOne({
+        where: { user_id },
+      });
 
     if (!findNotification) {
       throw new Error('This notification does not exist.');

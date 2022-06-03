@@ -29,18 +29,19 @@ class DataExportMail {
         subject: `Alerta do Tesouro - Exportação de seus dados`,
         text: `<h1>Alerta do Tesouro</h1>`,
         template: 'data-export',
-        attachments: [{
-          filename: `data_export_${userData.email}.json`,
-          path: tempFile,
-      }]
+        attachments: [
+          {
+            filename: `data_export_${userData.email}.json`,
+            path: tempFile,
+          },
+        ],
       });
 
       console.log(`data-export email was just sent to '${userData.email}'.`);
 
       // Delete temporary directory
       await fs.promises.rm(tempDir, { recursive: true });
-    }
-    catch (err) {
+    } catch (err) {
       console.log(err);
     }
   }

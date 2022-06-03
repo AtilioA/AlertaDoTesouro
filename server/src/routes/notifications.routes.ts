@@ -55,7 +55,7 @@ notificationsRouter.post('/', async (request, response, next) => {
     });
 
     const userRepository = getRepository(User);
-    const findUser: User | undefined  = await userRepository.findOne(user_id);
+    const findUser: User | undefined = await userRepository.findOne(user_id);
 
     if (!findUser) {
       throw new Error('User not found when creating notification');
