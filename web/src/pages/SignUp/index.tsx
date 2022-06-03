@@ -118,7 +118,7 @@ export default function SignUp() {
           <button type="submit">Cadastrar-se</button>
         </Form>
 
-        <Link to="login">
+        <Link to="/login">
           <FiLogIn />
           &nbsp; Entrar com minha conta
         </Link>

@@ -35,7 +35,7 @@ export default function SignIn() {
             .required('Email é obrigatório')
             .email('Digite um email válido'),
           password: Yup.string().required('Informe sua senha'),
-        });Poss
+        });
 
         await schema.validate(data, {
           abortEarly: false,
@@ -83,7 +83,7 @@ export default function SignIn() {
 
           <div id="input-header">
             <h2>SENHA</h2>
-            <Link to="esqueci-minha-senha">Esqueci minha senha</Link>
+            <Link to="/esqueci-minha-senha">Esqueci minha senha</Link>
           </div>
           <Input
             icon={FiLock}
@@ -95,7 +95,7 @@ export default function SignIn() {
           <button type="submit">Entrar</button>
         </Form>
 
-        <Link to="registrar">
+        <Link to="/registrar">
           <FiKey />
           &nbsp; Criar conta
         </Link>
