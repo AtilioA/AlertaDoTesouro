@@ -23,6 +23,8 @@ export default function AppRoutes() {
     <Routes>
       <Route path="/" element={<Dashboard />} />
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/esqueci-minha-senha" element={<ForgotPassword />} />
+      <Route path="/redefinir-senha" element={<ResetPassword />} />
       <Route path="/registrar" element={<SignUp />} />
       <Route path="/login" element={<SignIn />} />
       <Route path="/conta" element={<PrivateRoute navigateTo="/login" />}>
