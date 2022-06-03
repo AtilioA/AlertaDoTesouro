@@ -9,15 +9,15 @@ export const Container = styled.div`
   align-items: center;
   flex-direction: column;
 
-  input[type=checkbox] {
-      margin-top: 20px;
-      margin-bottom: 10px;
-      margin-right: 4px;
+  input[type='checkbox'] {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-right: 4px;
   }
 
   label a {
-      display: inline;
-    }
+    display: inline;
+  }
 
   Form {
     margin: 80px;
@@ -91,7 +91,7 @@ const appearFromLeft = keyframes`
     opacity: 1;
     transform: translateX(0px);
   }
-`
+`;
 
 export const AnimationContainer = styled.div`
   animation: ${appearFromLeft} 1s;

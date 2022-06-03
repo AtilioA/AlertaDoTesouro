@@ -5,7 +5,8 @@ export const CardFooter = styled.div`
   display: flex;
   height: 300px;
 
-  p, label {
+  p,
+  label {
     font-size: 16px;
     line-height: 50px;
     margin-left: 21px;
@@ -20,7 +21,7 @@ export const CardFooter = styled.div`
   }
 
   /* Firefox */
-  input[type=number] {
+  input[type='number'] {
     -moz-appearance: textfield;
   }
 
@@ -45,8 +46,8 @@ export const CardFooter = styled.div`
     font-size: 24px;
     font-weight: bold;
 
-    color: #25282B;
-    background: #10E17D;
+    color: #25282b;
+    background: #10e17d;
 
     border: 0;
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
@@ -74,9 +75,9 @@ export const CardBody = styled.div`
     display: flex;
     justify-content: space-between;
     b {
-        font-size: 24px;
-        margin-left: 45px;
-      }
+      font-size: 24px;
+      margin-left: 45px;
+    }
     & + div#line {
       margin-top: 20px;
     }
@@ -84,7 +85,7 @@ export const CardBody = styled.div`
 `;
 
 export const CardHeader = styled.div`
-  border-left: 12px solid #1D498B;
+  border-left: 12px solid #1d498b;
   background: #eee; /* #eee */
   padding: 0 30px;
   border-radius: 0 40px 0px 0px;
@@ -131,7 +132,7 @@ export const Container = styled.div`
     height: 1px;
     border: 0;
     background: #000;
-    opacity: 0.1
+    opacity: 0.1;
   }
 
   a {

@@ -1,0 +1,29 @@
+[
+  {
+    "_id": "cf93bbf8-6545-4b3b-bfd5-edc006f5f089",
+    "name": "Base Environment",
+    "default": false,
+    "sortNum": 10000,
+    "created": "2022-06-02T04:25:19.539Z",
+    "modified": "2022-06-02T04:25:19.539Z",
+    "data": []
+  },
+  {
+    "_id": "cf924ed8-3c4a-498f-abc0-8e124b8aba44",
+    "name": "Development",
+    "default": true,
+    "sortNum": 20000,
+    "created": "2022-06-02T04:25:19.596Z",
+    "modified": "2022-06-02T05:41:46.563Z",
+    "data": [
+      {
+        "name": "baseURL",
+        "value": "http://localhost:3333"
+      },
+      {
+        "name": "auth",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTQxNDg1MDYsImV4cCI6MTY1NDIzNDkwNiwic3ViIjoiZWE2ODI0NTEtNjVmMi00OWMyLWFjODUtYmY0ZjViNzY5MzEwIn0.89vbipx3H89zPfKiSzMwPT_nIiqlCUgjIsx0WZIZVTg"
+      }
+    ]
+  }
+]

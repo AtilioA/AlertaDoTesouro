@@ -1,4 +1,4 @@
-import React, {
+import {
   InputHTMLAttributes,
   useEffect,
   useState,
@@ -8,21 +8,22 @@ import React, {
 import { IconBaseProps } from 'react-icons';
 import { useField } from '@unform/core';
 
-import { Container, Error } from './styles';
 import { FiAlertCircle } from 'react-icons/fi';
-import Tooltip from '../Tooltip';
+import { Container, Error } from './styles';
+// import Tooltip from '../Tooltip';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   icon?: React.ComponentType<IconBaseProps>;
 }
 
-const Input: React.FC<InputProps> = ({ name, icon: Icon, ...props }) => {
+export default function Input({ name, icon: Icon, ...props }: InputProps) {
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const { fieldName, defaultValue, error, registerField } = useField(name);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const { fieldName, defaultValue: _, error, registerField } = useField(name);
 
   useEffect(() => {
     registerField({
@@ -52,12 +53,15 @@ const Input: React.FC<InputProps> = ({ name, icon: Icon, ...props }) => {
         {...props}
       />
 
-      {error &&
-      <Error title={error}>
-        <FiAlertCircle color="#e63232" size={20}/>
-      </Error>}
+      {error && (
+        <Error title={error}>
+          <FiAlertCircle color="#e63232" size={20} />
+        </Error>
+      )}
     </Container>
   );
-};
+}
 
-export default Input;
+Input.defaultProps = {
+  icon: undefined,
+};

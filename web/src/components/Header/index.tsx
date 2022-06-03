@@ -1,27 +1,26 @@
-import React from 'react';
 import { Container, Profile } from './styles';
 
-const Header: React.FC = () => (
-  <Container>
+export default function Header() {
+  return (
+    <Container>
       <nav>
-          {/* <Link to="/dashboard">Dashboard</Link> */}
-          <a href="/">Alerta do Tesouro</a>
+        {/* <Link to="/dashboard">Dashboard</Link> */}
+        <a href="/">Alerta do Tesouro</a>
       </nav>
 
       <aside>
-          <Profile>
-            <a href="/dashboard">Dashboard</a>
+        <Profile>
+          <a href="/dashboard">Dashboard</a>
 
-            <a href="/notificacoes">Notificações</a>
+          <a href="/notificacoes">Notificações</a>
 
-            <a href="/conta">Conta</a>
-          </Profile>
+          <a href="/conta">Conta</a>
+        </Profile>
 
-          <a href="/login">
-          <button>Logar</button>
-          </a>
+        <a href="/login">
+          <button type="submit">Logar</button>
+        </a>
       </aside>
-  </Container>
-);
-
-export default Header;
+    </Container>
+  );
+}

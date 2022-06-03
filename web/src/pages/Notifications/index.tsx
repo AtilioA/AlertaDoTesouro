@@ -1,6 +1,6 @@
-import React, { useCallback } from 'react';
 import Toggle from 'react-toggle';
 
+import { FiEdit, FiTrash } from 'react-icons/fi';
 import {
   Container,
   AnimationContainer,
@@ -8,10 +8,9 @@ import {
   NotificationsContainer,
   NotificationContainer,
 } from './styles';
-import { FiEdit, FiTrash } from 'react-icons/fi';
 // import Input from '../../components/Input';
 
-const Notifications: React.FC = () => {
+export default function Notifications() {
   function handleNotifyChange() {
     return true;
   }
@@ -28,7 +27,7 @@ const Notifications: React.FC = () => {
             <span>Receber notificações</span>
             <Toggle
               id="notification-status"
-              defaultChecked={true}
+              defaultChecked
               onChange={() => handleNotifyChange()}
             />
           </div>
@@ -37,7 +36,7 @@ const Notifications: React.FC = () => {
               <span>Receber notificações por e-mail</span>
               <Toggle
                 id="notification-status"
-                defaultChecked={true}
+                defaultChecked
                 onChange={() => handleNotifyChange()}
               />
             </div>
@@ -45,7 +44,7 @@ const Notifications: React.FC = () => {
               <span>Receber notificações pelo navegador</span>
               <Toggle
                 id="notification-status"
-                defaultChecked={true}
+                defaultChecked
                 onChange={() => handleNotifyChange()}
               />
             </div>
@@ -82,7 +81,7 @@ const Notifications: React.FC = () => {
                   <h1>Ativa</h1>
                   <Toggle
                     id="notification-status"
-                    defaultChecked={true}
+                    defaultChecked
                     onChange={() => handleNotifyChange()}
                   />
                 </div>
@@ -91,7 +90,7 @@ const Notifications: React.FC = () => {
                     <span>E-mail</span>
                     <Toggle
                       id="notification-status"
-                      defaultChecked={true}
+                      defaultChecked
                       onChange={() => handleNotifyChange()}
                     />
                   </div>
@@ -99,7 +98,7 @@ const Notifications: React.FC = () => {
                     <span>Browser</span>
                     <Toggle
                       id="notification-status"
-                      defaultChecked={true}
+                      defaultChecked
                       onChange={() => handleNotifyChange()}
                     />
                   </div>
@@ -109,12 +108,12 @@ const Notifications: React.FC = () => {
           </Notification>
           <div id="notification-actions-edit-delete">
             <div id="edit">
-              <button>
+              <button type="button">
                 <FiEdit />
               </button>
             </div>
             <div id="delete">
-              <button>
+              <button type="button">
                 <FiTrash />
               </button>
             </div>
@@ -123,6 +122,4 @@ const Notifications: React.FC = () => {
       </NotificationsContainer>
     </AnimationContainer>
   );
-};
-
-export default Notifications;
+}

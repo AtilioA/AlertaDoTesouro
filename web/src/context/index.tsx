@@ -1,14 +1,10 @@
-import React from 'react';
-
-import { ToastProvider } from './ToastContext';
+import { BaseLayoutProps, ToastProvider } from './ToastContext';
 import { AuthProvider } from './AuthContext';
 
-const AppProvider: React.FC = ({ children }) => (
-  <AuthProvider>
-    <ToastProvider>
-      { children }
-    </ToastProvider>
-  </AuthProvider>
-);
-
-export default AppProvider;
+export default function AppProvider({ children }: BaseLayoutProps) {
+  return (
+    <AuthProvider>
+      <ToastProvider>{children}</ToastProvider>
+    </AuthProvider>
+  );
+}

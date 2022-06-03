@@ -1,13 +1,9 @@
-import React, { useCallback } from 'react';
-
-import { Container, BondsList } from './styles';
 import { FiCheckCircle, FiClock, FiRefreshCw } from 'react-icons/fi';
+import { Container, BondsList } from './styles';
 import Card from '../../components/Card';
 
-const Dashboard: React.FC = () => {
-  const getTreasuryBondTitles = useCallback(async () => {
-    
-  }, []);
+export default function Dashboard() {
+  // const getTreasuryBondTitles = useCallback(async () => {}, []);
 
   return (
     <>
@@ -19,12 +15,12 @@ const Dashboard: React.FC = () => {
           </div>
 
           <div id="market-operating-hours">
-            <FiClock size={16} color={'gray'} />
+            <FiClock size={16} color="gray" />
             Horário de funcionamento: de 9h30 às 18h.
           </div>
 
           <div id="market-last-update">
-            <button>
+            <button type="button">
               <FiRefreshCw size={24} />
             </button>
             <h1>Atualizado às XX/XX/XXXX, XX:XX.</h1>
@@ -63,6 +59,4 @@ const Dashboard: React.FC = () => {
       </BondsList>
     </>
   );
-};
-
-export default Dashboard;
+}

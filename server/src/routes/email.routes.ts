@@ -42,7 +42,7 @@ emailRouter.get('/confirmation/:token', async (request, response, next) => {
     await usersRepository.update({ id: user.id }, { confirmed: true });
 
     response.json({ ok: true, user });
-    // return response.redirect('/');  // Return to homepage
+    // return response.Navigate('/');  // Return to homepage
   } catch (err) {
     if (err instanceof Error) {
       response

@@ -10,11 +10,9 @@ import Queue from '../services/Queue';
 import SendConfirmAccountMail from '../jobs/SendConfirmAccountMail';
 import SendResetPasswordMail from '../jobs/SendResetPasswordMail';
 import authConfig from '../config/auth';
-import { getRepository } from 'typeorm';
 import User from '../models/User';
 import SendDataExportMail from '../jobs/SendDataExportMail';
 import Notification from '../models/Notification';
-
 
 const usersRouter = Router();
 
@@ -165,11 +163,11 @@ usersRouter.use(ensureAuthenticated); // All user editing routes (below) require
 /**
  * Endpoint for export data from a given User.
  */
- usersRouter.get('/export', async (request, response, next) => {
+usersRouter.get('/export', async (request, response, next) => {
   try {
     const user_id = request.user.id;
 
-    const userRepository = getRepository(User)
+    const userRepository = getRepository(User);
     const findUser: User | undefined = await userRepository.findOne(user_id);
 
     if (findUser) {
@@ -187,8 +185,8 @@ usersRouter.use(ensureAuthenticated); // All user editing routes (below) require
         notify: findUser.notify,
         notifyByEmail: findUser.notifyByEmail,
         notifyByBrowser: findUser.notifyByBrowser,
-        notifications: notifications,
-      }
+        notifications,
+      };
 
       // Add export data email task to the queue, so that it will be sent to the user
       await Queue.add(SendDataExportMail.key, {

@@ -1,13 +1,20 @@
-import { createContext, ReactNode, useCallback, useState } from 'react';
+import {
+  useContext,
+  useEffect,
+  createContext,
+  ReactNode,
+  useCallback,
+  useState,
+} from 'react';
 import { useTransition } from 'react-spring';
 import * as uuid from 'uuid';
-
-import styled from 'styled-components';
-import Toast from '../components/Toast';
-
-export interface BaseLayoutProps {
-  children: ReactNode;
-}
+import {
+  FiAlertTriangle,
+  FiXCircle,
+  FiCheckCircle,
+  FiAlertCircle,
+} from 'react-icons/fi';
+import ToastDiv, { Container } from './styles';
 
 export interface ToastMessage {
   key: string;
@@ -15,6 +22,17 @@ export interface ToastMessage {
   title: string;
   description?: string;
 }
+
+export interface ToastProps {
+  toastProps: ToastMessage;
+  style: object;
+}
+
+const icons = {
+  info: <FiAlertCircle size={20} />,
+  success: <FiCheckCircle size={20} />,
+  error: <FiAlertTriangle size={20} />,
+};
 
 interface ToastContextData {
   addToast(message: Omit<ToastMessage, 'key'>): void;
@@ -25,15 +43,43 @@ export const ToastContext = createContext<ToastContextData>(
   {} as ToastContextData,
 );
 
-const Container = styled.div`
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  padding: 30px;
-  overflow: hidden;
-`;
+export default function Toast({ toastProps, style }: ToastProps) {
+  const { removeToast } = useContext(ToastContext);
 
-function ToastContainer({ messages }: { messages: ToastMessage[] }) {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      removeToast(toastProps.key);
+    }, 5000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [removeToast, toastProps.key]);
+
+  return (
+    <ToastDiv
+      style={style}
+      type={toastProps.type}
+      hasDescription={!!toastProps.description}
+    >
+      {icons[toastProps.type || 'info']}
+      <div>
+        <strong>{toastProps.title}</strong>
+        {toastProps.description && <p>{toastProps.description}</p>}
+      </div>
+
+      <button type="button" onClick={() => removeToast(toastProps.key)}>
+        <FiXCircle size={20} />
+      </button>
+    </ToastDiv>
+  );
+}
+
+export interface BaseLayoutProps {
+  children: ReactNode;
+}
+
+export function ToastsAnimated({ messages }: { messages: ToastMessage[] }) {
   const messagesWithTransition = useTransition(messages, {
     keys: item => item.key,
     from: { right: '-110%', opacity: '0' },
@@ -82,7 +128,7 @@ export function ToastProvider({ children }: BaseLayoutProps) {
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <ToastContext.Provider value={{ addToast, removeToast }}>
       {children}
-      <ToastContainer messages={messages} />
+      <ToastsAnimated messages={messages} />
     </ToastContext.Provider>
   );
 }
