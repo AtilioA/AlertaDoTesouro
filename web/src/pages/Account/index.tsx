@@ -14,12 +14,17 @@ export default function Account() {
 
   const handleDataExport = async () => {
     // GET request + bearer token to data export endpoint
-    const response = await api.get('/users/export', {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('@AlertaDoTesouro:token')}`
-      }
-    });
-  }
+    const userToken = localStorage.getItem('@AlertaDoTesouro:token');
+    if (userToken) {
+      await api.get('/users/export', {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+    } else {
+      console.log('No token found for data export');
+    }
+  };
 
   const handleSubmit = useCallback(async (data: object) => {
     try {
@@ -39,9 +44,9 @@ export default function Account() {
           (newPassword: string, field: Yup.StringSchema) =>
             newPassword
               ? field
-                  .required('É necessário confirmar sua senha')
-                  .min(8, 'Mínimo de 8 caracteres')
-                  .oneOf([Yup.ref('newPassword')], 'Senhas devem ser iguais')
+                .required('É necessário confirmar sua senha')
+                .min(8, 'Mínimo de 8 caracteres')
+                .oneOf([Yup.ref('newPassword')], 'Senhas devem ser iguais')
               : field,
         ),
       });
@@ -103,7 +108,13 @@ export default function Account() {
           <button id="deletar-conta" type="submit">
             Deletar conta
           </button>
-          <button id="exportar-dados" type="button" onClick={() => handleDataExport()}>Exportar dados</button>
+          <button
+            id="exportar-dados"
+            type="button"
+            onClick={() => handleDataExport()}
+          >
+            Exportar dados
+          </button>
         </Form>
       </AnimationContainer>
     </Container>
