@@ -11,26 +11,33 @@ extends:
   - plugin:jest/recommended
   - plugin:jest/style
   - plugin:prettier/recommended # This comes last
-parser: '@typescript-eslint/parser'
+parser: "@typescript-eslint/parser"
 parserOptions:
   ecmaVersion: 11
   sourceType: module
 plugins:
   - prettier
-  - '@typescript-eslint'
+  - "@typescript-eslint"
   - jest
 rules:
   class-methods-use-this:
-    - 'off'
-  camelcase: 'off'
+    - "off"
+  camelcase: "off"
   prettier/prettier: error
+  import/no-extraneous-dependencies:
+    - error
+    - devDependencies:
+        - "**/*.test.js"
+        - "**/*.test.ts"
+        - "**/*.spec.js"
+        - "**/*.spec.ts"
   import/extensions:
     - error
     - ignorePackages
     - ts: never
       tsx: never
   no-console:
-    - 'off'
+    - "off"
 settings:
   import/resolver:
     typescript:
