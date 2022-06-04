@@ -19,7 +19,9 @@
     "docker:lint": "docker exec -t alertadotesouro-server-dev-1 yarn lint",
     "docker:lint:fix": "docker exec -t alertadotesouro-server-dev-1 yarn lint:fix",
     "pretty": "prettier \"**/*\" --write --ignore-unknown",
-    "docker:pretty": "docker exec -t alertadotesouro-server-dev-1 yarn pretty"
+    "docker:pretty": "docker exec -t alertadotesouro-server-dev-1 yarn pretty",
+    "test": "jest",
+    "docker:test": "docker exec -t alertadotesouro-server-dev-1 yarn test"
   },
   "dependencies": {
     "axios": "^0.21.0",
@@ -44,6 +46,7 @@
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.7",
     "@types/express-handlebars": "^3.1.0",
+    "@types/jest": "^28.1.0",
     "@types/jsonwebtoken": "^8.5.0",
     "@types/node": "^17.0.38",
     "@types/node-cron": "^3.0.1",
@@ -61,6 +64,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^28.1.0",
     "prettier": "^2.0.5",
+    "ts-jest": "^28.0.4",
     "ts-node": "^10.8.0",
     "ts-node-dev": "^2.0.0",
     "typedoc": "^0.22.15",
