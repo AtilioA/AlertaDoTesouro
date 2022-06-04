@@ -4,6 +4,7 @@ import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import { Form } from '@unform/web';
 import { FiAtSign, FiCheck, FiLock, FiPlus } from 'react-icons/fi';
+import { useNavigate } from 'react-router';
 import getValidationErrors from '../../utils/getValidationErrors';
 import Input from '../../components/Input';
 import { Container, AnimationContainer } from './styles';
@@ -11,6 +12,7 @@ import api from '../../services/api';
 
 export default function Account() {
   const formRef = useRef<FormHandles>(null);
+  const navigate = useNavigate();
 
   const handleDataExport = async () => {
     // GET request + bearer token to data export endpoint
@@ -24,6 +26,15 @@ export default function Account() {
     } else {
       console.log('No token found for data export');
     }
+  };
+
+  const handleLogout = () => {
+    // Delete user token from localStorage
+    localStorage.removeItem('@AlertaDoTesouro:token');
+    localStorage.removeItem('@AlertaDoTesouro:user');
+
+    // Redirect user to login page
+    navigate('/login');
   };
 
   const handleSubmit = useCallback(async (data: object) => {
@@ -102,18 +113,15 @@ export default function Account() {
           />
 
           <button type="submit">Atualizar dados</button>
-          <button id="sair" type="submit">
-            Sair
-          </button>
-          <button id="deletar-conta" type="submit">
-            Deletar conta
-          </button>
           <button
             id="exportar-dados"
             type="button"
             onClick={() => handleDataExport()}
           >
             Exportar dados
+          </button>
+          <button id="sair" type="button" onClick={() => handleLogout()}>
+            Sair
           </button>
         </Form>
       </AnimationContainer>
