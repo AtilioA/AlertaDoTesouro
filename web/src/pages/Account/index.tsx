@@ -10,6 +10,12 @@ import Input from '../../components/Input';
 import { Container, AnimationContainer } from './styles';
 import api from '../../services/api';
 
+interface PasswordUpdateFormData {
+  oldPassword: string;
+  newPassword: string;
+  newPasswordConfirmation: string;
+}
+
 export default function Account() {
   const formRef = useRef<FormHandles>(null);
   const navigate = useNavigate();
@@ -85,46 +91,51 @@ export default function Account() {
     return '';
   };
 
-  const handleSubmit = useCallback(async (data: object) => {
-    try {
-      formRef.current?.setErrors({});
+  const handlePasswordUpdate = useCallback(
+    async (data: PasswordUpdateFormData) => {
+      try {
+        formRef.current?.setErrors({});
 
-      const schema = Yup.object().shape({
-        email: Yup.string()
-          .required('Email é obrigatório')
-          .email('Digite um email válido'),
-        password: Yup.string().required('Informe sua senha'),
-        newPassword: Yup.string().oneOf(
-          [Yup.ref('confirmPassword')],
-          'Senhas devem ser iguais',
-        ),
-        confirmPassword: Yup.string().when(
-          'newPassword',
-          (newPassword: string, field: Yup.StringSchema) =>
-            newPassword
-              ? field
-                .required('É necessário confirmar sua senha')
-                .min(8, 'Mínimo de 8 caracteres')
-                .oneOf([Yup.ref('newPassword')], 'Senhas devem ser iguais')
-              : field,
-        ),
-      });
+        // Redundant validation, but surely is a validation.
+        const schema = Yup.object().shape({
+          oldPassword: Yup.string().min(8, 'Mínimo de 8 caracteres'),
+          newPassword: Yup.string().min(8, 'Mínimo de 8 caracteres'),
+          newPasswordConfirmation: Yup.string().when(
+            'password',
+            (password: string, field: Yup.StringSchema) =>
+              password
+                ? field
+                  .required('Senhas devem ser iguais')
+                  .oneOf([Yup.ref('password')], 'Senhas devem ser iguais')
+                : field,
+          ),
+        });
 
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-    } catch (err) {
-      if (err instanceof Yup.ValidationError) {
-        const errors = getValidationErrors(err);
-        formRef.current?.setErrors(errors);
-      } else throw err;
-    }
-  }, []);
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        await api.put('/users', data);
+
+        console.log('Senha atualizada com sucesso.');
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
+          formRef.current?.setErrors(errors);
+        } else {
+          console.log(
+            'Ocorreu um erro ao atualizar a senha. Tente novamente mais tarde.',
+          );
+        }
+      }
+    },
+    [],
+  );
 
   return (
     <Container>
       <AnimationContainer>
-        <Form ref={formRef} onSubmit={handleSubmit}>
+        <Form ref={formRef} onSubmit={handlePasswordUpdate}>
           <div id="form-header">
             <h1>SUAS INFORMAÇÕES</h1>
           </div>
@@ -161,7 +172,12 @@ export default function Account() {
             placeholder="Confirmação de sua nova senha"
           />
 
-          <button type="submit">Atualizar dados</button>
+          {/* 'Form' Submit */}
+          <button id="atualizar-senha" type="submit">
+            Atualizar senha
+          </button>
+
+          {/* Data export */}
           <button
             id="exportar-dados"
             type="button"
@@ -169,9 +185,13 @@ export default function Account() {
           >
             Exportar dados
           </button>
+
+          {/* Logout */}
           <button id="sair" type="button" onClick={() => handleLogout()}>
             Sair
           </button>
+
+          {/* Account deletion */}
           <button
             id="deletar-conta"
             type="button"
