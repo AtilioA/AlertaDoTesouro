@@ -60,6 +60,31 @@ export default function Account() {
       }
     }
   };
+
+  const getUserEmail = (): string | undefined => {
+    try {
+      const userDataString: string | null = localStorage.getItem(
+        '@AlertaDoTesouro:user',
+      );
+      if (userDataString) {
+        const user: Record<string, string> = JSON.parse(
+          userDataString,
+        ) as Record<string, string>;
+        if (user) {
+          const userEmail: string = user.email;
+          return userEmail;
+        }
+        return 'turing@inf.ufes.br';
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error);
+      }
+    }
+
+    return '';
+  };
+
   const handleSubmit = useCallback(async (data: object) => {
     try {
       formRef.current?.setErrors({});
@@ -111,6 +136,7 @@ export default function Account() {
             icon={FiAtSign}
             name="email"
             placeholder="turing@inf.ufes.br"
+            defaultValue={getUserEmail()}
           />
 
           <div id="input-header">
