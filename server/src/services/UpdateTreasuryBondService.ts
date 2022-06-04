@@ -3,6 +3,10 @@ import { getRepository } from 'typeorm';
 import TreasuryBond from '../models/TreasuryBond';
 import { fetchListOfTreasuryBonds } from '../utils/fetchTBAPI';
 
+/**
+ * @class UpdateTreasuryBondService
+ * @description Service for updating a TreasuryBond.
+ */
 class UpdateTreasuryBondService {
   public async execute(): Promise<boolean> {
     const treasuryBondsRepository = getRepository(TreasuryBond);
@@ -51,10 +55,9 @@ class UpdateTreasuryBondService {
         // Generate uuid to be used if TreasuryBond is new
         treasuryBond.id = uuid.v4();
 
-        const treasuryBondExists = await treasuryBondsRepository.findOne({
+        const treasuryBondExists: TreasuryBond | undefined  = await treasuryBondsRepository.findOne({
           where: { code },
         });
-        // console.log("TreasuryBond exists: " + JSON.stringify(treasuryBondExists));
         // If it doesn't exist, insert it
         if (treasuryBondExists) {
           treasuryBond.id = treasuryBondExists.id;

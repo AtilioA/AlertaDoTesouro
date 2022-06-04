@@ -2,6 +2,10 @@ import { UpdateResult, getCustomRepository } from 'typeorm';
 import { nType } from '../models/Notification';
 import NotificationRepository from '../repositories/NotificationsRepository';
 
+/**
+ * @class UpdateNotificationService
+ * @description Service for updating a Notification.
+ */
 class UpdateNotificationService {
   public async execute(
     user_id: string,

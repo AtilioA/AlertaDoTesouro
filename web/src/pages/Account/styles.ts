@@ -25,7 +25,6 @@ export const Container = styled.div`
       /* padding-bottom: 50px; */
     }
 
-
     div#input-header {
       font-size: 20px;
       text-align: left;
@@ -35,7 +34,9 @@ export const Container = styled.div`
     button {
       color: #ffffff;
 
-      margin-top: 10px;
+      margin-top: 15px;
+      margin-bottom: -10px;
+
       padding: 0 16px;
 
       border-radius: 4px;
@@ -54,10 +55,15 @@ export const Container = styled.div`
       &:hover {
         background: ${shade(0.1, '#3b9fff')};
       }
+      &#exportar-dados {
+        background: #00AA33;
+        &:hover {
+          background: ${shade(0.1, '#00AA33')};
+        }
+      }
       &#sair {
-        margin-top: 75px;
+        margin-top: 50px;
         background: #f64c75;
-        margin-bottom: -5px;
         &:hover {
           background: ${shade(0.1, '#F64C75')};
         }
@@ -81,8 +87,8 @@ const appearFromLeft = keyframes`
     opacity: 1;
     transform: translateX(0px);
   }
-`
+`;
 
 export const AnimationContainer = styled.div`
   animation: ${appearFromLeft} 1s;
-`
+`;

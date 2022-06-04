@@ -1,11 +1,14 @@
 import { getConnection, DeleteResult, getRepository } from 'typeorm';
 import User from '../models/User';
 
+/**
+ * Service for deleting a User.
+ */
 class DeleteUserService {
   public async execute(user_id: string): Promise<DeleteResult> {
     // Search and delete user from the database
     const userRepository = getRepository(User);
-    const findUser = await userRepository.findOne({
+    const findUser: User | undefined  = await userRepository.findOne({
       where: { id: user_id },
     });
 

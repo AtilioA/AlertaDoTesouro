@@ -1,13 +1,14 @@
-import React, { useRef, useCallback, useContext } from 'react';
+import { useRef, useCallback, useContext } from 'react';
+import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
-import { Container, AnimationContainer } from './styles';
 import { FiKey, FiLock, FiAtSign } from 'react-icons/fi';
-import Input from '../../components/Input';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
 import getValidationErrors from '../../utils/getValidationErrors';
-import { Link } from 'react-router-dom';
+import Input from '../../components/Input';
+import { Container, AnimationContainer } from './styles';
 
 import { AuthContext } from '../../context/AuthContext';
 import { ToastContext } from '../../context/ToastContext';
@@ -17,47 +18,51 @@ interface SignInFormData {
   password: string;
 }
 
-const SignIn: React.FC = () => {
+export default function SignIn() {
   const formRef = useRef<FormHandles>(null);
+  const navigate = useNavigate();
 
-  const { user, signIn } = useContext(AuthContext);
-  const { addToast, removeToast } = useContext(ToastContext);
+  const { user: _user, signIn } = useContext(AuthContext);
+  const { addToast, removeToast: _removeToast } = useContext(ToastContext);
 
-  const handleSubmit = useCallback(async (data: SignInFormData) => {
-    try {
-      formRef.current?.setErrors({});
+  const handleSubmit = useCallback(
+    async (data: SignInFormData) => {
+      try {
+        formRef.current?.setErrors({});
 
-      const schema = Yup.object().shape({
-        email: Yup.string()
-          .required('Email é obrigatório')
-          .email('Digite um email válido'),
-        password: Yup.string().required('Informe sua senha'),
-      });
-
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-
-      await signIn({
-        email: data.email,
-        password: data.password
-      });
-
-    } catch (err) {
-      if (err instanceof Yup.ValidationError) {
-        const errors = getValidationErrors(err);
-        formRef.current?.setErrors(errors);
-
-        return;
-      } else {
-        addToast({
-          type: 'error',
-          title: 'Erro na autenticação',
-          description: 'Ocorreu um erro ao fazer login. Cheque suas credenciais ou verifique seu e-mail.'
+        const schema = Yup.object().shape({
+          email: Yup.string()
+            .required('Email é obrigatório')
+            .email('Digite um email válido'),
+          password: Yup.string().required('Informe sua senha'),
         });
+
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        await signIn({
+          email: data.email,
+          password: data.password,
+        });
+
+        navigate('/dashboard');
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
+          formRef.current?.setErrors(errors);
+        } else {
+          addToast({
+            type: 'error',
+            title: 'Erro na autenticação',
+            description:
+              'Ocorreu um erro ao fazer login. Cheque suas credenciais ou verifique seu e-mail.',
+          });
+        }
       }
-    }
-  }, [signIn]);
+    },
+    [signIn],
+  );
 
   return (
     <Container>
@@ -70,11 +75,15 @@ const SignIn: React.FC = () => {
           <div id="input-header">
             <h2>EMAIL</h2>
           </div>
-          <Input icon={FiAtSign} name="email" placeholder="Ex: turing@inf.ufes.br" />
+          <Input
+            icon={FiAtSign}
+            name="email"
+            placeholder="Ex: turing@inf.ufes.br"
+          />
 
           <div id="input-header">
             <h2>SENHA</h2>
-            <Link to="forgot">Esqueci minha senha</Link>
+            <Link to="/esqueci-minha-senha">Esqueci minha senha</Link>
           </div>
           <Input
             icon={FiLock}
@@ -86,13 +95,11 @@ const SignIn: React.FC = () => {
           <button type="submit">Entrar</button>
         </Form>
 
-        <Link to="registrar">
+        <Link to="/registrar">
           <FiKey />
           &nbsp; Criar conta
         </Link>
       </AnimationContainer>
     </Container>
   );
-};
-
-export default SignIn;
+}

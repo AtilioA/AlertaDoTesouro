@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-export const Container = styled.div`
+export default styled.div`
   position: relative;
 
   span {
@@ -38,5 +38,4 @@ export const Container = styled.div`
     opacity: 1;
     visibility: visible;
   }
-
 `;

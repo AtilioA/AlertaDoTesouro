@@ -12,6 +12,8 @@
     "dev:server": "ts-node-dev --files --ignore-watch node_modules src/server.ts",
     "dev:queue": "ts-node-dev --files --ignore-watch node_modules src/queue.ts",
     "typeorm": "ts-node ./node_modules/typeorm/cli.js",
+    "docs": "typedoc --out docs",
+    "docker:docs": "docker exec -t alertadotesouro-server-dev-1 yarn docs",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint --fix . --ext .js,.jsx,.ts,.tsx",
     "docker:lint": "docker exec -t alertadotesouro-server-dev-1 yarn lint",
@@ -43,6 +45,7 @@
     "@types/express": "^4.17.7",
     "@types/express-handlebars": "^3.1.0",
     "@types/jsonwebtoken": "^8.5.0",
+    "@types/node": "^17.0.38",
     "@types/node-cron": "^3.0.1",
     "@types/nodemailer": "^6.4.4",
     "@types/uuid": "^8.3.0",
@@ -58,8 +61,10 @@
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^28.1.0",
     "prettier": "^2.0.5",
-    "ts-node-dev": "^1.0.0-pre.57",
-    "typescript": "^4.6.4"
+    "ts-node": "^10.8.0",
+    "ts-node-dev": "^2.0.0",
+    "typedoc": "^0.22.15",
+    "typescript": "^4.7.2"
   },
   "config": {}
 }

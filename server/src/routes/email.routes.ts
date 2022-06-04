@@ -4,6 +4,14 @@ import { verify } from 'jsonwebtoken';
 import User from '../models/User';
 import authConfig from '../config/auth';
 
+/**
+ * @class TokenPayload
+ * @description Interface for the payload of the JWT token
+ *
+ * @property {number} iat - 'Issued at' timestamp
+ * @property {number} exp - 'Expiration' timestamp
+ * @property {json} user - JSON with User data
+ */
 interface TokenPayload {
   iat: number;
   exp: number;
@@ -19,7 +27,10 @@ interface TokenPayload {
 
 const emailRouter = Router();
 
-// Confirm email (user) endpoint
+/**
+ * Endpoint for confirming an email address for a User.
+ * Requires a valid token.
+ */
 emailRouter.get('/confirmation/:token', async (request, response, next) => {
   try {
     const { token } = request.params;
@@ -31,7 +42,7 @@ emailRouter.get('/confirmation/:token', async (request, response, next) => {
     await usersRepository.update({ id: user.id }, { confirmed: true });
 
     response.json({ ok: true, user });
-    // return response.redirect('/');  // Return to homepage
+    // return response.Navigate('/');  // Return to homepage
   } catch (err) {
     if (err instanceof Error) {
       response

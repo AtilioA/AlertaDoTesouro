@@ -3,7 +3,9 @@ import CheckNotificationsValueService from './services/CheckNotificationsValueSe
 import UpdateTreasuryBondService from './services/UpdateTreasuryBondService';
 import loadRequiredEnv from './utils/loadRequiredEnv';
 
-// Update treasury bonds
+/**
+ * Cron job to check the value of all treasury bonds and update the database.
+ */
 cron.schedule(loadRequiredEnv('UPDATE_CRON'), async () => {
   console.log('Running update-all-treasury-bonds task...');
   const updateTreasuryBonds = new UpdateTreasuryBondService();
@@ -17,7 +19,9 @@ cron.schedule(loadRequiredEnv('UPDATE_CRON'), async () => {
   }
 });
 
-// Check notifications for treasury bonds rates
+/**
+ * Cron job to check the value of all notifications, notify users and update the database.
+ */
 cron.schedule(loadRequiredEnv('NOTIFICATIONS_CRON'), async () => {
   console.log('Running check-all-notifications task...');
   const checkNotifications = new CheckNotificationsValueService();

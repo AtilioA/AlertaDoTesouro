@@ -1,14 +1,25 @@
-import React from 'react';
 import { Container, FooterBody } from './styles';
 
-const Footer: React.FC = () => (
-  <>
+export default function Footer() {
+  return (
     <Container>
       <FooterBody>
         <p>
           Feito por{' '}
-          <a target="_blank" rel="noopener noreferrer" href="https://www.github.com/AtilioA/AlertaDoTesouro">
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.github.com/AtilioA/AlertaDoTesouro"
+          >
             AtilioA
+          </a>{' '}
+          e{' '}
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.github.com/Henriquelay"
+          >
+            Henriquelay
           </a>
           {' '}e{' '}<a target="_blank" rel="noopener noreferrer" href="https://www.github.com/Henriquelay">
             Henriquelay
@@ -22,7 +33,5 @@ const Footer: React.FC = () => (
         </p>
       </FooterBody>
     </Container>
-  </>
-);
-
-export default Footer;
+  );
+}

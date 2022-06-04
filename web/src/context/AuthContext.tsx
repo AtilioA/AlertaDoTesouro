@@ -1,5 +1,8 @@
-import React, { createContext, useCallback, useState } from "react";
-import api from "../services/api";
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+// FIXME !!
+import { createContext, useCallback, useState } from 'react';
+import { BaseLayoutProps } from './ToastContext';
+import api from '../services/api';
 
 interface SignInCredentials {
   email: string;
@@ -17,9 +20,11 @@ interface AuthState {
   user: object;
 }
 
-export const AuthContext = createContext<AuthContextData>({} as AuthContextData); // Do not use a default value for AuthContext
+export const AuthContext = createContext<AuthContextData>(
+  {} as AuthContextData,
+); // Do not use a default value for AuthContext
 
-export const AuthProvider: React.FC = ({children}) => {
+export function AuthProvider({ children }: BaseLayoutProps) {
   const [data, setData] = useState<AuthState>(() => {
     const token = localStorage.getItem('@AlertaDoTesouro:token');
     const user = localStorage.getItem('@AlertaDoTesouro:user');
@@ -29,13 +34,16 @@ export const AuthProvider: React.FC = ({children}) => {
     }
 
     return {} as AuthState;
-  })
+  });
 
-  const signIn = useCallback(async ({email, password}: SignInCredentials) => {
-    const response = await api.post('sessions', {
-      email,
-      password
-    });
+  const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
+    const response = await api.post<{ token: string; user: object }>(
+      'sessions',
+      {
+        email,
+        password,
+      },
+    );
 
     const { token, user } = response.data;
     localStorage.setItem('@AlertaDoTesouro:token', token);
@@ -52,8 +60,10 @@ export const AuthProvider: React.FC = ({children}) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{user: data.user, signIn, signOut}}>
+    // FIXME
+    // eslint-disable-next-line react/jsx-no-constructed-context-values
+    <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
-  )
+  );
 }

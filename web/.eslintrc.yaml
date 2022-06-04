@@ -1,10 +1,52 @@
 ---
+root: true
+env:
+  es2020: true
+  node: true
+  jest: true
 extends:
-  - plugin:react/recommended
-  - ./.eslintrc.base.yaml # link to not change relative folder when importing
-
-plugins:
-  - react
-
+  - airbnb
+  - airbnb-typescript
+  - airbnb/hooks
+  - "plugin:@typescript-eslint/recommended"
+  - "plugin:@typescript-eslint/recommended-requiring-type-checking"
+  - plugin:import/recommended
+  - plugin:react/jsx-runtime # After react/recommended
+  # - "plugin:react-hooks/recommended"
+  - plugin:jest/recommended
+  - plugin:jest/style
+  - plugin:prettier/recommended # This comes last
+parserOptions:
+  project: tsconfig.json
+plugins: [prettier, "@typescript-eslint", jest, react, react-hooks]
+settings:
+  react:
+    version: detect
 rules:
-  camelcase: 'off'
+  jsx-a11y/label-has-associated-control: off
+  no-underscore-dangle: off
+  no-unused-vars: off
+  react/prop-types: off
+  react/jsx-props-no-spreading: off
+  react/require-default-props: off # https://stackoverflow.com/a/69746922/12921102
+  "@typescript-eslint/unbound-method": off # FIXME (?)
+  "@typescript-eslint/no-misused-promises":
+    - error
+    - checksVoidReturn: false
+  "@typescript-eslint/no-unused-vars":
+    - error
+    - varsIgnorePattern: ^_
+      argsIgnorePattern: ^_
+      destructuredArrayIgnorePattern: ^_
+      ignoreRestSiblings: true
+  "@typescript-eslint/naming-convention":
+    - error
+    - format:
+        - "camelCase"
+        - "PascalCase"
+        - "UPPER_CASE"
+      selector: "default"
+      leadingUnderscore: allow
+  prettier/prettier: warn
+  react-hooks/exhaustive-deps: warn
+  no-console: off

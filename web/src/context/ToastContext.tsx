@@ -1,46 +1,88 @@
-import React, { createContext, useCallback, useState } from "react";
-import ToastContainer from "../components/ToastContainer";
+import { createContext, ReactNode, useCallback, useState } from 'react';
+import { useTransition } from 'react-spring';
 import * as uuid from 'uuid';
 
-interface ToastContextData {
-  addToast(message: Omit<ToastMessage, 'id'>): void;
-  removeToast(id: string): void;
+import styled from 'styled-components';
+import Toast from '../components/Toast';
+
+export interface BaseLayoutProps {
+  children: ReactNode;
 }
 
 export interface ToastMessage {
-  id: string;
+  key: string;
   type?: 'success' | 'error' | 'info';
   title: string;
   description?: string;
 }
 
-export const ToastContext = createContext<ToastContextData>({} as ToastContextData);
+interface ToastContextData {
+  addToast(message: Omit<ToastMessage, 'key'>): void;
+  removeToast(id: string): void;
+}
 
-export const ToastProvider: React.FC = ({ children }) => {
+export const ToastContext = createContext<ToastContextData>(
+  {} as ToastContextData,
+);
+
+const Container = styled.div`
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 30px;
+  overflow: hidden;
+`;
+
+function ToastContainer({ messages }: { messages: ToastMessage[] }) {
+  const messagesWithTransition = useTransition(messages, {
+    keys: item => item.key,
+    from: { right: '-110%', opacity: '0' },
+    enter: { right: '0', opacity: 1 },
+    leave: { right: '-110%', opacity: 0 },
+  });
+
+  return (
+    <Container>
+      {messagesWithTransition((style, { key, title, description, type }) => (
+        <Toast
+          key={key}
+          style={style}
+          toastProps={{ key, title, description, type }}
+        />
+      ))}
+    </Container>
+  );
+}
+
+export function ToastProvider({ children }: BaseLayoutProps) {
   const [messages, setMessages] = useState<ToastMessage[]>([]);
 
-  const addToast = useCallback(({type, title, description}: Omit<ToastMessage, 'id'>) => {
-    const id = uuid.v4();
+  const addToast = useCallback(
+    ({ type, title, description }: Omit<ToastMessage, 'key'>) => {
+      const key = uuid.v4();
 
-    const toast = {
-      id,
-      type,
-      title,
-      description
-    };
+      const toast = {
+        key,
+        type,
+        title,
+        description,
+      };
 
-    setMessages((oldMessages) => [...oldMessages, toast]);
+      setMessages(oldMessages => [...oldMessages, toast]);
+    },
+    [],
+  );
 
-  }, []);
-
-  const removeToast = useCallback((id: string) => {
-    setMessages(state => state.filter(message => message.id !== id));
+  const removeToast = useCallback((key: string) => {
+    setMessages(state => state.filter(message => message.key !== key));
   }, []);
 
   return (
-    <ToastContext.Provider value={{addToast, removeToast}}>
-      { children }
-      <ToastContainer messages={messages}/>
+    // FIXME
+    // eslint-disable-next-line react/jsx-no-constructed-context-values
+    <ToastContext.Provider value={{ addToast, removeToast }}>
+      {children}
+      <ToastContainer messages={messages} />
     </ToastContext.Provider>
-  )
+  );
 }

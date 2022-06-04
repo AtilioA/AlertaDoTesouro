@@ -1,6 +1,9 @@
 import { getRepository } from 'typeorm';
 import TreasuryBond, { treasuryBondTexts, Index } from '../models/TreasuryBond';
 
+/**
+ * Interface for the request object for creating a new TreasuryBond.
+ */
 interface Request {
   code: number;
   name: string;
@@ -17,6 +20,10 @@ interface Request {
   texts?: treasuryBondTexts;
 }
 
+/**
+ * @class CreateTreasuryBondService
+ * @description Service for creating a new TreasuryBond.
+ */
 class CreateTreasuryBondService {
   public async execute({
     code,
@@ -34,7 +41,7 @@ class CreateTreasuryBondService {
   }: Request): Promise<TreasuryBond> {
     const treasuryBondsRepository = getRepository(TreasuryBond);
 
-    const checkIfTreasuryBondExists = await treasuryBondsRepository.findOne({
+    const checkIfTreasuryBondExists: TreasuryBond | undefined  = await treasuryBondsRepository.findOne({
       where: { code },
     });
 

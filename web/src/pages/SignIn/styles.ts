@@ -97,7 +97,7 @@ const appearFromLeft = keyframes`
     opacity: 1;
     transform: translateX(0px);
   }
-`
+`;
 
 export const AnimationContainer = styled.div`
   animation: ${appearFromLeft} 1s;
