@@ -23,6 +23,7 @@ settings:
   react:
     version: detect
 rules:
+  no-alert: off
   jsx-a11y/label-has-associated-control: off
   no-underscore-dangle: off
   no-unused-vars: off

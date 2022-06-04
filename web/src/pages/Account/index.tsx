@@ -28,6 +28,7 @@ export default function Account() {
     }
   };
 
+  // Delete user info from localStorage and redirect user to login page
   const handleLogout = () => {
     // Delete user token from localStorage
     localStorage.removeItem('@AlertaDoTesouro:token');
@@ -37,6 +38,28 @@ export default function Account() {
     navigate('/login');
   };
 
+  const handleDeleteAccount = async () => {
+    if (
+      window.confirm(
+        'Você realmente quer deletar sua conta? Esta ação é irreversível!',
+      )
+    ) {
+      // Send DELETE request to API to delete user account, along with bearer token
+      const userToken: string | null = localStorage.getItem(
+        '@AlertaDoTesouro:token',
+      );
+      if (userToken) {
+        await api.delete('/users', {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        });
+
+        // Simulate logout
+        handleLogout();
+      }
+    }
+  };
   const handleSubmit = useCallback(async (data: object) => {
     try {
       formRef.current?.setErrors({});
@@ -122,6 +145,13 @@ export default function Account() {
           </button>
           <button id="sair" type="button" onClick={() => handleLogout()}>
             Sair
+          </button>
+          <button
+            id="deletar-conta"
+            type="button"
+            onClick={() => handleDeleteAccount()}
+          >
+            Deletar conta
           </button>
         </Form>
       </AnimationContainer>
