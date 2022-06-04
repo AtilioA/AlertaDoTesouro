@@ -33,11 +33,10 @@ export default function ensureAuthenticated(
 ): void {
   const authHeader = request.headers.authorization;
 
-  if (!authHeader) {
-    throw new Error('JSON Web Token is missing');
-  }
-
   try {
+    if (!authHeader) {
+      throw new Error('JSON Web Token is missing');
+    }
     const [, token] = authHeader.split(' '); // Do not use "type" of token (Bearer)
 
     const decoded = verify(token, authConfig.jwt.secret as string);
@@ -51,8 +50,9 @@ export default function ensureAuthenticated(
     next();
   } catch (err) {
     if (err instanceof Error) {
-      next(Error(`Invalid JSON Web Token: ${err.message}`));
+      next(new Error(`Invalid JSON Web Token: ${err.message}`));
+    } else {
+      next(err);
     }
-    next(err);
   }
 }
