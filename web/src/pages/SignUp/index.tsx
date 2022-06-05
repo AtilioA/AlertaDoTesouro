@@ -1,7 +1,7 @@
 import { useCallback, useRef, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-import { FiLogIn, FiLock, FiAtSign, FiCheck } from 'react-icons/fi';
+import { FiLogIn, FiLock, FiAtSign, FiCheck, FiKey } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
@@ -116,7 +116,10 @@ export default function SignUp() {
             <a href="/privacidade">Termos e Condições Gerais de Uso</a>
           </label>
 
-          <button type="submit">Cadastrar-se</button>
+          <button type="submit">
+            <FiKey />
+            Cadastrar-se
+          </button>
         </Form>
 
         <Link to="/login">

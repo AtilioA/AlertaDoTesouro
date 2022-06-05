@@ -78,7 +78,6 @@ export default function ForgotPassword() {
             placeholder="Ex: alan@turing.com"
           />
 
-          {/* TODO: Improve icon spacing */}
           <button type="submit">
             <FiMail /> Redefinir senha
           </button>

@@ -3,7 +3,16 @@ import { useRef, useCallback } from 'react';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import { Form } from '@unform/web';
-import { FiAtSign, FiCheck, FiLock, FiPlus } from 'react-icons/fi';
+import {
+  FiAtSign,
+  FiCheck,
+  FiFileText,
+  FiLock,
+  FiLogOut,
+  FiPlus,
+  FiRefreshCcw,
+  FiUserX,
+} from 'react-icons/fi';
 import { useNavigate } from 'react-router';
 import getValidationErrors from '../../utils/getValidationErrors';
 import Input from '../../components/Input';
@@ -174,6 +183,7 @@ export default function Account() {
 
           {/* 'Form' Submit */}
           <button id="atualizar-senha" type="submit">
+            <FiRefreshCcw />
             Atualizar senha
           </button>
 
@@ -183,11 +193,13 @@ export default function Account() {
             type="button"
             onClick={() => handleDataExport()}
           >
+            <FiFileText />
             Exportar dados
           </button>
 
           {/* Logout */}
           <button id="sair" type="button" onClick={() => handleLogout()}>
+            <FiLogOut />
             Sair
           </button>
 
@@ -197,6 +209,7 @@ export default function Account() {
             type="button"
             onClick={() => handleDeleteAccount()}
           >
+            <FiUserX />
             Deletar conta
           </button>
         </Form>
