@@ -95,6 +95,7 @@ export default function ResetPassword() {
           </div>
 
           <Input
+            autoFocus
             icon={FiLock}
             name="newPassword"
             type="password"

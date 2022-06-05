@@ -72,6 +72,7 @@ export default function ForgotPassword() {
             <h3>Informe o e-mail de sua conta para redefinir sua senha:</h3>
           </div>
           <Input
+            autoFocus
             icon={FiAtSign}
             name="email"
             placeholder="Ex: alan@turing.com"

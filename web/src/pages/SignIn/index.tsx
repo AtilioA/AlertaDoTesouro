@@ -76,6 +76,7 @@ export default function SignIn() {
             <h2>EMAIL</h2>
           </div>
           <Input
+            autoFocus
             icon={FiAtSign}
             name="email"
             placeholder="Ex: turing@inf.ufes.br"
