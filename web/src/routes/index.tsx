@@ -35,7 +35,7 @@ export default function AppRoutes() {
         element={<PrivateRoute navigateTo="/login" />}
       />
       <Route path="/" element={<Notifications />} />
-      <Route path="/tos" element={<ToS />} />
+      <Route path="/privacidade" element={<ToS />} />
       <Route path="*" element={<p>Não tem nada aqui!</p>} />
     </Routes>
   );
