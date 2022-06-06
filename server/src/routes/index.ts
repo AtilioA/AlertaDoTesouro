@@ -9,10 +9,10 @@ import emailRouter from './email.routes';
 const routes = Router();
 
 /**
- * Root route of the API (/); returns a plain text message.
+ * Root route of the API (/); returns a json message.
  */
 routes.get('/', async (_, response) => {
-  return response.send('🌐 AlertaDoTesouro is online.');
+  return response.json({ message: '🌐 AlertaDoTesouro is online.' });
 });
 
 // Define all main routes of the API with their respective sub-routes
