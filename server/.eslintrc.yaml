@@ -20,10 +20,25 @@ plugins:
   - "@typescript-eslint"
   - jest
 rules:
-  class-methods-use-this:
-    - "off"
-  camelcase: "off"
+  no-underscore-dangle: off
+  class-methods-use-this: off
+  camelcase: off
   prettier/prettier: error
+  no-unused-vars: off
+  "@typescript-eslint/no-unused-vars":
+  - error
+  - varsIgnorePattern: ^_
+    argsIgnorePattern: ^_
+    destructuredArrayIgnorePattern: ^_
+    ignoreRestSiblings: true
+    "@typescript-eslint/naming-convention":
+    - error
+    - format:
+        - "camelCase"
+        - "PascalCase"
+        - "UPPER_CASE"
+      selector: "default"
+      leadingUnderscore: allow
   import/no-extraneous-dependencies:
     - error
     - devDependencies:
@@ -36,8 +51,7 @@ rules:
     - ignorePackages
     - ts: never
       tsx: never
-  no-console:
-    - "off"
+  no-console: off
 settings:
   import/resolver:
     typescript:
