@@ -75,7 +75,7 @@ export default function ForgotPassword() {
             autoFocus
             icon={FiAtSign}
             name="email"
-            placeholder="Ex: alan@turing.com"
+            placeholder="turing@inf.ufes.br"
           />
 
           <button type="submit">
