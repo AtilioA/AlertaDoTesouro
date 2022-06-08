@@ -89,7 +89,6 @@ export default function Account() {
           const userEmail: string = user.email;
           return userEmail;
         }
-        return 'turing@inf.ufes.br';
       }
     } catch (error) {
       if (error instanceof Error) {
