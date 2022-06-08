@@ -2,7 +2,7 @@ import { useRef, useCallback, useContext } from 'react';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 
-import { FiKey, FiLock, FiAtSign } from 'react-icons/fi';
+import { FiKey, FiLock, FiAtSign, FiLogIn } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
@@ -92,7 +92,10 @@ export default function SignIn() {
             placeholder="Sua senha"
           />
 
-          <button type="submit">Entrar</button>
+          <button type="submit">
+            <FiLogIn />
+            Entrar
+          </button>
         </Form>
 
         <Link to="/registrar">
