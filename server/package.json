@@ -15,11 +15,7 @@
     "docs": "typedoc --out docs",
     "docker:docs": "docker exec -t alertadotesouro-server-dev-1 yarn docs",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "lint:fix": "eslint --fix . --ext .js,.jsx,.ts,.tsx",
     "docker:lint": "docker exec -t alertadotesouro-server-dev-1 yarn lint",
-    "docker:lint:fix": "docker exec -t alertadotesouro-server-dev-1 yarn lint:fix",
-    "pretty": "prettier \"**/*\" --write --ignore-unknown",
-    "docker:pretty": "docker exec -t alertadotesouro-server-dev-1 yarn pretty",
     "test": "jest",
     "docker:test": "docker exec -t alertadotesouro-server-dev-1 yarn test"
   },

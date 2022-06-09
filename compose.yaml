@@ -38,6 +38,7 @@ services:
       - dev
     depends_on:
       - postgres
+      - postgres_test
       - redis
     env_file: server/.env
     environment:
@@ -102,13 +103,22 @@ services:
 
   postgres:
     image: postgres:alpine
-    environment:
-      POSTGRES_USER: alertadotesouro
-      POSTGRES_PASSWORD: your_postgres_password
+    env_file: server/.env
     networks:
       - backend
     volumes:
       - db-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  postgres_test:
+    image: postgres:alpine
+    profiles:
+      - test
+    env_file: server/.env.test
+    networks:
+      - backend
+    volumes:
+      - db-data-test:/var/lib/postgresql/data
     restart: unless-stopped
 
   redis:
@@ -122,3 +132,4 @@ networks:
 
 volumes:
   db-data:
+  db-data-test:
