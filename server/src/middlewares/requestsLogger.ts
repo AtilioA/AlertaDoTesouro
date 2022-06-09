@@ -14,10 +14,14 @@ export default function logRequest(
   _: Response,
   next: NextFunction,
 ): void {
-  const { method, url } = request;
-  const logLabel = `[${method.toUpperCase()}] request to ${url}`;
+  if (process.env.NODE_ENV !== 'test') {
+    const { method, url } = request;
+    const logLabel = `[${method.toUpperCase()}] request to ${url}`;
 
-  console.time(logLabel);
-  next();
-  console.timeEnd(logLabel);
+    console.time(logLabel);
+    next();
+    console.timeEnd(logLabel);
+  } else {
+    next();
+  }
 }

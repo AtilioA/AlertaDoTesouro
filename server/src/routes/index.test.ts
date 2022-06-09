@@ -1,14 +1,17 @@
 import request from 'supertest';
-import CreateServer from '../app';
+import app from '../app';
 
-const app = CreateServer();
+describe('/', () => {
+  test('GET /', async () => {
+    const res = await request(app).get('/');
 
-test('GET /', async () => {
-  await request(app)
-    .get('/')
-    .expect('Content-Type', /json/)
-    .expect(200)
-    .then(res => {
-      expect(res.body.message).toBe('🌐 AlertaDoTesouro is online.');
+    expect(res.status).toBe(200);
+    expect(res.headers).toHaveProperty(
+      'content-type',
+      'application/json; charset=utf-8',
+    );
+    expect(res.body).toMatchObject({
+      message: '🌐 AlertaDoTesouro is online.',
     });
+  });
 });

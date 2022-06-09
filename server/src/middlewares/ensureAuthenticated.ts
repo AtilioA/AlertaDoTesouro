@@ -39,7 +39,7 @@ export default function ensureAuthenticated(
     }
     const [, token] = authHeader.split(' '); // Do not use "type" of token (Bearer)
 
-    const decoded = verify(token, authConfig.jwt.secret as string);
+    const decoded = verify(token, authConfig.jwt.secret);
 
     const { sub } = decoded as TokenPayload;
 

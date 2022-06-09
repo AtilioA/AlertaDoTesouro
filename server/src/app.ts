@@ -4,12 +4,10 @@ import routes from './routes';
 import logRequest from './middlewares/requestsLogger';
 import 'dotenv/config';
 
-export default function CreateServer() {
-  const app = express();
+const app = express();
 
-  app.use(cors());
-  app.use(logRequest);
-  app.use(express.json());
-  app.use(routes);
-  return app;
-}
+app.use(cors());
+app.use(logRequest);
+app.use(express.json());
+app.use(routes);
+export default app;

@@ -16,7 +16,7 @@
     "docker:docs": "docker exec -t alertadotesouro-server-dev-1 yarn docs",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "docker:lint": "docker exec -t alertadotesouro-server-dev-1 yarn lint",
-    "test": "jest",
+    "test": "NODE_ENV=test jest",
     "docker:test": "docker exec -t alertadotesouro-server-dev-1 yarn test"
   },
   "dependencies": {
