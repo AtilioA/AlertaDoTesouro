@@ -26,7 +26,7 @@ const DB = {
 };
 
 DB.connect().catch(err => {
-  console.error('❌ Error connection to DB!');
+  console.error('❌ Error connecting to DB!');
   console.error(err);
   throw err;
 });
