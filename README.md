@@ -30,7 +30,7 @@ A web application that notifies you about Brazilian treasury bond rates.
 # 💻 Project
 
 AlertaDoTesouro is a project elaborated with the intent of automatically monitoring Brazilian government bonds and alerting users about them according to their preferences of rates. Tools such as Node.js, Express, PostgreSQL, Docker, Redis, linting and debugging tools, mail delivery systems, among others, were employed to build this system.
-Furthermore, this project was also presented as the required assignment for the Integrated Project class during the 2022/1 semester.
+Furthermore, this project was also presented as required academic work for the Integrated Project classes during the 2022/1 semester.
 
 The application allows users to set one value per treasury bond, so they can get notified whenever its rate goes above or below that value. Users should be able to be* notified by email or browser notifications.
 
@@ -60,7 +60,7 @@ This project was developed using the following tools:
 - [React.js](http://reactjs.org/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [Docker](https://www.docker.com/) with [Compose __V2__](https://docs.docker.com/compose/#compose-v2-and-the-new-docker-compose-command)
-- [pre-commit]
+- [pre-commit]?
 
 [pre-commit]: https://pre-commit.com/
 
@@ -113,7 +113,7 @@ A typical request would be a simple `GET` request to the `/treasurybonds` endpoi
 
 ### 🖥 Front-end
 
-Zoomer stuff
+[...]
 
 ## 🏡 Running locally
 
@@ -141,4 +141,3 @@ Rename or copy the `.env.example` file to `.env` in both the `/server` and `/web
 ### Front-end considerations
 
 \* Note that the front-end has not been finished yet:tm:.
-\* Where's Julio? 😔
