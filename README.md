@@ -113,7 +113,7 @@ A typical request would be a simple `GET` request to the `/treasurybonds` endpoi
 
 ### 🖥 Front-end
 
-Zoomer stuff
+[...]
 
 ## 🏡 Running locally
 
@@ -141,4 +141,3 @@ Rename or copy the `.env.example` file to `.env` in both the `/server` and `/web
 ### Front-end considerations
 
 \* Note that the front-end has not been finished yet:tm:.
-\* Where's Julio? 😔
