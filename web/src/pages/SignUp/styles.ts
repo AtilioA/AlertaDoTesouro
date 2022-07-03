@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import { shade } from 'polished';
+import { desaturate, shade } from 'polished';
 
 export const Container = styled.div`
   /* height: 100vh; */
@@ -60,6 +60,12 @@ export const Container = styled.div`
 
       text-align: center;
       font-weight: bold;
+    }
+
+    /* Reduce saturation when button is disabled */
+    button[disabled] {
+      background: ${desaturate(0.8, '#3b9fff')};
+      transition: background 0.2s;
     }
   }
 
