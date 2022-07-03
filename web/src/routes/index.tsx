@@ -11,6 +11,7 @@ import Account from '../pages/Account';
 import Notifications from '../pages/Notifications';
 import ToS from '../pages/ToS';
 import { AuthContext } from '../context/AuthContext';
+import ConfirmAccount from '../pages/ConfirmAccount';
 
 function PrivateRoute({ navigateTo }: { navigateTo: string }) {
   const { user } = useContext(AuthContext);
@@ -25,6 +26,7 @@ export default function AppRoutes() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/esqueci-minha-senha" element={<ForgotPassword />} />
       <Route path="/redefinir-senha" element={<ResetPassword />} />
+      <Route path="/confirmar-conta" element={<ConfirmAccount />} />
       <Route path="/registrar" element={<SignUp />} />
       <Route path="/login" element={<SignIn />} />
       <Route path="/conta" element={<PrivateRoute navigateTo="/login" />}>
@@ -36,7 +38,7 @@ export default function AppRoutes() {
       />
       <Route path="/" element={<Notifications />} />
       <Route path="/tos" element={<ToS />} />
-      <Route path="*" element={<p>Não tem nada aqui!</p>} />
+      <Route path="*" element={<Dashboard />} />
     </Routes>
   );
 }
