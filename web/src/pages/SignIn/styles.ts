@@ -10,7 +10,7 @@ export const Container = styled.div`
   flex-direction: column;
 
   Form {
-    margin: 80px;
+    margin-top: 80px;
     width: 340px;
     text-align: center;
 
@@ -45,7 +45,7 @@ export const Container = styled.div`
       }
       transition: background 0.2s;
 
-      margin-top: 10px;
+      margin-top: 20px;
       padding: 0 16px;
 
       border-radius: 4px;
