@@ -1,4 +1,4 @@
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useState } from 'react';
 
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
@@ -11,9 +11,12 @@ import api from '../../services/api';
 
 export default function Account() {
   const formRef = useRef<FormHandles>(null);
+  const [exportButtonLoading, setExportButtonLoading] = useState(false);
+  const [updateButtonLoading, setUpdateButtonLoading] = useState(false);
 
   const handleDataExport = async () => {
     // GET request + bearer token to data export endpoint
+    setExportButtonLoading(true);
     const userToken = localStorage.getItem('@AlertaDoTesouro:token');
     if (userToken) {
       await api.get('/users/export', {
@@ -23,11 +26,14 @@ export default function Account() {
       });
     } else {
       console.log('No token found for data export');
+      setExportButtonLoading(false);
     }
   };
 
   const handleSubmit = useCallback(async (data: object) => {
     try {
+      setUpdateButtonLoading(true);
+
       formRef.current?.setErrors({});
 
       const schema = Yup.object().shape({
@@ -58,6 +64,7 @@ export default function Account() {
       if (err instanceof Yup.ValidationError) {
         const errors = getValidationErrors(err);
         formRef.current?.setErrors(errors);
+        setUpdateButtonLoading(false);
       } else throw err;
     }
   }, []);
@@ -101,7 +108,13 @@ export default function Account() {
             placeholder="Confirmação de sua nova senha"
           />
 
-          <button type="submit">Atualizar dados</button>
+          <button
+            id="atualizar-dados"
+            disabled={updateButtonLoading}
+            type="submit"
+          >
+            Atualizar dados
+          </button>
           <button id="sair" type="submit">
             Sair
           </button>
@@ -112,6 +125,7 @@ export default function Account() {
             id="exportar-dados"
             type="button"
             onClick={() => handleDataExport()}
+            disabled={exportButtonLoading}
           >
             Exportar dados
           </button>

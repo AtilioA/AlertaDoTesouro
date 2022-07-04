@@ -1,4 +1,4 @@
-import { useCallback, useRef, useContext } from 'react';
+import { useCallback, useRef, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { FiLogIn, FiLock, FiAtSign, FiCheck } from 'react-icons/fi';
@@ -20,10 +20,13 @@ interface SignUpFormData {
 export default function SignUp() {
   const formRef = useRef<FormHandles>(null);
   const { addToast } = useContext(ToastContext);
+  const [buttonLoading, setButtonLoading] = useState(false);
 
   const handleSubmit = useCallback(
     async (data: SignUpFormData) => {
       try {
+        setButtonLoading(true);
+
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
@@ -36,8 +39,8 @@ export default function SignUp() {
             (password: string, field: Yup.StringSchema) =>
               password
                 ? field
-                    .required('Senhas devem ser iguais')
-                    .oneOf([Yup.ref('password')], 'Senhas devem ser iguais')
+                  .required('Senhas devem ser iguais')
+                  .oneOf([Yup.ref('password')], 'Senhas devem ser iguais')
                 : field,
           ),
           acceptTerms: Yup.bool().oneOf(
@@ -58,6 +61,7 @@ export default function SignUp() {
           description: 'Por favor, cheque seu email para confirmar sua conta.',
         });
       } catch (err) {
+        setButtonLoading(false);
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
           formRef.current?.setErrors(errors);
@@ -115,7 +119,9 @@ export default function SignUp() {
             <a href="/privacidade">Termos e Condições Gerais de Uso</a>
           </label>
 
-          <button type="submit">Cadastrar-se</button>
+          <button disabled={buttonLoading} type="submit">
+            Cadastrar-se
+          </button>
         </Form>
 
         <Link to="/login">
