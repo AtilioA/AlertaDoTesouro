@@ -39,23 +39,22 @@ export default function Notifications() {
       // GET OUT OF MY HEAD GET OUT OF MY HEAD GET OUT OF MY HEAD
       const notificationData = notifications.data.map(notification => {
         // Get treasurybond object from the database with the id
-        // TODO: Create GET treasurybond id endpoint
-        // const treasurybond = await api.get(
-        //   `/treasurybonds/${notification.treasurybond_id}`,
-        // );
+        const treasurybond = await api.get(
+          `/treasurybonds/${notification.treasurybond_id}`,
+        );
 
         const notificationData = {
-          // treasuryBondName: treasurybond.data.name,
-          // treasuryBondMinimumInvestmentAmount:
-          //   treasurybond.data.minimumInvestmentAmount,
-          // treasuryBondAnnualInterestIndex:
-          //   treasurybond.data.annualInterestIndex,
-          // type: notification.type,
-          // value: notification.value,
-          // creationDate: notification.created_at,
-          // active: notification.active,
-          // notifyByEmail: notification.notifyByEmail,
-          // notifyByBrowser: notification.notifyByBrowser,
+          treasuryBondName: treasurybond.data.name,
+          treasuryBondMinimumInvestmentAmount:
+            treasurybond.data.minimumInvestmentAmount,
+          treasuryBondAnnualInterestIndex:
+            treasurybond.data.annualInterestIndex,
+          type: notification.type,
+          value: notification.value,
+          creationDate: notification.created_at,
+          active: notification.active,
+          notifyByEmail: notification.notifyByEmail,
+          notifyByBrowser: notification.notifyByBrowser,
         };
 
         // notificationsData.push(notificationData);
@@ -82,7 +81,7 @@ export default function Notifications() {
             <Toggle
               id="notification-status"
               defaultChecked
-              onChange={() => handleNotifyChange()}
+              onChange={() => getNotifications()}
             />
           </div>
           <div id="global-notification-settings-body">

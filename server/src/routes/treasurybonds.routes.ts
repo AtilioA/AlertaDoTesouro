@@ -17,6 +17,18 @@ treasuryBondsRouter.get('/', async (_request, response) => {
 });
 
 /**
+ * Endpoint for listing a specific treasury bond.
+ */
+treasuryBondsRouter.get('/:id', async (_request, response) => {
+  const treasuryBondsRepository = getRepository(TreasuryBond);
+  const treasuryBond = await treasuryBondsRepository.find({
+    where: { id: _request.params.id },
+  });
+
+  return response.json(treasuryBond);
+});
+
+/**
  * Endpoint for updating all treasury bonds. // REVIEW: this shouldn't exist...
  */
 treasuryBondsRouter.put('/', async (_request, response, next) => {
