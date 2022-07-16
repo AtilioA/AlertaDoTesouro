@@ -34,11 +34,13 @@ rules:
     - error
     - checksVoidReturn: false
   "@typescript-eslint/no-unused-vars":
-    - error
+    - off
     - varsIgnorePattern: ^_
       argsIgnorePattern: ^_
       destructuredArrayIgnorePattern: ^_
       ignoreRestSiblings: true
+  "@typescript-eslint/no-unsafe-argument":
+    - off
   "@typescript-eslint/naming-convention":
     - error
     - format:
