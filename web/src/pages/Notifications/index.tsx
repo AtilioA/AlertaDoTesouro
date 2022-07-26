@@ -11,7 +11,21 @@ import {
 } from './styles';
 import api from '../../services/api';
 import NotificationType from '../../@types/Notification';
+import TreasuryBond from '../../@types/TreasuryBond';
 // import Input from '../../components/Input';
+
+interface Response {
+  id: string;
+  user_id: string;
+  treasurybond_id: string;
+  value: number;
+  type: string;
+  notifyByEmail: boolean;
+  notifyByBrowser: boolean;
+  active: boolean;
+  created_at: string;
+  updated_at: string;
+}
 
 export default function Notifications() {
   const [notifications, setNotifications] = useState<NotificationType[]>([]);
@@ -26,28 +40,30 @@ export default function Notifications() {
           Authorization: `Bearer ${userToken}`,
         },
         })
-        .then(response => {
-          console.log(response.data);
+        .then(notificationsResponse => {
+          const responseData = notificationsResponse.data as Response[];
 
           const myNotifications = Array<NotificationType>();
-          for (let i = 0; i < response.data.length; i += 1) {
-            console.log(`notificação: ${JSON.stringify(response.data[i])}`);
+          for (let i = 0; i < responseData.length; i += 1) {
+            console.log(`notificação: ${JSON.stringify(responseData[i])}`);
             api
-              .get(`/treasurybonds/${response.data[i].treasurybond_id}`)
-              .then(response => {
-                const treasuryBond = response.data[0];
+              .get(`/treasurybonds/${responseData[i].treasurybond_id}`)
+              .then(treasuryBondResponse => {
+                const treasuryBondList = treasuryBondResponse.data as Response;
+                const treasuryBond = treasuryBondList[0] as TreasuryBond;
+
                 const notificationObj = {
                   treasuryBondName: treasuryBond.name,
                   treasuryBondMinimumInvestmentAmount:
                     treasuryBond.minimumInvestmentAmount,
                   treasuryBondAnnualInterestIndex:
                     treasuryBond.annualInterestIndex,
-                  type: response.data[i].type,
-                  value: response.data[i].value,
-                  creationDate: response.data[i].created_at,
-                  active: response.data[i].active,
-                  notifyByEmail: response.data[i].notifyByEmail,
-                  notifyByBrowser: response.data[i].notifyByBrowser,
+                  type: responseData[i].type,
+                  value: responseData[i].value,
+                  creationDate: responseData[i].created_at,
+                  active: responseData[i].active,
+                  notifyByEmail: responseData[i].notifyByEmail,
+                  notifyByBrowser: responseData[i].notifyByBrowser,
                 };
 
                 myNotifications.push(notificationObj);

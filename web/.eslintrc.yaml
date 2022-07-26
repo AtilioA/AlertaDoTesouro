@@ -46,6 +46,7 @@ rules:
     - format:
         - "camelCase"
         - "PascalCase"
+        - "snake_case"
         - "UPPER_CASE"
       selector: "default"
       leadingUnderscore: allow
