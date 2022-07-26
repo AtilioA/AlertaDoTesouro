@@ -1,7 +1,7 @@
 import Toggle from 'react-toggle';
 
 import { FiEdit, FiTrash } from 'react-icons/fi';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   Container,
   AnimationContainer,
@@ -10,24 +10,61 @@ import {
   NotificationContainer,
 } from './styles';
 import api from '../../services/api';
+import NotificationType from '../../@types/Notification';
 // import Input from '../../components/Input';
 
 export default function Notifications() {
-  const [notifications, setNotifications] = useState([]);
+  const [notifications, setNotifications] = useState<NotificationType[]>([]);
 
-  const getNotifications = useCallback(async () => {
-    let apiNotifications = [];
+  useEffect(() => {
     // GET request + bearer token to notification list endpoint
     const userToken = localStorage.getItem('@AlertaDoTesouro:token');
     if (userToken) {
-      apiNotifications = await api.get('/notifications', {
+      api
+        .get('/notifications', {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
+        })
+        .then(response => {
+          console.log(response.data);
+
+          const myNotifications = Array<NotificationType>();
+          for (let i = 0; i < response.data.length; i += 1) {
+            console.log(`notificação: ${JSON.stringify(response.data[i])}`);
+            api
+              .get(`/treasurybonds/${response.data[i].treasurybond_id}`)
+              .then(response => {
+                const treasuryBond = response.data[0];
+                const notificationObj = {
+                  treasuryBondName: treasuryBond.name,
+                  treasuryBondMinimumInvestmentAmount:
+                    treasuryBond.minimumInvestmentAmount,
+                  treasuryBondAnnualInterestIndex:
+                    treasuryBond.annualInterestIndex,
+                  type: response.data[i].type,
+                  value: response.data[i].value,
+                  creationDate: response.data[i].created_at,
+                  active: response.data[i].active,
+                  notifyByEmail: response.data[i].notifyByEmail,
+                  notifyByBrowser: response.data[i].notifyByBrowser,
+                };
+
+                myNotifications.push(notificationObj);
+              })
+              .catch(error => {
+                console.log(error);
       });
     }
 
-    setNotifications(apiNotifications);
+          setNotifications(myNotifications);
+          console.log(myNotifications);
+          // setNotifications(notifications => [...notifications, myNotification]);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
   }, []);
 
   // STUB: create list of Notification objects from the API, along with treasurybond info
@@ -57,13 +94,13 @@ export default function Notifications() {
           notifyByBrowser: notification.notifyByBrowser,
         };
 
-        // notificationsData.push(notificationData);
-        return notificationData;
-      });
-    }
+  const handleNotificationDelete = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      console.log(event);
+    },
+    [],
+  );
 
-    return notificationsData;
-  }, []);
   function handleNotifyChange() {
     return true;
   }
@@ -78,11 +115,7 @@ export default function Notifications() {
         <div id="global-notification-settings">
           <div id="toggle-with-label">
             <span>Receber notificações</span>
-            <Toggle
-              id="notification-status"
-              defaultChecked
-              onChange={() => getNotifications()}
-            />
+            <Toggle id="notification-status" defaultChecked />
           </div>
           <div id="global-notification-settings-body">
             <div id="toggle-with-label">
@@ -109,13 +142,15 @@ export default function Notifications() {
           <h1>NOTIFICAÇÕES</h1>
         </div>
         <NotificationContainer>
-          <Notification>
+          {/* Map notifications and render them one by one */}
+          {notifications.map(notification => (
+            <Notification key={notification.treasuryBondName}>
             <div id="notification-content">
               <div id="notification-bond">
-                <h1>Tesouro IPCA 2026+</h1>
+                  <h1>{notification.treasuryBondName}</h1>
                 <div id="notification-bond-value">
                   <span>Taxa atual:</span>
-                  <b>XX.XX%</b>
+                    <b>{notification.value}%</b>
                 </div>
                 <div id="notification-bond-value">
                   <span>Preço unitário:</span>
@@ -159,6 +194,7 @@ export default function Notifications() {
               </div>
             </div>
           </Notification>
+          ))}
           <div id="notification-actions-edit-delete">
             <div id="edit">
               <button type="button">
@@ -166,7 +202,8 @@ export default function Notifications() {
               </button>
             </div>
             <div id="delete">
-              <button type="button">
+              {/* Create delete button that will delete the current notification */}
+              <button type="button" onClick={e => handleNotificationDelete(e)}>
                 <FiTrash />
               </button>
             </div>
