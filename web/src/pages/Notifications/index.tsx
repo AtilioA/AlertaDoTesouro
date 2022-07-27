@@ -45,7 +45,6 @@ export default function Notifications() {
 
           const myNotifications = Array<NotificationType>();
           for (let i = 0; i < responseData.length; i += 1) {
-            console.log(`notificação: ${JSON.stringify(responseData[i])}`);
             api
               .get(`/treasurybonds/${responseData[i].treasurybond_id}`)
               .then(treasuryBondResponse => {
@@ -66,16 +65,12 @@ export default function Notifications() {
                   notifyByBrowser: responseData[i].notifyByBrowser,
                 };
 
-                myNotifications.push(notificationObj);
+                setNotifications([...myNotifications, notificationObj]);
               })
               .catch(error => {
                 console.log(error);
       });
     }
-
-          setNotifications(myNotifications);
-          console.log(myNotifications);
-          // setNotifications(notifications => [...notifications, myNotification]);
         })
         .catch(error => {
           console.log(error);
@@ -83,33 +78,9 @@ export default function Notifications() {
     }
   }, []);
 
-  // STUB: create list of Notification objects from the API, along with treasurybond info
-  const getNotificationsList = useCallback(() => {
     // NOTE: Depois usar essa bomba para listagem: https://contactmentor.com/render-array-map-react-js/
 
-    const notificationsData: Array<object> = [];
-    if (notifications) {
-      // GET OUT OF MY HEAD GET OUT OF MY HEAD GET OUT OF MY HEAD
-      const notificationData = notifications.data.map(notification => {
-        // Get treasurybond object from the database with the id
-        const treasurybond = await api.get(
-          `/treasurybonds/${notification.treasurybond_id}`,
-        );
-
-        const notificationData = {
-          treasuryBondName: treasurybond.data.name,
-          treasuryBondMinimumInvestmentAmount:
-            treasurybond.data.minimumInvestmentAmount,
-          treasuryBondAnnualInterestIndex:
-            treasurybond.data.annualInterestIndex,
-          type: notification.type,
-          value: notification.value,
-          creationDate: notification.created_at,
-          active: notification.active,
-          notifyByEmail: notification.notifyByEmail,
-          notifyByBrowser: notification.notifyByBrowser,
-        };
-
+  // Create a typed function for the onClick event of the delete button
   const handleNotificationDelete = useCallback(
     (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       console.log(event);
@@ -157,35 +128,38 @@ export default function Notifications() {
         <div id="header">
           <h1>NOTIFICAÇÕES</h1>
         </div>
-        <NotificationContainer>
-          {/* Map notifications and render them one by one */}
+
           {notifications.map(notification => (
-            <Notification key={notification.treasuryBondName}>
+          <NotificationContainer>
+            <Notification id={notification.treasuryBondName}>
             <div id="notification-content">
               <div id="notification-bond">
                   <h1>{notification.treasuryBondName}</h1>
                 <div id="notification-bond-value">
                   <span>Taxa atual:</span>
                     <b>{notification.value}%</b>
+                    {/* <b>{notification.treasuryBondAnnualInterestIndex}%</b> */}
                 </div>
                 <div id="notification-bond-value">
                   <span>Preço unitário:</span>
-                  <b>R$XX.XX</b>
+                    <b>R${notification.treasuryBondMinimumInvestmentAmount}</b>
                 </div>
               </div>
               <div id="notification-summary">
                 <span>
-                  Você será notificado quando a taxa estiver <u>maior</u> que{' '}
-                  <b>XX.XX%</b>.
+                    Você será notificado quando a taxa estiver{' '}
+                    <u>{notification.type}</u> que <b>{notification.value}%</b>.
                 </span>
-                <span>Notificação criada em XX/XX/XXXX.</span>
+                  <span>
+                    Notificação criada em {notification.creationDate}.
+                  </span>
               </div>
               <div id="notification-actions">
                 <div id="toggle-with-label">
                   <h1>Ativa</h1>
                   <Toggle
                     id="notification-status"
-                    defaultChecked
+                      value={String(notification.active)}
                     onChange={() => handleNotifyChange()}
                   />
                 </div>
@@ -194,7 +168,7 @@ export default function Notifications() {
                     <span>E-mail</span>
                     <Toggle
                       id="notification-status"
-                      defaultChecked
+                        value={String(notification.notifyByEmail)}
                       onChange={() => handleNotifyChange()}
                     />
                   </div>
@@ -202,7 +176,7 @@ export default function Notifications() {
                     <span>Browser</span>
                     <Toggle
                       id="notification-status"
-                      defaultChecked
+                        value={String(notification.notifyByBrowser)}
                       onChange={() => handleNotifyChange()}
                     />
                   </div>
@@ -210,7 +184,6 @@ export default function Notifications() {
               </div>
             </div>
           </Notification>
-          ))}
           <div id="notification-actions-edit-delete">
             <div id="edit">
               <button type="button">
@@ -219,12 +192,16 @@ export default function Notifications() {
             </div>
             <div id="delete">
               {/* Create delete button that will delete the current notification */}
-              <button type="button" onClick={e => handleNotificationDelete(e)}>
+                <button
+                  type="button"
+                  onClick={e => handleNotificationDelete(e)}
+                >
                 <FiTrash />
               </button>
             </div>
           </div>
         </NotificationContainer>
+        ))}
       </NotificationsContainer>
     </AnimationContainer>
   );
