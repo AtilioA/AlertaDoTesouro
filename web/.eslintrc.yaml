@@ -34,7 +34,7 @@ rules:
     - error
     - checksVoidReturn: false
   "@typescript-eslint/no-unused-vars":
-    - off
+    - warn
     - varsIgnorePattern: ^_
       argsIgnorePattern: ^_
       destructuredArrayIgnorePattern: ^_

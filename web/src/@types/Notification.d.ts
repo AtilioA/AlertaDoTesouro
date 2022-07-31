@@ -1,4 +1,5 @@
 type Notification = {
+  id: string;
   treasuryBondName: string;
   treasuryBondMinimumInvestmentAmount: number;
   type: string;
