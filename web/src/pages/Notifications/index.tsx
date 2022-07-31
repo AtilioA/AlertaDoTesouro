@@ -211,11 +211,6 @@ export default function Notifications() {
               </div>
             </Notification>
             <div id="notification-actions-edit-delete">
-              <div id="edit">
-                <button type="button">
-                  <FiEdit />
-                </button>
-              </div>
               <div id="delete">
                 <button
                   type="button"

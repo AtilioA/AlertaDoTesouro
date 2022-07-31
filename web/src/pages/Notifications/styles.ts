@@ -10,8 +10,10 @@ export const Container = styled.div`
   align-items: center;
   flex-direction: column;
 
-  h1 {
-    margin-bottom: 12px;
+  div#header {
+    h1 {
+      margin-bottom: 10px;
+    }
   }
 
   div#toggle-with-label {
@@ -83,10 +85,12 @@ export const NotificationsContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin-top: 75px;
+  margin-top: 50px;
 
-  h1 {
-    margin-bottom: 12px;
+  div#header {
+    h1 {
+      margin-bottom: 10px;
+    }
   }
 `;
 
@@ -95,38 +99,28 @@ export const NotificationContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: row;
-
+  & + div {
+    margin-top: 20px;
+  }
   div#notification-content {
     display: flex;
     flex-direction: row;
   }
 
   div#notification-actions-edit-delete {
-    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 0px 15px 15px 0px;
     display: flex;
     flex-direction: column;
-  }
-
-  div#edit {
-    button {
-      background: #a7b6cb;
-      border: 0;
-      padding: 25px;
-      border-radius: 0px 2px 0px 0px;
-
-      transition: background 0.2s;
-      &:hover {
-        background: ${shade(-0.1, '#a7b6cb')};
-      }
-    }
+    flex-grow: 1;
   }
 
   div#delete {
     button {
-      background: #cba7a7;
+      border-radius: 0px 15px 15px 0px;
       padding: 25px;
+      background: #cba7a7;
       border: 0;
-      border-radius: 0px 0px 2px 0px;
 
       transition: background 0.2s;
       &:hover {
@@ -140,7 +134,7 @@ export const Notification = styled.div`
   max-width: 95%;
   background: #e2e2e2;
   border-radius: 2px;
-  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   padding: 10px 0px 10px 0px;
   flex-direction: row;
@@ -194,7 +188,6 @@ export const Notification = styled.div`
     }
 
     display: flex;
-    flex: 1;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -205,7 +198,7 @@ export const Notification = styled.div`
     margin-top: 20px;
 
     span {
-      margin-top: 8px;
+      margin-top: 5px;
       & + div {
         margin-top: 8px;
       }
