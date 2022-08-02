@@ -9,7 +9,6 @@ extends:
   - airbnb-typescript
   - airbnb/hooks
   - "plugin:@typescript-eslint/recommended"
-  - "plugin:@typescript-eslint/parser"
   - "plugin:@typescript-eslint/recommended-requiring-type-checking"
   - plugin:import/recommended
   - plugin:react/jsx-runtime # After react/recommended
@@ -28,7 +27,6 @@ rules:
   no-underscore-dangle: off
   no-console: off
   no-unused-vars: off
-  jsx-a11y/label-has-associated-control: off
   jest/no-disabled-tests: off
   react/prop-types: off
   react/jsx-props-no-spreading: off
