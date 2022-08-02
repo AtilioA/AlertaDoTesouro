@@ -7,7 +7,6 @@ const testEnv = dotenv.config({ path: '.env.test' });
 if (testEnv.error) {
   throw testEnv.error;
 }
-
 const connectionOptions: ConnectionOptions[] = [
   {
     name: 'default',
@@ -37,7 +36,7 @@ const connectionOptions: ConnectionOptions[] = [
       migrationsDir: './src/database/migrations',
     },
     dropSchema: true,
-    // logging: false,
+    logging: true,
   },
 ];
 
