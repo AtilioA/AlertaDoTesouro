@@ -118,7 +118,7 @@ export const NotificationContainer = styled.div`
   div#delete {
     button {
       border-radius: 0px 15px 15px 0px;
-      padding: 25px;
+      padding: 54px;
       background: #cba7a7;
       border: 0;
 
