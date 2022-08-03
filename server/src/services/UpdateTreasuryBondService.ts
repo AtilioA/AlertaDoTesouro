@@ -18,10 +18,10 @@ class UpdateTreasuryBondService {
         const code = currentTb.cd;
         const name = currentTb.nm;
         const expirationDate = currentTb.mtrtyDt;
-        const minimumInvestmentAmount = currentTb.minInvstmtAmt;
+        let minimumInvestmentAmount = currentTb.minInvstmtAmt;
         const investmentUnitaryValue = currentTb.untrInvstmtVal;
         const semianualInterestIndex = currentTb.semiAnulIntrstInd;
-        const annualInvestmentRate = currentTb.anulInvstmtRate;
+        let annualInvestmentRate = currentTb.anulInvstmtRate;
         const annualRedRate = currentTb.anulRedRate;
         const minimumRedValue = currentTb.minRedVal;
         const ISIN = currentTb.isinCd;
@@ -35,6 +35,12 @@ class UpdateTreasuryBondService {
           features: currentTb.featrs,
           recommendedTo: currentTb.rcvgIncm,
         };
+
+        if (lastDateOfNegotiation) {
+          console.log("Atualizando")
+          annualInvestmentRate = annualRedRate;
+          minimumInvestmentAmount = minimumRedValue;
+        }
 
         // Insert treasurybond into database or update if already exists
         const treasuryBond = treasuryBondsRepository.create({
@@ -55,9 +61,10 @@ class UpdateTreasuryBondService {
         // Generate uuid to be used if TreasuryBond is new
         treasuryBond.id = uuid.v4();
 
-        const treasuryBondExists: TreasuryBond | undefined  = await treasuryBondsRepository.findOne({
-          where: { code },
-        });
+        const treasuryBondExists: TreasuryBond | undefined =
+          await treasuryBondsRepository.findOne({
+            where: { code },
+          });
         // If it doesn't exist, insert it
         if (treasuryBondExists) {
           treasuryBond.id = treasuryBondExists.id;
