@@ -2,8 +2,8 @@
 
 import Toggle from 'react-toggle';
 
-import { FiEdit, FiTrash } from 'react-icons/fi';
-import { useCallback, useEffect, useState } from 'react';
+import { FiTrash } from 'react-icons/fi';
+import { useEffect, useState } from 'react';
 import {
   Container,
   AnimationContainer,
@@ -13,27 +13,10 @@ import {
 } from './styles';
 import api from '../../services/api';
 import NotificationType from '../../@types/Notification';
-import TreasuryBond from '../../@types/TreasuryBond';
-// import Input from '../../components/Input';
-
-interface Response {
-  id: string;
-  user_id: string;
-  treasurybond_id: string;
-  value: number;
-  type: string;
-  notifyByEmail: boolean;
-  notifyByBrowser: boolean;
-  active: boolean;
-  created_at: string;
-  updated_at: string;
-}
 
 export default function Notifications() {
   const [notifications, setNotifications] = useState<NotificationType[]>([]);
 
-  // FIXME: get treasuryBond info within back-end
-  // FIXME: not listing all notifications properly
   useEffect(() => {
     // GET request + bearer token to notification list endpoint
     const userToken = localStorage.getItem('@AlertaDoTesouro:token');
@@ -45,40 +28,10 @@ export default function Notifications() {
           },
         })
         .then(notificationsResponse => {
-          const responseData = notificationsResponse.data as Response[];
+          const responseData = notificationsResponse.data as NotificationType[];
 
-          const myNotifications = Array<NotificationType>();
-          for (let i = 0; i < responseData.length; i += 1) {
-            api
-              .get(`/treasurybonds/${responseData[i].treasurybond_id}`)
-              .then(treasuryBondResponse => {
-                const treasuryBondList = treasuryBondResponse.data as Response;
-                const treasuryBond = treasuryBondList[0] as TreasuryBond;
-
-                const notificationObj = {
-                  id: responseData[i].id,
-                  treasuryBondName: treasuryBond.name,
-                  treasuryBondMinimumInvestmentAmount:
-                    treasuryBond.minimumInvestmentAmount,
-                  treasuryBondAnnualInterestIndex:
-                    treasuryBond.annualInterestIndex,
-                  type: responseData[i].type,
-                  value: responseData[i].value,
-                  creationDate: responseData[i].created_at,
-                  active: responseData[i].active,
-                  notifyByEmail: responseData[i].notifyByEmail,
-                  notifyByBrowser: responseData[i].notifyByBrowser,
-                };
-
-                // console.log(notificationObj);
-                // console.log(notifications);
-
-                setNotifications([...notifications, notificationObj]);
-              })
-              .catch(error => {
-                console.log(error);
-              });
-          }
+          console.log(responseData);
+          setNotifications(responseData);
         })
         .catch(error => {
           console.log(error);
