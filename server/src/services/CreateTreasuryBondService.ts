@@ -39,18 +39,19 @@ class CreateTreasuryBondService {
     indexedTo,
     texts,
   }: Request): Promise<TreasuryBond> {
-    const treasuryBondsRepository = getRepository(TreasuryBond);
+    const treasuryBondRepository = getRepository(TreasuryBond);
 
-    const checkIfTreasuryBondExists: TreasuryBond | undefined  = await treasuryBondsRepository.findOne({
-      where: { code },
-    });
+    const checkIfTreasuryBondExists: TreasuryBond | undefined =
+      await treasuryBondRepository.findOne({
+        where: { code },
+      });
 
     if (checkIfTreasuryBondExists) {
       throw new Error('Treasury bond is already in the database.');
     }
 
     console.log(texts);
-    const treasuryBond = treasuryBondsRepository.create({
+    const treasuryBond = treasuryBondRepository.create({
       code,
       name,
       expirationDate,
@@ -65,7 +66,7 @@ class CreateTreasuryBondService {
       texts,
     });
 
-    await treasuryBondsRepository.save(treasuryBond);
+    await treasuryBondRepository.save(treasuryBond);
 
     return treasuryBond;
   }

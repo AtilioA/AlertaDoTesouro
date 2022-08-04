@@ -104,20 +104,26 @@ export default function Account() {
       try {
         formRef.current?.setErrors({});
 
-        // Redundant validation, but surely is a validation.
-        const schema = Yup.object().shape({
-          oldPassword: Yup.string().min(8, 'Mínimo de 8 caracteres'),
-          newPassword: Yup.string().min(8, 'Mínimo de 8 caracteres'),
-          newPasswordConfirmation: Yup.string().when(
-            'password',
-            (password: string, field: Yup.StringSchema) =>
-              password
-                ? field
-                  .required('Senhas devem ser iguais')
-                  .oneOf([Yup.ref('password')], 'Senhas devem ser iguais')
-                : field,
-          ),
-        });
+      const schema = Yup.object().shape({
+        email: Yup.string()
+          .required('Email é obrigatório')
+          .email('Digite um email válido'),
+        password: Yup.string().required('Informe sua senha'),
+        newPassword: Yup.string().oneOf(
+          [Yup.ref('confirmPassword')],
+          'Senhas devem ser iguais',
+        ),
+        confirmPassword: Yup.string().when(
+          'newPassword',
+          (newPassword: string, field: Yup.StringSchema) =>
+            newPassword
+              ? field
+                .required('É necessário confirmar sua senha')
+                .min(8, 'Mínimo de 8 caracteres')
+                .oneOf([Yup.ref('newPassword')], 'Senhas devem ser iguais')
+              : field,
+        ),
+      });
 
         await schema.validate(data, {
           abortEarly: false,

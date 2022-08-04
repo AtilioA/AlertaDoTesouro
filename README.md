@@ -29,7 +29,7 @@ A web application that notifies you about Brazilian treasury bond rates.
 
 # 💻 Project
 
-AlertaDoTesouro is a project elaborated with the intent of automatically monitoring Brazilian government bonds and alerting users about them according to their preferences of rates. Tools such as Node.js, Express, PostgreSQL, Docker, Redis, linting and debugging tools, mail delivery systems, among others, were employed to build this system.
+AlertaDoTesouro is a project elaborated with the intent of automatically monitoring Brazilian government bond and alerting users about them according to their preferences of rates. Tools such as Node.js, Express, PostgreSQL, Docker, Redis, linting and debugging tools, mail delivery systems, among others, were employed to build this system.
 Furthermore, this project was also presented as required academic work for the Integrated Project classes during the 2022/1 semester.
 
 The application allows users to set one value per treasury bond, so they can get notified whenever its rate goes above or below that value. Users should be able to be* notified by email or browser notifications.
@@ -76,9 +76,9 @@ All files related exlusively to the back-end server are located in `/server`.
 
 The back-end REST API is fully functional and was made with Express. Multiple endpoints have been defined and they can be explored extensively by referring to the `.insomnia.json` file, which can be imported into [Insomnia](https://insomnia.rest/) itself or possibly other REST clients.
 
-#### Example: listing treasury bonds
+#### Example: listing treasury bond
 
-A typical request would be a simple `GET` request to the `/treasurybonds` endpoint. Response example:
+A typical request would be a simple `GET` request to the `/treasurybond` endpoint. Response example:
 
 ```bash
 [

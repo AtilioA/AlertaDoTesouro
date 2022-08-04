@@ -58,7 +58,7 @@ export const Container = styled.div`
   }
 `;
 
-export const BondsList = styled.div`
+export const BondList = styled.div`
   display: flex;
 
   justify-content: center;
@@ -66,7 +66,7 @@ export const BondsList = styled.div`
   flex-direction: column;
   width: 100%;
 
-  div#bonds-list {
+  div#bond-list {
     h1 {
       margin-bottom: 20px;
     }

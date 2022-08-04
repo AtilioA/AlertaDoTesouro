@@ -56,7 +56,7 @@ export const Container = styled.div`
         background: ${shade(0.1, '#3b9fff')};
       }
       &#exportar-dados {
-        background: #00AA33;
+        background: #00aa33;
         &:hover {
           background: ${shade(0.1, '#00AA33')};
         }

@@ -1,7 +1,7 @@
 import * as uuid from 'uuid';
 import { getRepository } from 'typeorm';
 import TreasuryBond from '../models/TreasuryBond';
-import { fetchListOfTreasuryBonds } from '../utils/fetchTBAPI';
+import { fetchListOfTreasuryBond } from '../utils/fetchTBAPI';
 
 /**
  * @class UpdateTreasuryBondService
@@ -9,11 +9,11 @@ import { fetchListOfTreasuryBonds } from '../utils/fetchTBAPI';
  */
 class UpdateTreasuryBondService {
   public async execute(): Promise<boolean> {
-    const treasuryBondsRepository = getRepository(TreasuryBond);
+    const treasuryBondRepository = getRepository(TreasuryBond);
 
-    const treasuryBondsList = await fetchListOfTreasuryBonds();
+    const treasuryBondList = await fetchListOfTreasuryBond();
     try {
-      for (const tb of treasuryBondsList) {
+      for (const tb of treasuryBondList) {
         const currentTb = tb.TrsrBd;
         const code = currentTb.cd;
         const name = currentTb.nm;
@@ -37,7 +37,7 @@ class UpdateTreasuryBondService {
         };
 
         // Insert treasurybond into database or update if already exists
-        const treasuryBond = treasuryBondsRepository.create({
+        const treasuryBond = treasuryBondRepository.create({
           code,
           name,
           expirationDate,
@@ -55,22 +55,23 @@ class UpdateTreasuryBondService {
         // Generate uuid to be used if TreasuryBond is new
         treasuryBond.id = uuid.v4();
 
-        const treasuryBondExists: TreasuryBond | undefined  = await treasuryBondsRepository.findOne({
-          where: { code },
-        });
+        const treasuryBondExists: TreasuryBond | undefined =
+          await treasuryBondRepository.findOne({
+            where: { code },
+          });
         // If it doesn't exist, insert it
         if (treasuryBondExists) {
           treasuryBond.id = treasuryBondExists.id;
-          treasuryBondsRepository.update(treasuryBond.id, treasuryBond);
+          treasuryBondRepository.update(treasuryBond.id, treasuryBond);
         } else {
-          await treasuryBondsRepository.insert(treasuryBond);
+          await treasuryBondRepository.insert(treasuryBond);
         }
-        treasuryBondsRepository.save(treasuryBond);
+        treasuryBondRepository.save(treasuryBond);
       }
 
       return true;
     } catch (err) {
-      console.log(`Failed while trying to update treasury bonds:${err}`);
+      console.log(`Failed while trying to update treasury bond:${err}`);
       return false;
     }
   }

@@ -6,7 +6,7 @@
  * @throws Error If the environment variable is not available
  *
  */
-export default function loadEnvOrThrow(envName: string): string {
+export default function loadRequiredEnv(envName: string): string {
   const env = process.env[`${envName}`];
   if (env === undefined) {
     throw new Error(

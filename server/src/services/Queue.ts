@@ -5,7 +5,12 @@ import SendConfirmAccountMail from '../jobs/SendConfirmAccountMail';
 import SendResetPasswordMail from '../jobs/SendResetPasswordMail';
 import SendDataExportMail from '../jobs/SendDataExportMail';
 
-const jobs = [NotifyBondReturns, SendConfirmAccountMail, SendResetPasswordMail, SendDataExportMail];
+const jobs = [
+  NotifyBondReturns,
+  SendConfirmAccountMail,
+  SendResetPasswordMail,
+  SendDataExportMail,
+];
 
 /**
  * @class Queue
