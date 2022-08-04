@@ -1,10 +1,12 @@
+import TreasuryBond from './TreasuryBond';
+
 type Notification = {
   id: string;
-  treasuryBondName: string;
+  bond: TreasuryBond;
   treasuryBondMinimumInvestmentAmount: number;
   type: string;
   value: number;
-  creationDate: string;
+  created_at: string;
   active: boolean;
   notifyByEmail: boolean;
   notifyByBrowser: boolean;

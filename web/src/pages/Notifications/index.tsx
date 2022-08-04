@@ -30,14 +30,12 @@ export default function Notifications() {
         .then(notificationsResponse => {
           const responseData = notificationsResponse.data as NotificationType[];
 
-          console.log(responseData);
           setNotifications(responseData);
         })
         .catch(error => {
           console.log(error);
         });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // NOTE: Depois usar essa bomba para listagem: https://contactmentor.com/render-array-map-react-js/
@@ -67,8 +65,13 @@ export default function Notifications() {
     }
   }
 
-  function handleNotifyChange() {
-    return true;
+  function formatDate(date: string) {
+    const dateObject = new Date(date);
+    const dateFormatted = `${dateObject.getDate()}/${dateObject.getMonth() + 1
+      }/${dateObject.getFullYear()}`;
+
+    return dateFormatted;
+  }
   }
 
   return (
@@ -113,15 +116,14 @@ export default function Notifications() {
             <Notification>
               <div id="notification-content">
                 <div id="notification-bond">
-                  <h1>{notification.treasuryBondName}</h1>
+                  <h1>{notification.bond.name}</h1>
                   <div id="notification-bond-value">
                     <span>Taxa atual:</span>
-                    <b>{notification.value}%</b>
-                    {/* <b>{notification.treasuryBondAnnualInterestIndex}%</b> */}
+                    <b>{notification.bond.annualInvestmentRate}%</b>
                   </div>
                   <div id="notification-bond-value">
                     <span>Preço unitário:</span>
-                    <b>R${notification.treasuryBondMinimumInvestmentAmount}</b>
+                    <b>R${notification.bond.minimumInvestmentAmount}</b>
                   </div>
                 </div>
                 <div id="notification-summary">
@@ -130,7 +132,7 @@ export default function Notifications() {
                     <u>{notification.type}</u> que <b>{notification.value}%</b>.
                   </span>
                   <span>
-                    Notificação criada em {notification.creationDate}.
+                    Notificação criada em {formatDate(notification.created_at)}.
                   </span>
                 </div>
                 <div id="notification-actions">

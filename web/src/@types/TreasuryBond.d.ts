@@ -1,7 +1,7 @@
 type TreasuryBond = {
   name: string;
+  annualInvestmentRate: number;
   minimumInvestmentAmount: number;
-  annualInterestIndex: number;
 };
 
 export default TreasuryBond;
