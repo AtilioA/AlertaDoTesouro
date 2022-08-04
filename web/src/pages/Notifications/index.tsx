@@ -13,9 +13,28 @@ import {
 } from './styles';
 import api from '../../services/api';
 import NotificationType from '../../@types/Notification';
+import UserType from '../../@types/User';
 
 export default function Notifications() {
   const [notifications, setNotifications] = useState<NotificationType[]>([]);
+  const [user, setUser] = useState<UserType>();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      api
+        .get(`users/`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(response => {
+          console.log(response.data);
+          setUser(response.data);
+        })
+        .catch(error => console.log(error));
+    }
+  });
 
   useEffect(() => {
     // GET request + bearer token to notification list endpoint
@@ -72,6 +91,44 @@ export default function Notifications() {
 
     return dateFormatted;
   }
+
+  // TODO: Implementar o hook de toggle de ativar/desativar notificação, global e para cada notificação
+  function handleNotifyChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const userToken = localStorage.getItem('@AlertaDoTesouro:token');
+    if (userToken) {
+      switch (e.target.id) {
+        case 'notification-status-global-all':
+          api
+            .put(
+              `/users/`,
+              {
+                notify: e.target.checked,
+              },
+              {
+                headers: {
+                  Authorization: `Bearer ${userToken} `,
+                },
+              },
+            )
+            .then(() => {
+              console.log('Notification status updated');
+            })
+            .catch(error => {
+              console.log(error);
+            });
+          console.log('notification-status-global-all');
+          break;
+        case 'notification-status-global-email':
+          console.log('notification-status-global-email');
+          break;
+        case 'notification-status-global-browser':
+          console.log('notification-status-global-browser');
+          break;
+        default:
+          console.log("switch didn't work");
+          break;
+      }
+    }
   }
 
   return (
@@ -84,23 +141,27 @@ export default function Notifications() {
         <div id="global-notification-settings">
           <div id="toggle-with-label">
             <span>Receber notificações</span>
-            <Toggle id="notification-status" defaultChecked />
+            <Toggle
+              id="notification-status-global-all"
+              defaultChecked={user?.notify}
+              onChange={e => handleNotifyChange(e)}
+            />
           </div>
           <div id="global-notification-settings-body">
             <div id="toggle-with-label">
               <span>Receber notificações por e-mail</span>
               <Toggle
-                id="notification-status"
+                id="notification-status-global-email"
                 defaultChecked
-                onChange={() => handleNotifyChange()}
+                onChange={e => handleNotifyChange(e)}
               />
             </div>
             <div id="toggle-with-label">
               <span>Receber notificações pelo navegador</span>
               <Toggle
-                id="notification-status"
+                id="notification-status-global-browser"
                 defaultChecked
-                onChange={() => handleNotifyChange()}
+                onChange={e => handleNotifyChange(e)}
               />
             </div>
           </div>

@@ -37,7 +37,6 @@ class UpdateTreasuryBondService {
         };
 
         if (lastDateOfNegotiation) {
-          console.log("Atualizando")
           annualInvestmentRate = annualRedRate;
           minimumInvestmentAmount = minimumRedValue;
         }
