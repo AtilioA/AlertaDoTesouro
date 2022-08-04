@@ -58,7 +58,7 @@ export interface Index {
  * @property {Date} created_at - The date when the bond was created in the database
  * @property {Date} updated_at - The date when the bond was updated in the database
  */
-@Entity('treasurybonds')
+@Entity('treasurybond')
 class TreasuryBond {
   @PrimaryGeneratedColumn('uuid')
   id: string;

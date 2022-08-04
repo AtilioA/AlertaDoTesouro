@@ -39,10 +39,10 @@ class CreateTreasuryBondService {
     indexedTo,
     texts,
   }: Request): Promise<TreasuryBond> {
-    const treasuryBondsRepository = getRepository(TreasuryBond);
+    const treasuryBondRepository = getRepository(TreasuryBond);
 
     const checkIfTreasuryBondExists: TreasuryBond | undefined =
-      await treasuryBondsRepository.findOne({
+      await treasuryBondRepository.findOne({
         where: { code },
       });
 
@@ -51,7 +51,7 @@ class CreateTreasuryBondService {
     }
 
     console.log(texts);
-    const treasuryBond = treasuryBondsRepository.create({
+    const treasuryBond = treasuryBondRepository.create({
       code,
       name,
       expirationDate,
@@ -66,7 +66,7 @@ class CreateTreasuryBondService {
       texts,
     });
 
-    await treasuryBondsRepository.save(treasuryBond);
+    await treasuryBondRepository.save(treasuryBond);
 
     return treasuryBond;
   }

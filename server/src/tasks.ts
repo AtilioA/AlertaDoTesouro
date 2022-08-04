@@ -4,15 +4,15 @@ import UpdateTreasuryBondService from './services/UpdateTreasuryBondService';
 import loadRequiredEnv from './utils/loadRequiredEnv';
 
 /**
- * Cron job to check the value of all treasury bonds and update the database.
+ * Cron job to check the value of all treasury bond and update the database.
  */
 cron.schedule(loadRequiredEnv('UPDATE_CRON'), async () => {
-  console.log('Running update-all-treasury-bonds task...');
-  const updateTreasuryBonds = new UpdateTreasuryBondService();
+  console.log('Running update-all-treasury-bond task...');
+  const updateTreasuryBond = new UpdateTreasuryBondService();
   try {
-    const checkResult = await updateTreasuryBonds.execute();
+    const checkResult = await updateTreasuryBond.execute();
     console.log(
-      `Successfully updated all treasury bonds in the database: ${checkResult}`,
+      `Successfully updated all treasury bond in the database: ${checkResult}`,
     );
   } catch (err) {
     console.log(err);

@@ -1,5 +1,5 @@
 import { FiCheckCircle, FiClock, FiRefreshCw } from 'react-icons/fi';
-import { Container, BondsList } from './styles';
+import { Container, BondList } from './styles';
 import Card from '../../components/Card';
 
 export default function Dashboard() {
@@ -27,8 +27,8 @@ export default function Dashboard() {
           </div>
         </div>
       </Container>
-      <BondsList>
-        <div id="bonds-list">
+      <BondList>
+        <div id="bond-list">
           <div id="IPCA">
             <h1>Títulos indexados ao IPCA</h1>
             <div id="card-list">
@@ -56,7 +56,7 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-      </BondsList>
+      </BondList>
     </>
   );
 }

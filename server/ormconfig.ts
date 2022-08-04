@@ -25,8 +25,8 @@ const connectionOptions: ConnectionOptions[] = [
   {
     name: 'test',
     type: 'postgres',
-    host: loadRequiredEnv('DB_HOST_TEST'),
-    port: Number(loadRequiredEnv('DB_PORT_TEST')),
+    host: testEnv.parsed?.DB_HOST,
+    port: Number(testEnv.parsed?.DB_PORT),
     username: testEnv.parsed?.POSTGRES_USER,
     password: testEnv.parsed?.POSTGRES_PASSWORD,
     database: testEnv.parsed?.POSTGRES_DB,

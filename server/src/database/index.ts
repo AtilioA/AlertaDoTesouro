@@ -10,15 +10,14 @@ const DB = {
     await getConnection(connectionName).close();
   },
 
-  async clear(connectionName?: string) {
+  clear(connectionName?: string) {
     const connection = getConnection(connectionName);
     const entities = connection.entityMetadatas;
 
-    const promises = entities.map(entity => {
+    entities.forEach(async entity => {
       const repository = connection.getRepository(entity.name);
-      return repository.clear();
+      await repository.clear();
     });
-    await Promise.all(promises);
   },
 
   async drop(connectionName?: string) {

@@ -62,7 +62,7 @@ services:
   #   env_file: server/.env
   #   environment:
   #     - NODE_ENV=production
-  #     # Treasury bonds database
+  #     # Treasury bond database
   #     - DB_TYPE=postgres
   #     - DB_HOST=postgres
   #     - DB_PORT=5432
@@ -76,7 +76,7 @@ services:
   #     - JWT_SECRET=${JWT_SECRET} # Change to required without breaking dev build
   #     # - JWT_SECRET=${JWT_SECRET?}
   #     - JWT_EXPIRES_IN="1d"
-  #     # Cron schedule for update-all-treasury-bonds task
+  #     # Cron schedule for update-all-treasury-bond task
   #     - UPDATE_CRON=${UPDATE_CRON:-"*/2 * * * *"}
   #     # Cron schedule for check-all-notifications task
   #     - NOTIFICATIONS_CRON=${SEVER_NOTIFICATIONS_CRON:-"*/2 * * * *"}
