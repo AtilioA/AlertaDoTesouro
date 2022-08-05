@@ -89,7 +89,7 @@ export const NotificationsContainer = styled.div`
 
   div#header {
     h1 {
-      margin-bottom: 10px;
+      margin-bottom: 20px;
     }
   }
 `;
@@ -99,6 +99,7 @@ export const NotificationContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: row;
+
   & + div {
     margin-top: 20px;
   }
@@ -131,12 +132,14 @@ export const NotificationContainer = styled.div`
 `;
 
 export const Notification = styled.div`
-  max-width: 95%;
+  max-width: 66.6%;
+  justify-content: center;
+  align-items: center;
   background: #e2e2e2;
   border-radius: 2px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
   display: flex;
-  padding: 10px 0px 10px 0px;
+  padding: 20px 0px 20px 0px;
   flex-direction: row;
 
   div#notification-content {
@@ -147,6 +150,7 @@ export const Notification = styled.div`
 
   div#notification-bond {
     border-right: 1px solid #828282;
+    width: 75%;
     padding-right: 25px;
     display: flex;
     flex-direction: column;
