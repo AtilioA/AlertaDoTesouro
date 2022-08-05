@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import { shade } from 'polished';
+import { saturate, shade } from 'polished';
 
 import '../../components/Toggle/styles.css';
 
@@ -113,19 +113,20 @@ export const NotificationContainer = styled.div`
     border-radius: 0px 15px 15px 0px;
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
   }
 
   div#delete {
     button {
       border-radius: 0px 15px 15px 0px;
-      padding: 54px;
-      background: #cba7a7;
+      padding: 25px;
+      width: 100%;
+      height: 148px;
+      background: ${saturate(-0.5, '#ff1818')};
       border: 0;
 
       transition: background 0.2s;
       &:hover {
-        background: ${shade(-0.1, '#cba7a7')};
+        background: ${saturate(-0.1, '#ff1818')};
       }
     }
   }
