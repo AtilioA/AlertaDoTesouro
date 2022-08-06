@@ -269,7 +269,7 @@
     "colId": "322f5698-0674-4053-af06-78aa8fe9a378",
     "containerId": "",
     "name": "API TD",
-    "url": "https://www.tesourodireto.com.br/json/br/com/b3/tesourodireto/service/api/treasurybondinfo.json",
+    "url": "https://www.tesourodireto.com.br/json/br/com/b3/tesourodireto/service/api/treasurybondsinfo.json",
     "method": "GET",
     "sortNum": 160000,
     "created": "2022-06-02T04:17:51.912Z",
