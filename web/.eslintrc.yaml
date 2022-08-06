@@ -28,22 +28,22 @@ rules:
   no-console: off
   no-unused-vars: off
   jest/no-disabled-tests: off
-  react/prop-types: off
+  react/prop-types: warn
   react/jsx-props-no-spreading: off
   react/require-default-props: off # https://stackoverflow.com/a/69746922/12921102
   react-hooks/exhaustive-deps: warn
   "@typescript-eslint/unbound-method": off # FIXME (?)
   "@typescript-eslint/no-misused-promises":
-    - error
+    - warn
     - checksVoidReturn: false
   "@typescript-eslint/no-unused-vars":
-    - error
+    - warn
     - varsIgnorePattern: ^_
       argsIgnorePattern: ^_
       destructuredArrayIgnorePattern: ^_
       ignoreRestSiblings: true
   "@typescript-eslint/naming-convention":
-    - error
+    - warn
     - format:
         - "camelCase"
         - "PascalCase"
