@@ -81,6 +81,7 @@ export const BondList = styled.div`
     div#card-list {
       max-width: 70%;
       justify-content: center;
+      align-items: baseline;
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;

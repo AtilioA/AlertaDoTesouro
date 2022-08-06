@@ -8,6 +8,7 @@ export default function Dashboard() {
   return (
     <>
       <Container>
+        {/* TODO(dashboard) change this according to market status */}
         <div id="app-status">
           <div id="market-status">
             <FiCheckCircle size={24} />
@@ -16,13 +17,14 @@ export default function Dashboard() {
 
           <div id="market-operating-hours">
             <FiClock size={16} color="gray" />
-            Horário de funcionamento: de 9h30 às 18h.
+            Horário de funcionamento: de 9h30 às 18h
           </div>
 
           <div id="market-last-update">
             <button type="button">
               <FiRefreshCw size={24} />
             </button>
+            {/* TODO(dashboard) botar data de resposta da API */}
             <h1>Atualizado às XX/XX/XXXX, XX:XX.</h1>
           </div>
         </div>
