@@ -1,6 +1,7 @@
 import { FiInfo } from 'react-icons/fi';
 import { Container, CardHeader, CardBody, CardFooter } from './styles';
 
+// TODO(dashboard) ...
 export default function Card() {
   return (
     <Container>
@@ -32,6 +33,7 @@ export default function Card() {
           <label>
             [MAIOR/MENOR] que <input type="number" placeholder="XX.XX" />%
           </label>
+          {/* TODO(dashboard) AHAHAHAH TOUGH LUCK BUDDY */}
           <button type="button">Criar notificação</button>
         </div>
       </CardFooter>
