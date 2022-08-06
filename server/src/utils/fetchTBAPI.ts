@@ -34,7 +34,7 @@ export async function fetchTreasuryBondByCode(
 ): Promise<TreasuryBondJson> {
   // Fetch API
   const APIUrl =
-    'https://www.tesourodireto.com.br/json/br/com/b3/tesourodireto/service/api/treasurybondinfo.json';
+    'https://www.tesourodireto.com.br/json/br/com/b3/tesourodireto/service/api/treasurybondsinfo.json';
   const agent = new https.Agent({
     rejectUnauthorized: false,
   });
@@ -61,7 +61,7 @@ export async function fetchTreasuryBondByCode(
 export async function fetchListOfTreasuryBond(): Promise<Array<any>> {
   // Fetch API
   const APIUrl =
-    'https://www.tesourodireto.com.br/json/br/com/b3/tesourodireto/service/api/treasurybondinfo.json';
+    'https://www.tesourodireto.com.br/json/br/com/b3/tesourodireto/service/api/treasurybondsinfo.json';
 
   const agent = new https.Agent({
     rejectUnauthorized: false,
