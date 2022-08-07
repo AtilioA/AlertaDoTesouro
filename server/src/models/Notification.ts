@@ -61,7 +61,7 @@ class Notification {
   @JoinColumn({ name: 'treasurybond_id' })
   bond: TreasuryBond;
 
-  @Column('int')
+  @Column('numeric')
   value: number;
 
   @Column('enum', { enum: nType })

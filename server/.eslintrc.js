@@ -32,6 +32,7 @@ module.exports = {
     "class-methods-use-this": "off",
     "camelcase": "off",
     "prettier/prettier": "error",
+    "consistent-return": "off",
     "no-unused-vars": "off",
     "no-console": "off",
     "jest/no-disabled-tests": "off",
@@ -50,6 +51,7 @@ module.exports = {
       {
         format: [
           "camelCase",
+          "snake_case",
           "PascalCase",
           "UPPER_CASE"],
         selector: "default",

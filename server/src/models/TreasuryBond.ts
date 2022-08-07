@@ -101,10 +101,10 @@ class TreasuryBond {
   @Column('json')
   indexedTo?: Index;
 
-  @Column('timestamp with time zone')
+  @Column('timestamp with time zone', { nullable: true })
   lastDateOfNegotiation?: Date;
 
-  @Column('json')
+  @Column('json', { nullable: true })
   texts?: treasuryBondTexts;
 
   @CreateDateColumn()
