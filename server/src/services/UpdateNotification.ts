@@ -3,8 +3,6 @@ import type User from '../models/User';
 import type Notification from '../models/Notification';
 import NotificationRepository from '../repositories/NotificationsRepository';
 
-const notificationsRepository = getCustomRepository(NotificationRepository);
-
 type UpdateNotificationArgs = Pick<
   Notification,
   'value' | 'type' | 'notifyByEmail' | 'notifyByBrowser' | 'active'
@@ -25,6 +23,7 @@ export default async function updateNotification({
   notifyByBrowser,
   active,
 }: UpdateNotificationArgs): Promise<UpdateResult> {
+  const notificationsRepository = getCustomRepository(NotificationRepository);
   const findNotification = await notificationsRepository.findOne({
     where: { user: { id: user } },
   });

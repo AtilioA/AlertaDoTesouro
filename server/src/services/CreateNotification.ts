@@ -19,9 +19,6 @@ interface Request {
   active: boolean;
 }
 
-const notificationsRepository = getCustomRepository(NotificationsRepository);
-const userRepository = getRepository(User);
-
 /**
  * @class CreateNotificationService
  * @description Function for creating a new Notification using parameters from the request object
@@ -35,6 +32,9 @@ export default async function createNotification({
   notifyByBrowser,
   active,
 }: Request): Promise<Notification> {
+  const notificationsRepository = getCustomRepository(NotificationsRepository);
+  const userRepository = getRepository(User);
+
   // Get the string according to the type of the notification (e.g. 'maior' or 'menor')
   type = notificationsRepository.checkEnum(type);
 

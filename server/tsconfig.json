@@ -70,7 +70,8 @@
   },
   "include": [
     "src/",
-    ".eslintrc.js"
+    ".eslintrc.js",
+    "ormconfig.ts",
   ],
   "typedocOptions": {
     "entryPoints": [

@@ -10,8 +10,6 @@ import type { TypedRequestBody } from '../@types/express';
 import type Notification from '../models/Notification';
 
 const notificationsRouter = Router();
-const userRepository = getRepository(User);
-const notificationsRepository = getCustomRepository(NotificationsRepository);
 
 // All notifications routes require authentication
 notificationsRouter.use(ensureAuthenticated);
@@ -22,6 +20,9 @@ notificationsRouter.use(ensureAuthenticated);
 notificationsRouter.get('/', async (request, response, next) => {
   try {
     const { user } = request;
+    const notificationsRepository = getCustomRepository(
+      NotificationsRepository,
+    );
     const notifications = await notificationsRepository.find({
       where: { user: { id: user.id } },
     });
@@ -55,6 +56,7 @@ notificationsRouter.post(
         active,
       });
 
+      const userRepository = getRepository(User);
       const findUser = await userRepository.findOne({
         where: { id: user.id },
       });
