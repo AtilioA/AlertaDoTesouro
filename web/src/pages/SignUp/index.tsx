@@ -36,8 +36,8 @@ export default function SignUp() {
             (password: string, field: Yup.StringSchema) =>
               password
                 ? field
-                  .required('Senhas devem ser iguais')
-                  .oneOf([Yup.ref('password')], 'Senhas devem ser iguais')
+                    .required('Senhas devem ser iguais')
+                    .oneOf([Yup.ref('password')], 'Senhas devem ser iguais')
                 : field,
           ),
           acceptTerms: Yup.bool().oneOf(
