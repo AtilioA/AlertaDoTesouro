@@ -2,7 +2,6 @@ import { DeleteResult, getRepository } from 'typeorm';
 import Notification from '../models/Notification';
 import type User from '../models/User';
 
-const notificationRepository = getRepository(Notification);
 /**
  * Service for deleting a Notification.
  */
@@ -10,6 +9,7 @@ export default async function deleteNotification(
   user: Pick<User, 'id'>,
   notification: Pick<Notification, 'id'>,
 ): Promise<DeleteResult> {
+  const notificationRepository = getRepository(Notification);
   const findNotification: Notification | undefined =
     await notificationRepository.findOne({
       where: { user, id: notification.id },
