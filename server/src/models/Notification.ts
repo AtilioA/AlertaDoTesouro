@@ -45,16 +45,10 @@ class Notification {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
-  user_id: string;
-
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   @ManyToOne(type => User)
   @JoinColumn({ name: 'user_id' })
   user: User;
-
-  @Column()
-  treasurybond_id: string;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   @ManyToOne(type => TreasuryBond)
