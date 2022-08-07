@@ -38,7 +38,6 @@ services:
       - dev
     depends_on:
       - postgres
-      - postgres_test
       - redis
     env_file: server/.env
     environment:
