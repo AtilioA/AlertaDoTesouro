@@ -29,18 +29,17 @@ class CreateUserService {
       throw new UserAlreadyExistsError('E-mail address is already being used.');
     }
 
-    const hashedPassword = await hash(password, 8);
-
     const user = usersRepository.create({
       email,
-      password: hashedPassword,
-    }) as UserOptionalPassword;
+      password: await hash(password, 8),
+    });
+    console.log(user);
 
     await usersRepository.save(user);
 
-    delete user.password;
+    delete (user as UserOptionalPassword).password;
 
-    return user as User;
+    return user;
   }
 }
 
