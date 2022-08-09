@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import { Router } from 'express';
 import { sign, verify } from 'jsonwebtoken';
 import { getRepository } from 'typeorm';

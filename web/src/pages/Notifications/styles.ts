@@ -83,10 +83,11 @@ export const Container = styled.div`
 
 export const NotificationsContainer = styled.div`
   display: flex;
+  justify-items: center;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
   margin-top: 50px;
-
   div#header {
     h1 {
       margin-bottom: 20px;
@@ -98,7 +99,9 @@ export const NotificationContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: row;
+  /* flex-wrap: wrap; */
+  max-width: 90%;
+  flex: 1;
 
   & + div {
     margin-top: 20px;
@@ -112,7 +115,7 @@ export const NotificationContainer = styled.div`
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
     border-radius: 0px 15px 15px 0px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
   }
 
   div#delete {
@@ -120,6 +123,7 @@ export const NotificationContainer = styled.div`
       border-radius: 0px 15px 15px 0px;
       padding: 25px;
       width: 100%;
+      flex: 1;
       height: 148px;
       background: ${saturate(-0.5, '#ff1818')};
       border: 0;
@@ -133,7 +137,7 @@ export const NotificationContainer = styled.div`
 `;
 
 export const Notification = styled.div`
-  max-width: 66.6%;
+  /* max-width: 80%; */
   justify-content: center;
   align-items: center;
   background: #e2e2e2;

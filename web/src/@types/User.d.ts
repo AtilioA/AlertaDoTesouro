@@ -1,6 +1,7 @@
 type User = {
   id: string;
   email: string;
+  password: string;
   confirmed: boolean;
   notify: boolean;
   notifyByEmail: boolean;
