@@ -37,7 +37,12 @@ export default function Dashboard() {
     useState<Record<keyof typeof KnownIndexes, TreasuryBond[]>>();
 
   function filterBonds(t: TreasuryBond[], code: number): TreasuryBond[] {
-    return t.filter(b => b.indexedTo?.code === code);
+    return t.filter(
+      b =>
+        (b.lastDateOfNegotiation === null ||
+          b.lastDateOfNegotiation === undefined) &&
+        b.indexedTo?.code === code,
+    );
   }
 
   async function fetchlyTreasury() {
@@ -107,9 +112,10 @@ export default function Dashboard() {
           <div id="IPCA">
             <h1>Títulos indexados ao IPCA</h1>
             <div id="card-list">
-              {bonds?.IPCA.map(bond => (
-                <Card key={bond.id} {...bond} />
-              ))}
+              {bonds &&
+                [...bonds.IPCA, ...bonds.IGPN].map(bond => (
+                  <Card key={bond.id} {...bond} />
+                ))}
             </div>
           </div>
           <div id="fixed-rate">
