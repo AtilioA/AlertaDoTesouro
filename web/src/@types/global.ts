@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 // Replicates types from the backend on the frontend. Alternative would be to setup workspaces
-
 export interface User {
   id: string;
   email: string;
@@ -12,16 +10,9 @@ export interface User {
   created_at: Date;
   updated_at: Date;
 }
-
-export enum NotificationType {
-  GREATER = 'maior',
-  LESS = 'menor',
-}
 export interface Notification {
   id: string;
-  user_id: string;
   user: User;
-  bond: string;
   bond: TreasuryBond;
   value: number;
   type: NotificationType;
@@ -31,6 +22,7 @@ export interface Notification {
   created_at: Date;
   updated_at: Date;
 }
+export type NotificationType = 'maior' | 'menor';
 
 export interface treasuryBondTexts {
   investmentSubtitle: string;

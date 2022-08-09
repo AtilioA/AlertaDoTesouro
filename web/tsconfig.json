@@ -15,8 +15,8 @@
     "module": "esnext",
     "moduleResolution": "node",
     "typeRoots": [
-      "src/@types",
-      "node_modules/@types",
+      "./src/@types",
+      "./node_modules/@types",
     ],
     "noImplicitAny": true,
     "resolveJsonModule": true,
@@ -25,6 +25,7 @@
     "jsx": "react-jsx",
   },
   "include": [
-    "src"
+    "./src",
   ]
+
 }
