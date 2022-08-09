@@ -129,50 +129,16 @@ export default function Notifications() {
           break;
         case 'notification-status-global-email':
           setNotifyByEmail(e.target.checked);
-          api
-            .put(
-              `/users/`,
-              {
-                notify: user?.notify,
-                notifyByEmail: e.target.checked,
-                notifyByBrowser: user?.notifyByBrowser,
-              },
-              {
-                headers: {
-                  Authorization: `Bearer ${userToken}`,
-                },
-              },
-            )
-            .then(() => {
-              console.log('Notification status updated!');
-            })
-            .catch(error => {
-              console.log(error);
-            });
+          if (e.target.checked) {
+            setNotify(true);
+          }
           console.log('notification-status-global-email');
           break;
         case 'notification-status-global-browser':
           setNotifyByBrowser(e.target.checked);
-          api
-            .put(
-              `/users/`,
-              {
-                notify: user?.notify,
-                notifyByBrowser: e.target.checked,
-                notifyByEmail: user?.notifyByBrowser,
-              },
-              {
-                headers: {
-                  Authorization: `Bearer ${userToken}`,
-                },
-              },
-            )
-            .then(() => {
-              console.log('Notification status updated!');
-            })
-            .catch(error => {
-              console.log(error);
-            });
+          if (e.target.checked) {
+            setNotify(true);
+          }
           console.log('notification-status-global-browser');
           break;
         default:
@@ -213,8 +179,8 @@ export default function Notifications() {
               <span>Receber notificações pelo navegador</span>
               <Toggle
                 id="notification-status-global-browser"
-                defaultChecked={notifyByBrowser}
-                checked={user?.notifyByBrowser}
+                defaultChecked={user?.notifyByBrowser}
+                checked={notifyByBrowser}
                 onChange={e => handleGlobalNotifyChange(e)}
               />
             </div>
