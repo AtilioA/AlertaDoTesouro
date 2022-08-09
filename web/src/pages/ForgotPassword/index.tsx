@@ -46,7 +46,7 @@ export default function ForgotPassword() {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
           formRef.current?.setErrors(errors);
-          console.log(errors);
+          console.error(errors);
         } else {
           addToast({
             type: 'error',

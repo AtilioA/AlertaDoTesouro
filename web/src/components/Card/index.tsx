@@ -37,9 +37,11 @@ export default function Card({
     try {
       const res = await axiosInstance.post('/notifications', {
         bond: { id },
-        value: 1.2,
+        value: trigger,
         type: notificationType,
         active: true,
+        notifyByEmail: true,
+        notifyByBrowser: true,
       });
       return res;
     } catch (err) {
@@ -83,7 +85,6 @@ export default function Card({
         <div id="card-notify">
           <p>Notifique-me quando o rendimento for</p>
           <label>
-            {/* a radio selectio with option 'MAIOR' and 'MENOR' */}
             <input
               defaultChecked
               type="radio"

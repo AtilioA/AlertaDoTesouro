@@ -3,7 +3,7 @@ declare global {
   declare namespace Express {
     declare interface Request {
       user: { id: string };
-      bony: unknown;
+      body: unknown;
       params: {
         notification_id: string;
       };
