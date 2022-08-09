@@ -92,7 +92,7 @@ export default function Account() {
       }
     } catch (error) {
       if (error instanceof Error) {
-        console.log(error);
+        console.error(error);
       }
     }
 
@@ -137,7 +137,7 @@ export default function Account() {
           const errors = getValidationErrors(err);
           formRef.current?.setErrors(errors);
         } else {
-          console.log(
+          console.error(
             'Ocorreu um erro ao atualizar a senha. Tente novamente mais tarde.',
           );
         }

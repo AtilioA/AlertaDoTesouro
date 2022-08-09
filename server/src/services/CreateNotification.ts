@@ -53,9 +53,9 @@ export default async function createNotification({
     id: bond_id,
   })) as TreasuryBond;
   // Fetch the full user entity
-  const user = (await userRepository.findOne({
+  const user = await userRepository.findOne({
     where: { id: user_id },
-  })) as User;
+  });
 
   const notification = notificationsRepository.create({
     user,

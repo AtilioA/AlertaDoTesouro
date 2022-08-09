@@ -9,7 +9,7 @@ import { TreasuryBond } from '../../@types/global';
 
 /// Codes for each known index type
 const KnownIndexes = {
-  IGPN: 1,
+  // IGPN: 1,
   SELIC: 17,
   PREFIXADO: 19,
   IPCA: 22,
@@ -53,7 +53,6 @@ export default function Dashboard() {
         `/treasurybond`,
       );
 
-      console.log(response);
       const bondsMap = Object.keys(KnownIndexes)
         .map(key => ({
           [key]: filterBonds(
@@ -65,7 +64,6 @@ export default function Dashboard() {
         keyof typeof KnownIndexes,
         TreasuryBond[]
       >;
-      console.log(bondsMap);
       setBonds(bondsMap);
     } catch (err) {
       if (axios.isAxiosError(err) || err instanceof Error) {
@@ -112,10 +110,9 @@ export default function Dashboard() {
           <div id="IPCA">
             <h1>Títulos indexados ao IPCA</h1>
             <div id="card-list">
-              {bonds &&
-                [...bonds.IPCA, ...bonds.IGPN].map(bond => (
-                  <Card key={bond.id} {...bond} />
-                ))}
+              {bonds?.IPCA.map(bond => (
+                <Card key={bond.id} {...bond} />
+              ))}
             </div>
           </div>
           <div id="fixed-rate">
@@ -130,14 +127,6 @@ export default function Dashboard() {
             <h1>Títulos pós-fixados</h1>
             <div id="card-list">
               {bonds?.SELIC.map(bond => (
-                <Card key={bond.id} {...bond} />
-              ))}
-            </div>
-          </div>
-          <div id="IGPN">
-            <h1>Títulos indexado ao IGPN</h1>
-            <div id="card-list">
-              {bonds?.IGPN.map(bond => (
                 <Card key={bond.id} {...bond} />
               ))}
             </div>
