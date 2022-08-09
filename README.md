@@ -60,21 +60,16 @@ This project was developed using the following tools:
 - [React.js](http://reactjs.org/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [Docker](https://www.docker.com/) with [Compose __V2__](https://docs.docker.com/compose/#compose-v2-and-the-new-docker-compose-command)
-- [pre-commit]?
-
-[pre-commit]: https://pre-commit.com/
 
 ## Development
 
-After cloning the branch and installing [pre-commit], and running `pre-commit install`, you can start to develop the application. Mind that before every commit, you should run `pre-commit run` to check if there are any linting errors, and if you commit anything with linting errors, the command should fail.
-
-> __Note:__ _pre-commit_ is using `server/`'s ESLint configuration, for the whole project
+Clone the repository and enter it with your terminal.
 
 ### ⚙️ Back-end
 
-All files related exlusively to the back-end server are located in `/server`.
+All files exclusively related to the back-end server are located in the folder `/server`.
 
-The back-end REST API is fully functional and was made with Express. Multiple endpoints have been defined and they can be explored extensively by referring to the `.insomnia.json` file, which can be imported into [Insomnia](https://insomnia.rest/) itself or possibly other REST clients.
+The back-end REST API is fully functional and was made with Express. Multiple endpoints have been defined and they can be explored extensively by referring to the `.insomnia.json` file, which can be imported into [Insomnia](https://insomnia.rest/) itself or possibly other HTTP clients.
 
 #### Example: listing treasury bond
 
@@ -110,6 +105,12 @@ A typical request would be a simple `GET` request to the `/treasurybond` endpoin
   [...]
 ]
 ```
+
+#### Documentation
+
+You can build the documentation with [typedoc](https://typedoc.org/). It is recommended that you install `typedoc` with tools like [npx](https://docs.npmjs.com/cli/v7/commands/npx/).
+
+ From the `/server` directory, run `typedoc --out docs`. The documentation will then be available at `docs/`.
 
 ### 🖥 Front-end
 
