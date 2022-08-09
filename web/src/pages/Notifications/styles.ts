@@ -124,7 +124,7 @@ export const NotificationContainer = styled.div`
       padding: 25px;
       width: 100%;
       flex: 1;
-      height: 148px;
+      height: 113px;
       background: ${saturate(-0.5, '#ff1818')};
       border: 0;
 

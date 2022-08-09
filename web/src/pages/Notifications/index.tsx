@@ -216,34 +216,6 @@ export default function Notifications() {
                     Notificação criada em {formatDate(notification.created_at)}.
                   </span>
                 </div>
-                <div id="notification-actions">
-                  <div id="toggle-with-label">
-                    <h1>Ativa</h1>
-                    <Toggle
-                      id="notification-status"
-                      value={String(notification.active)}
-                      onChange={() => handleNotifyChange()}
-                    />
-                  </div>
-                  <div id="notification-actions-active-minor">
-                    <div id="toggle-with-label">
-                      <span>E-mail</span>
-                      <Toggle
-                        id="notification-status"
-                        value={String(notification.notifyByEmail)}
-                        onChange={() => handleNotifyChange()}
-                      />
-                    </div>
-                    <div id="toggle-with-label">
-                      <span>Browser</span>
-                      <Toggle
-                        id="notification-status"
-                        value={String(notification.notifyByBrowser)}
-                        onChange={() => handleNotifyChange()}
-                      />
-                    </div>
-                  </div>
-                </div>
               </div>
             </Notification>
             <div id="notification-actions-edit-delete">
