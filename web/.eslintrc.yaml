@@ -52,4 +52,7 @@ rules:
         - "UPPER_CASE"
       selector: "default"
       leadingUnderscore: allow
+  "import/extensions":
+    - warn
+    - extensions: [".ts", ".tsx"]
   prettier/prettier: warn

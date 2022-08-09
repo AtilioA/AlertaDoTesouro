@@ -1,20 +1,16 @@
 import { useState } from 'react';
 import { FiInfo } from 'react-icons/fi';
+import { NotificationType, TreasuryBond } from '../../@types/global';
 import axiosInstance from '../../config/axios';
-import { NotificationType } from '../../@types/backend.d';
-import type { TreasuryBond } from '../../@types/backend';
 import { Container, CardHeader, CardBody, CardFooter } from './styles';
 
 interface CardControls {
   loading: boolean;
-  error:
-    | false
-    | {
-        message: string;
-      };
+  error?: {
+    message: string;
+  };
 }
 
-// TODO(dashboard) ...
 export default function Card({
   id,
   name,
@@ -23,7 +19,7 @@ export default function Card({
   expirationDate,
 }: TreasuryBond) {
   const [cardControls, setCardControls] = useState<CardControls>({
-    error: false,
+    error: undefined,
     loading: true,
   });
   function updateCardControls(fields: Partial<CardControls>) {
@@ -32,20 +28,17 @@ export default function Card({
       ...fields,
     }));
   }
-  const [rendimento, setRendimento] = useState<number>(0);
-  const [notificationType, setNotificationType] = useState<NotificationType>(
-    NotificationType.GREATER,
-  );
+  const [trigger, setTrigger] = useState<number>(0);
+  const [notificationType, setNotificationType] =
+    useState<NotificationType>('maior');
 
   async function handleAddNotification() {
-    setCardControls({ loading: true, error: false });
+    setCardControls({ loading: true, error: undefined });
     try {
       const res = await axiosInstance.post('/notifications', {
-        treasurybond_id: id,
+        bond: { id },
         value: 1.2,
-        type: 'maior',
-        notifyByEmail: true,
-        notifyByBrowser: true,
+        type: notificationType,
         active: true,
       });
       return res;
@@ -96,25 +89,27 @@ export default function Card({
               type="radio"
               id="notification-type"
               name="notification-type"
-              value={NotificationType.GREATER}
+              onSelect={() => setNotificationType('maior')}
+              value="maior"
             />
-            {NotificationType.GREATER}
+            maior
             <input
               type="radio"
               id="notification-type"
               name="notification-type"
-              value={NotificationType.LESS}
+              onSelect={() => setNotificationType('menor')}
+              value="menor"
             />
-            {NotificationType.LESS} que
+            menor que
             <input
               id="notification-value"
               type="number"
-              placeholder={rendimento.toFixed(3)}
-              value={rendimento.toFixed(3)}
+              placeholder={trigger.toFixed(3)}
+              value={trigger.toFixed(3)}
               onChange={e => {
                 const num = parseFloat(e.target.value);
                 if (!Number.isNaN(num)) {
-                  setRendimento(num);
+                  setTrigger(num);
                 }
               }}
             />
