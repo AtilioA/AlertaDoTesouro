@@ -124,7 +124,7 @@ export default function Dashboard() {
             </div>
           </div>
           <div id="postfixed">
-            <h1>Títulos pós-fixados</h1>
+            <h1>Títulos SELIC</h1>
             <div id="card-list">
               {bonds?.SELIC.map(bond => (
                 <Card key={bond.id} {...bond} />
