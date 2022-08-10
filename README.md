@@ -137,8 +137,6 @@ Rename or copy the `.env.example` file to `.env` in both the `/server` and `/web
 - The project uses Mailtrap for development purposes. You can of course use your preferred mail service by replacing the appropriate values in the `.env` file.
    <!-- - [Sentry](https://sentry.io/for/web/) was added mostly for learning purposes and of course is not required; feel free to leave the string empty. -->
 
-<!-- TODO: Endpoints documentation -->
-
 ### Front-end considerations
 
 \* Note that the front-end has not been finished yet:tm:.
