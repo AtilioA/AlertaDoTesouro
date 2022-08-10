@@ -61,7 +61,7 @@ export default function Header({ isLoggedIn }: { isLoggedIn: boolean }) {
           </>
         ) : (
           <NavLink
-            style={({ isActive }) => (isActive ? activeStyle : {})}
+            // style={({ isActive }) => (isActive ? activeStyle : {})}
             to="/login"
           >
             <button type="submit">Logar</button>

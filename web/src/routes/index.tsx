@@ -10,7 +10,6 @@ import ResetPassword from '../pages/ResetPassword';
 import Account from '../pages/Account';
 import Notifications from '../pages/Notifications';
 import ToS from '../pages/ToS';
-// import { AuthContext } from '../context/AuthContext';
 
 function PrivateRoute({
   navigateTo,
@@ -19,7 +18,6 @@ function PrivateRoute({
   navigateTo: string;
   isLoggedIn: boolean;
 }) {
-  // const { user } = useContext(AuthContext);
   // If autenticated context is present
   return isLoggedIn ? <Outlet /> : <Navigate to={navigateTo} />;
 }
