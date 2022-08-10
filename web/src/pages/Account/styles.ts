@@ -10,7 +10,7 @@ export const Container = styled.div`
   flex-direction: column;
 
   form {
-    margin: 80px;
+    /* margin: 80px; */
     width: 340px;
     text-align: center;
 
