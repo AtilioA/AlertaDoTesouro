@@ -14,7 +14,7 @@ import {
   FiRefreshCcw,
   FiUserX,
 } from 'react-icons/fi';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import getValidationErrors from '../../utils/getValidationErrors';
 import Input from '../../components/Input';
 import { Container, AnimationContainer } from './styles';
@@ -26,7 +26,11 @@ interface PasswordUpdateFormData {
   newPasswordConfirmation: string;
 }
 
-export default function Account() {
+export default function Account({
+  setIsLoggedIn,
+}: {
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const formRef = useRef<FormHandles>(null);
   const navigate = useNavigate();
 
@@ -49,9 +53,12 @@ export default function Account() {
     // Delete user token from localStorage
     localStorage.removeItem('@AlertaDoTesouro:token');
     localStorage.removeItem('@AlertaDoTesouro:user');
+    localStorage.clear();
+    sessionStorage.clear();
 
-    // Redirect user to login page
-    navigate('/login');
+    setIsLoggedIn(false);
+    // Redirect user to landing page
+    navigate('/');
   };
 
   const handleDeleteAccount = async () => {
@@ -71,7 +78,7 @@ export default function Account() {
           },
         });
 
-        // Simulate logout
+        // Logout
         handleLogout();
       }
     }

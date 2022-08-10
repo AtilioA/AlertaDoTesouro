@@ -18,7 +18,11 @@ interface SignInFormData {
   password: string;
 }
 
-export default function SignIn() {
+export default function SignIn({
+  setIsLoggedIn,
+}: {
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const formRef = useRef<FormHandles>(null);
   const navigate = useNavigate();
 
@@ -46,6 +50,7 @@ export default function SignIn() {
           password: data.password,
         });
 
+        setIsLoggedIn(true);
         navigate('/dashboard');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {

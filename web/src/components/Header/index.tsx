@@ -1,26 +1,8 @@
-import { useEffect, useState } from 'react';
 import { User } from '../../@types/global';
 import { Container, Profile } from './styles';
 
-export default function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(
-    localStorage.getItem('@AlertaDoTesouro:token') !== null,
-  );
-  const [mailAddress, setMailAddress] = useState<string>('');
-
-  useEffect(() => {
-    const loggedIn = localStorage.getItem('@AlertaDoTesouro:token') !== null;
-    setIsLoggedIn(loggedIn);
-    if (loggedIn) {
-      const mail = localStorage.getItem('@AlertaDoTesouro:user');
-      if (!mail) {
-        setMailAddress('user');
-      } else {
-        setMailAddress((JSON.parse(mail) as User).email);
-      }
-    }
-  }, [localStorage.getItem('@AlertaDoTesouro:token')]);
-
+export default function Header({ isLoggedIn }: { isLoggedIn: boolean }) {
+  console.log('HEADER', isLoggedIn);
   return (
     <Container>
       <nav>
@@ -33,10 +15,18 @@ export default function Header() {
           <a href="/dashboard">Dashboard</a>
         </Profile>
 
-        {isLoggedIn && mailAddress ? (
+        {isLoggedIn ? (
           <>
             <a href="/notificacoes">Notificações</a>
-            <a href="/conta">{mailAddress}</a>
+            <a href="/conta">
+              {
+                (
+                  JSON.parse(
+                    localStorage.getItem('@AlertaDoTesouro:user')!,
+                  ) as User
+                ).email
+              }
+            </a>
           </>
         ) : (
           <a href="/login">
