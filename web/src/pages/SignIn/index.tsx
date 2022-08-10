@@ -61,7 +61,7 @@ export default function SignIn() {
         }
       }
     },
-    [signIn],
+    [signIn, addToast, navigate],
   );
 
   return (

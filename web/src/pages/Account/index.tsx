@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import { useRef, useCallback } from 'react';
 
 import { FormHandles } from '@unform/core';

@@ -76,7 +76,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     fetchlyTreasury().catch(() => {});
-  }, []);
+  });
 
   if (pageControls.loading) {
     return <div>Loading...</div>;

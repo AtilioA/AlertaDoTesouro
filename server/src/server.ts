@@ -8,5 +8,5 @@ const PORT = loadRequiredEnv('PORT');
  * Start the server
  */
 app.listen(PORT, () => {
-  console.log(`🚀Server started on port ${PORT}!`);
+  console.log(`🚀 Server started on port ${PORT}!`);
 });

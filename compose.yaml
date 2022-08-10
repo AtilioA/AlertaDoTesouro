@@ -52,7 +52,7 @@ services:
       - ./server:/app
       - ./.prettierrc.yaml:/.prettierrc.yaml
     working_dir: /app
-    command: sh -c 'yarn install && yarn typeorm migration:run && yarn typeorm migration:run --connection test && echo "##MIGATIONS RAN ON TEST DB##" || echo "##MIGATIONS FAILED TO RUN ON TEST DB. If you want to deploy the test database, pass the `--profile test` flag##" ; (yarn dev:queue & yarn dev:server)'
+    command: sh -c 'yarn install && yarn typeorm migration:run && yarn typeorm migration:run --connection test && echo "## MIGRATIONS RAN ON TEST DB##" || echo "## MIGRATIONS FAILED TO RUN ON TEST DB. If you want to deploy the test database, pass the `--profile test` flag##" ; (yarn dev:queue & yarn dev:server)'
 
   # server:
   #   image: node:lts-alpine
