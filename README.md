@@ -1,7 +1,4 @@
 <h1 align="center">
-    <!-- <img alt="AlertaDoTesouro" title="AlertaDoTesouro" src=".github/AlertaDoTesouro.svg" width="200px" />
-    <br/
-    > -->
     🚨 Alerta do Tesouro (WIP)
 </h1>
 
@@ -18,12 +15,8 @@ A web application that notifies you about Brazilian treasury bond rates.
 </p>
 
 <p align="center">
-  <!-- <img alt="HerokuStatus" src="https://heroku-shields.herokuapp.com/covid19nowbot"> -->
   <a href="./LICENSE">
     <img alt="License" src="https://img.shields.io/badge/License-GPL%20v3-blue.svg" />
-  </a>
-  <a href="https://github.com/pre-commit/pre-commit">
-    <img src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white" alt="pre-commit" style="max-width:100%;">
   </a>
 </p>
 
@@ -61,15 +54,38 @@ This project was developed using the following tools:
 - [PostgreSQL](https://www.postgresql.org/)
 - [Docker](https://www.docker.com/) with [Compose __V2__](https://docs.docker.com/compose/#compose-v2-and-the-new-docker-compose-command)
 
-## Development
+## 👷 Development
 
 Clone the repository and enter it with your terminal.
+
+Rename or copy the `.env.test.example` file to `.env.test` in `/server` and change values whenever needed.
+To run the development servers, run the following command:
+
+```sh
+docker compose --profile dev up
+```
 
 ### ⚙️ Back-end
 
 All files exclusively related to the back-end server are located in the folder `/server`.
 
 The back-end REST API is fully functional and was made with Express. Multiple endpoints have been defined and they can be explored extensively by referring to the `.insomnia.json` file, which can be imported into [Insomnia](https://insomnia.rest/) itself or possibly other HTTP clients.
+
+#### 🧪 Testing
+
+Deploy the test database with the following command:
+
+```sh
+docker compose --profile dev --profile test up
+```
+
+> When you need to wipe the volumes, just `docker compose --profile dev --profile test down --volumes`
+
+Once running, you can unit test and integration test the back-end server by running the following command:
+
+```sh
+docker exec -t alertadotesouro-server-dev-1 yarn test
+```
 
 #### Example: listing treasury bond
 
@@ -106,7 +122,7 @@ A typical request would be a simple `GET` request to the `/treasurybond` endpoin
 ]
 ```
 
-#### Documentation
+#### 📑 Documentation
 
 You can build the documentation with [typedoc](https://typedoc.org/). It is recommended that you install `typedoc` with tools like [npx](https://docs.npmjs.com/cli/v7/commands/npx/).
 
@@ -114,29 +130,27 @@ You can build the documentation with [typedoc](https://typedoc.org/). It is reco
 
 ### 🖥 Front-end
 
-[...]
+Running it with `dev` profile (see below) will automatically start the front-end server and you will have access to debugging logs on the browser console.
 
 ## 🏡 Running locally
 
 Clone the repository and enter the folder with your terminal. To start the services with Compose v2, run the following command while on the project root directory:
 
    ```bash
-  docker compose up # TODO
-  # Alternatively, if you want to start the development environment, run:
-  docker compose --profile dev up
+  docker compose up # TODO, only development is currently supported
    ```
 
-   > In both commands, you can append `-d` or `--detach` to run the services in detached mode.
+   > You can append `-d` or `--detach` to run the services in detached mode.
 
 Rename or copy the `.env.example` file to `.env` in both the `/server` and `/web` directories and change values whenever needed.
 
-### Back-end considerations
+### 🤓 Back-end considerations
 
 - The default server port is `3333`. You might want to change this if this port is already in use wherever you are running the server on.
 - You can and __should__ change `JWT_SECRET` to another string. It is used by the hashing algorithm to generate hashed passwords.
 - The project uses Mailtrap for development purposes. You can of course use your preferred mail service by replacing the appropriate values in the `.env` file.
    <!-- - [Sentry](https://sentry.io/for/web/) was added mostly for learning purposes and of course is not required; feel free to leave the string empty. -->
 
-### Front-end considerations
+### 🤓 Front-end considerations
 
-\* Note that the front-end has not been finished yet:tm:.
+- The default port is `3000`. You might want to change this if this port is already in use wherever you are running the server on.
