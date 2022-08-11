@@ -31,12 +31,12 @@ export default function Notifications() {
         notifyByEmail,
         notifyByBrowser,
       })
-      .catch(error => {
-        console.error(error);
-      })
       .then(() => {
         localStorage.setItem('@AlertaDoTesouro:user', JSON.stringify(user));
         console.log('Notification status updated!');
+      })
+      .catch(error => {
+        console.error(error);
       });
   }, [user, notify, notifyByEmail, notifyByBrowser]);
 
