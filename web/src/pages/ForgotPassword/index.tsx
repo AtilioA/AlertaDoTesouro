@@ -9,7 +9,7 @@ import { ToastContext } from '../../context/ToastContext';
 import { Container } from '../SignUp/styles';
 import { AnimationContainer } from '../SignIn/styles';
 import Input from '../../components/Input';
-import api from '../../services/api';
+import api from '../../config/axios';
 
 interface ForgotPasswordFormData {
   email: string;
@@ -46,7 +46,7 @@ export default function ForgotPassword() {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
           formRef.current?.setErrors(errors);
-          console.log(errors);
+          console.error(errors);
         } else {
           addToast({
             type: 'error',
@@ -72,12 +72,12 @@ export default function ForgotPassword() {
             <h3>Informe o e-mail de sua conta para redefinir sua senha:</h3>
           </div>
           <Input
+            autoFocus
             icon={FiAtSign}
             name="email"
-            placeholder="Ex: alan@turing.com"
+            placeholder="turing@inf.ufes.br"
           />
 
-          {/* TODO: Improve icon spacing */}
           <button type="submit">
             <FiMail /> Redefinir senha
           </button>

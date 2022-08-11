@@ -42,10 +42,10 @@ export async function fetchTreasuryBondByCode(
     httpsAgent: agent,
   });
 
-  const treasuryBondsList = response.data.response.TrsrBdTradgList;
+  const treasuryBondList = response.data.response.TrsrBdTradgList;
 
   // Look for treasury bond by ID
-  const treasuryBondJson = treasuryBondsList.find(
+  const treasuryBondJson = treasuryBondList.find(
     (tb: any) => tb.TrsrBd.cd === TBCode,
   );
 
@@ -54,11 +54,11 @@ export async function fetchTreasuryBondByCode(
 }
 
 /**
- * Request treasury bonds from Tesouro Direto's API
+ * Request treasury bond from Tesouro Direto's API
  *
- * @returns {Promise<Array<any>> | Promise<void>} - Array with treasury bonds data or void if request fails
+ * @returns {Promise<Array<any>> | Promise<void>} - Array with treasury bond data or void if request fails
  */
-export async function fetchListOfTreasuryBonds(): Promise<Array<any>> {
+export async function fetchListOfTreasuryBond(): Promise<Array<any>> {
   // Fetch API
   const APIUrl =
     'https://www.tesourodireto.com.br/json/br/com/b3/tesourodireto/service/api/treasurybondsinfo.json';
@@ -72,14 +72,14 @@ export async function fetchListOfTreasuryBonds(): Promise<Array<any>> {
   });
 
   try {
-    const treasuryBondsList: Array<any> =
+    const treasuryBondList: Array<any> =
       response.data.response.TrsrBdTradgList;
-    // console.log(treasuryBondsList);
-    console.log('Successfully fetched treasury bonds from API.');
-    return treasuryBondsList;
+    // console.log(treasuryBondList);
+    console.log('Successfully fetched treasury bond from API.');
+    return treasuryBondList;
   } catch (error) {
-    console.log(`No treasury bonds found: ${error}`);
-    console.log('Unable to fetch treasury bonds from API.');
+    console.log(`No treasury bond found: ${error}`);
+    console.log('Unable to fetch treasury bond from API.');
     return [];
   }
 }

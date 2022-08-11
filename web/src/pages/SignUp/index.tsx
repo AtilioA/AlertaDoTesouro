@@ -9,7 +9,7 @@ import Input from '../../components/Input';
 import { Container } from './styles';
 import getValidationErrors from '../../utils/getValidationErrors';
 import { AnimationContainer } from '../SignIn/styles';
-import api from '../../services/api';
+import api from '../../config/axios';
 import { ToastContext } from '../../context/ToastContext';
 
 interface SignUpFormData {
@@ -39,8 +39,8 @@ export default function SignUp() {
             (password: string, field: Yup.StringSchema) =>
               password
                 ? field
-                  .required('Senhas devem ser iguais')
-                  .oneOf([Yup.ref('password')], 'Senhas devem ser iguais')
+                    .required('Senhas devem ser iguais')
+                    .oneOf([Yup.ref('password')], 'Senhas devem ser iguais')
                 : field,
           ),
           acceptTerms: Yup.bool().oneOf(
@@ -61,7 +61,6 @@ export default function SignUp() {
           description: 'Por favor, cheque seu email para confirmar sua conta.',
         });
       } catch (err) {
-        setButtonLoading(false);
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
           formRef.current?.setErrors(errors);
@@ -73,6 +72,8 @@ export default function SignUp() {
               'Ocorreu um erro ao realizar o cadastro. Tente novamente mais tarde.',
           });
         }
+      } finally {
+        setButtonLoading(false);
       }
     },
     [addToast],
@@ -90,6 +91,7 @@ export default function SignUp() {
             <h2>EMAIL</h2>
           </div>
           <Input
+            autoFocus
             icon={FiAtSign}
             name="email"
             placeholder="Ex: turing@inf.ufes.br"
@@ -114,7 +116,6 @@ export default function SignUp() {
 
           <input required name="acceptTerms" type="checkbox" id="acceptTerms" />
           <label htmlFor="acceptTerms">
-            {' '}
             Aceito os{' '}
             <a href="/privacidade">Termos e Condições Gerais de Uso</a>
           </label>

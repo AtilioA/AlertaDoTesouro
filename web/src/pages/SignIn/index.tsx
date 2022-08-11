@@ -2,7 +2,7 @@ import { useRef, useCallback, useContext } from 'react';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 
-import { FiKey, FiLock, FiAtSign } from 'react-icons/fi';
+import { FiKey, FiLock, FiAtSign, FiLogIn } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
@@ -18,7 +18,11 @@ interface SignInFormData {
   password: string;
 }
 
-export default function SignIn() {
+export default function SignIn({
+  setIsLoggedIn,
+}: {
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const formRef = useRef<FormHandles>(null);
   const navigate = useNavigate();
 
@@ -46,6 +50,7 @@ export default function SignIn() {
           password: data.password,
         });
 
+        setIsLoggedIn(true);
         navigate('/dashboard');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
@@ -61,7 +66,7 @@ export default function SignIn() {
         }
       }
     },
-    [signIn],
+    [signIn, addToast, navigate],
   );
 
   return (
@@ -92,7 +97,10 @@ export default function SignIn() {
             placeholder="Sua senha"
           />
 
-          <button type="submit">Entrar</button>
+          <button type="submit">
+            <FiLogIn />
+            Entrar
+          </button>
         </Form>
 
         <Link to="/registrar">

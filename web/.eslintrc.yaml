@@ -25,28 +25,36 @@ settings:
 rules:
   jsx-a11y/label-has-associated-control: off
   no-underscore-dangle: off
+  no-console: off
   no-unused-vars: off
-  react/prop-types: off
+  consistent-return: off
+  jest/no-disabled-tests: off
+  react/prop-types: warn
   react/jsx-props-no-spreading: off
   react/require-default-props: off # https://stackoverflow.com/a/69746922/12921102
+  react-hooks/exhaustive-deps: warn
   "@typescript-eslint/unbound-method": off # FIXME (?)
   "@typescript-eslint/no-misused-promises":
-    - error
+    - warn
     - checksVoidReturn: false
   "@typescript-eslint/no-unused-vars":
-    - error
+    - warn
     - varsIgnorePattern: ^_
       argsIgnorePattern: ^_
       destructuredArrayIgnorePattern: ^_
       ignoreRestSiblings: true
+  "@typescript-eslint/no-unsafe-argument":
+    - off
   "@typescript-eslint/naming-convention":
-    - error
+    - warn
     - format:
         - "camelCase"
         - "PascalCase"
+        - "snake_case"
         - "UPPER_CASE"
       selector: "default"
       leadingUnderscore: allow
+  "import/extensions":
+    - warn
+    - extensions: [".ts", ".tsx"]
   prettier/prettier: warn
-  react-hooks/exhaustive-deps: warn
-  no-console: off

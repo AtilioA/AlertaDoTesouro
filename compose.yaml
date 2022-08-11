@@ -7,9 +7,9 @@ services:
       - dev
     env_file: web/.env
     environment:
-      - NODE_ENV=development
-      - BACKEND_BASE_URL=http://server-dev:3333
-      - REACT_APP_BASE_URL=http://server-dev:3000
+      NODE_ENV: development
+      BACKEND_BASE_URL: http://server-dev:3333
+      REACT_APP_BASE_URL: http://server-dev:3000
     restart: on-failure
     networks:
       - backend
@@ -41,8 +41,8 @@ services:
       - redis
     env_file: server/.env
     environment:
-      - NODE_ENV=development
-      - PORT=3333
+      NODE_ENV: development
+      PORT: 3333
     restart: on-failure
     ports:
       - '${PORT:-3333}:3333'
@@ -52,7 +52,7 @@ services:
       - ./server:/app
       - ./.prettierrc.yaml:/.prettierrc.yaml
     working_dir: /app
-    command: sh -c 'yarn install && yarn typeorm migration:run && (yarn dev:queue & yarn dev:server)'
+    command: sh -c 'yarn install && yarn typeorm migration:run && yarn typeorm migration:run --connection test && echo "## MIGRATIONS RAN ON TEST DB##" || echo "## MIGRATIONS FAILED TO RUN ON TEST DB. If you want to deploy the test database, pass the `--profile test` flag##" ; (yarn dev:queue & yarn dev:server)'
 
   # server:
   #   image: node:lts-alpine
@@ -61,7 +61,7 @@ services:
   #   env_file: server/.env
   #   environment:
   #     - NODE_ENV=production
-  #     # Treasury bonds database
+  #     # Treasury bond database
   #     - DB_TYPE=postgres
   #     - DB_HOST=postgres
   #     - DB_PORT=5432
@@ -75,7 +75,7 @@ services:
   #     - JWT_SECRET=${JWT_SECRET} # Change to required without breaking dev build
   #     # - JWT_SECRET=${JWT_SECRET?}
   #     - JWT_EXPIRES_IN="1d"
-  #     # Cron schedule for update-all-treasury-bonds task
+  #     # Cron schedule for update-all-treasury-bond task
   #     - UPDATE_CRON=${UPDATE_CRON:-"*/2 * * * *"}
   #     # Cron schedule for check-all-notifications task
   #     - NOTIFICATIONS_CRON=${SEVER_NOTIFICATIONS_CRON:-"*/2 * * * *"}
@@ -102,13 +102,22 @@ services:
 
   postgres:
     image: postgres:alpine
-    environment:
-      POSTGRES_USER: alertadotesouro
-      POSTGRES_PASSWORD: your_postgres_password
+    env_file: server/.env
     networks:
       - backend
     volumes:
       - db-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  postgres_test:
+    image: postgres:alpine
+    profiles:
+      - test
+    env_file: server/.env.test
+    networks:
+      - backend
+    volumes:
+      - db-data-test:/var/lib/postgresql/data
     restart: unless-stopped
 
   redis:
@@ -122,3 +131,4 @@ networks:
 
 volumes:
   db-data:
+  db-data-test:

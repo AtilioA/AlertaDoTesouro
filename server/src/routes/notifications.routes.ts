@@ -1,11 +1,13 @@
 import { Router } from 'express';
 import { getCustomRepository, getRepository } from 'typeorm';
 import NotificationsRepository from '../repositories/NotificationsRepository';
-import CreateNotificationService from '../services/CreateNotificationService';
+import createNotification from '../services/CreateNotification';
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
-import DeleteNotificationService from '../services/DeleteNotificationService';
-import UpdateNotificationService from '../services/UpdateNotificationService';
+import deleteNotification from '../services/DeleteNotification';
+import updateNotification from '../services/UpdateNotification';
 import User from '../models/User';
+import type { TypedRequestBody } from '../@types/express';
+import type Notification from '../models/Notification';
 
 const notificationsRouter = Router();
 
@@ -15,60 +17,63 @@ notificationsRouter.use(ensureAuthenticated);
 /**
  * Endpoint for listing all notifications for a given User.
  */
-notificationsRouter.get('/', async (request, response) => {
-  const notificationsRepository = getCustomRepository(NotificationsRepository);
-  const user_id = request.user.id;
-  const notifications = await notificationsRepository.find({
-    where: { user_id },
+notificationsRouter.get('/', async (request, response, next) => {
+  try {
+    const { user } = request;
+    const notificationsRepository = getCustomRepository(
+      NotificationsRepository,
+    );
+    const notifications = await notificationsRepository.find({
+      where: { user: { id: user.id } },
+      relations: ['bond'],
   });
-
-  return response.json(notifications);
+    return response.json(notifications);
+  } catch (err) {
+    next(err);
+  }
 });
 
 /**
  * Endpoint for creating a new Notification for a given User.
  */
-notificationsRouter.post('/', async (request, response, next) => {
-  try {
-    const {
-      treasurybond_id,
-      value,
-      type,
-      notifyByEmail,
-      notifyByBrowser,
-      active,
-    } = request.body;
+notificationsRouter.post(
+  '/',
+  async (request: TypedRequestBody<Notification>, response, next) => {
+    try {
+      const {
+        user,
+        body: { bond, value, type, notifyByEmail, notifyByBrowser, active },
+      } = request;
 
-    const user_id = request.user.id;
+      // Create and save it in the database
+      const notification = await createNotification({
+        user_id: user.id,
+        bond_id: bond.id,
+        value,
+        type,
+        notifyByEmail,
+        notifyByBrowser,
+        active,
+      });
 
-    const createNotification = new CreateNotificationService();
+      const userRepository = getRepository(User);
+      const findUser = await userRepository.findOne({
+        where: { id: user.id },
+      });
 
-    // Create and save it in the database
-    const notification = await createNotification.execute({
-      user_id,
-      treasurybond_id,
-      value,
-      type,
-      notifyByEmail,
-      notifyByBrowser,
-      active,
-    });
+      if (!findUser) {
+        throw new Error('User not found when creating notification');
+      }
 
-    const userRepository = getRepository(User);
-    const findUser: User | undefined  = await userRepository.findOne(user_id);
-
-    if (!findUser) {
-      throw new Error('User not found when creating notification');
+      response.json({ notification });
+    } catch (err) {
+      if (err instanceof Error) {
+        response.status(400).json({ error: err.message });
+      }
+      next(err);
     }
-
-    response.json({ notification });
-  } catch (err) {
-    if (err instanceof Error) {
-      response.status(400).json({ error: err.message });
-    }
-    next(err);
-  }
-});
+  },
+);
 
 /**
  * Endpoint for updating a Notification for a given User.
@@ -76,25 +81,23 @@ notificationsRouter.post('/', async (request, response, next) => {
  */
 notificationsRouter.put(
   '/:notification_id',
-  async (request, response, next) => {
+  async (request: TypedRequestBody<Notification>, response, next) => {
     try {
-      const { notification_id } = request.params;
-      const user_id = request.user.id;
+      const {
+        user,
+        body: { value, type, notifyByEmail, notifyByBrowser, active },
+        params: { notification_id },
+      } = request;
 
-      const { value, type, notifyByEmail, notifyByBrowser, active } =
-        request.body;
-
-      const updateNotification = new UpdateNotificationService();
-
-      const updated = await updateNotification.execute(
-        user_id,
-        notification_id,
+      const updated = await updateNotification({
+        user,
+        notification: { id: notification_id },
         value,
         type,
         notifyByEmail,
         notifyByBrowser,
         active,
-      );
+      });
       response.json({ updated });
     } catch (err) {
       if (err instanceof Error) {
@@ -113,15 +116,12 @@ notificationsRouter.delete(
   '/:notification_id',
   async (request, response, next) => {
     try {
-      const { notification_id } = request.params;
-      const user_id = request.user.id;
+      const {
+        user,
+        params: { notification_id },
+      } = request;
 
-      const deleteNotification = new DeleteNotificationService();
-
-      const deleted = await deleteNotification.execute(
-        user_id,
-        notification_id,
-      );
+      const deleted = await deleteNotification(user, { id: notification_id });
       response.json({ deleted });
     } catch (err) {
       if (err instanceof Error) {

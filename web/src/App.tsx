@@ -1,5 +1,6 @@
 import { BrowserRouter } from 'react-router-dom';
 
+import { useState } from 'react';
 import Header from './components/Header';
 import GlobalStyle from './styles/global';
 import Footer from './components/Footer';
@@ -9,11 +10,14 @@ import AppProvider from './context';
 import Routes from './routes';
 
 export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(
+    localStorage.getItem('@AlertaDoTesouro:token') !== null,
+  );
   return (
     <BrowserRouter>
       <AppProvider>
-        <Header />
-        <Routes />
+        <Header isLoggedIn={isLoggedIn} />
+        <Routes setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
         <Footer />
       </AppProvider>
       <GlobalStyle />

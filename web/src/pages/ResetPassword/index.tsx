@@ -9,7 +9,7 @@ import Input from '../../components/Input';
 import { Container } from '../SignUp/styles';
 import getValidationErrors from '../../utils/getValidationErrors';
 import { AnimationContainer } from '../SignIn/styles';
-import api from '../../services/api';
+import api from '../../config/axios';
 import { ToastContext } from '../../context/ToastContext';
 
 interface ResetPasswordFormData {
@@ -34,8 +34,8 @@ export default function ResetPassword() {
             (newPassword: string, field: Yup.StringSchema) =>
               newPassword
                 ? field
-                  .required('Senhas devem ser iguais')
-                  .oneOf([Yup.ref('newPassword')], 'Senhas devem ser iguais')
+                    .required('Senhas devem ser iguais')
+                    .oneOf([Yup.ref('newPassword')], 'Senhas devem ser iguais')
                 : field,
           ),
         });
@@ -83,7 +83,7 @@ export default function ResetPassword() {
         }
       }
     },
-    [addToast],
+    [addToast, navigate],
   );
 
   return (
@@ -95,6 +95,7 @@ export default function ResetPassword() {
           </div>
 
           <Input
+            autoFocus
             icon={FiLock}
             name="newPassword"
             type="password"

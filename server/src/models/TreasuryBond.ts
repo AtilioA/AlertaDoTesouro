@@ -58,7 +58,7 @@ export interface Index {
  * @property {Date} created_at - The date when the bond was created in the database
  * @property {Date} updated_at - The date when the bond was updated in the database
  */
-@Entity('treasurybonds')
+@Entity('treasurybond')
 class TreasuryBond {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -101,10 +101,10 @@ class TreasuryBond {
   @Column('json')
   indexedTo?: Index;
 
-  @Column('timestamp with time zone')
+  @Column('timestamp with time zone', { nullable: true })
   lastDateOfNegotiation?: Date;
 
-  @Column('json')
+  @Column('json', { nullable: true })
   texts?: treasuryBondTexts;
 
   @CreateDateColumn()

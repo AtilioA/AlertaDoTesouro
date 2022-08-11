@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import { shade } from 'polished';
+import { saturate, shade } from 'polished';
 
 import '../../components/Toggle/styles.css';
 
@@ -10,8 +10,10 @@ export const Container = styled.div`
   align-items: center;
   flex-direction: column;
 
-  h1 {
-    margin-bottom: 12px;
+  div#header {
+    h1 {
+      margin-bottom: 10px;
+    }
   }
 
   div#toggle-with-label {
@@ -81,12 +83,15 @@ export const Container = styled.div`
 
 export const NotificationsContainer = styled.div`
   display: flex;
+  justify-items: center;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 75px;
-
-  h1 {
-    margin-bottom: 12px;
+  margin-top: 50px;
+  div#header {
+    h1 {
+      margin-bottom: 20px;
+    }
   }
 `;
 
@@ -94,55 +99,52 @@ export const NotificationContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: row;
+  /* flex-wrap: wrap; */
+  max-width: 90%;
+  flex: 1;
 
+  & + div {
+    margin-top: 20px;
+  }
   div#notification-content {
     display: flex;
     flex-direction: row;
   }
 
   div#notification-actions-edit-delete {
-    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 0px 15px 15px 0px;
     display: flex;
-    flex-direction: column;
-  }
-
-  div#edit {
-    button {
-      background: #a7b6cb;
-      border: 0;
-      padding: 25px;
-      border-radius: 0px 2px 0px 0px;
-
-      transition: background 0.2s;
-      &:hover {
-        background: ${shade(-0.1, '#a7b6cb')};
-      }
-    }
+    flex-direction: row;
   }
 
   div#delete {
     button {
-      background: #cba7a7;
+      border-radius: 0px 15px 15px 0px;
       padding: 25px;
+      width: 100%;
+      flex: 1;
+      height: 113px;
+      background: ${saturate(-0.5, '#ff1818')};
       border: 0;
-      border-radius: 0px 0px 2px 0px;
 
       transition: background 0.2s;
       &:hover {
-        background: ${shade(-0.1, '#cba7a7')};
+        background: ${saturate(-0.1, '#ff1818')};
       }
     }
   }
 `;
 
 export const Notification = styled.div`
-  max-width: 95%;
+  /* max-width: 80%; */
+  justify-content: center;
+  align-items: center;
   background: #e2e2e2;
   border-radius: 2px;
-  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
   display: flex;
-  padding: 10px 0px 10px 0px;
+  padding: 20px 0px 20px 0px;
   flex-direction: row;
 
   div#notification-content {
@@ -153,6 +155,7 @@ export const Notification = styled.div`
 
   div#notification-bond {
     border-right: 1px solid #828282;
+    width: 75%;
     padding-right: 25px;
     display: flex;
     flex-direction: column;
@@ -194,7 +197,6 @@ export const Notification = styled.div`
     }
 
     display: flex;
-    flex: 1;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -205,7 +207,7 @@ export const Notification = styled.div`
     margin-top: 20px;
 
     span {
-      margin-top: 8px;
+      margin-top: 5px;
       & + div {
         margin-top: 8px;
       }

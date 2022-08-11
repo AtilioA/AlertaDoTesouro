@@ -2,7 +2,8 @@
 // FIXME !!
 import { createContext, useCallback, useState } from 'react';
 import { BaseLayoutProps } from './ToastContext';
-import api from '../services/api';
+import api from '../config/axios';
+import axiosInstance from '../config/axios';
 
 interface SignInCredentials {
   email: string;
@@ -46,6 +47,7 @@ export function AuthProvider({ children }: BaseLayoutProps) {
     );
 
     const { token, user } = response.data;
+    axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
     localStorage.setItem('@AlertaDoTesouro:token', token);
     localStorage.setItem('@AlertaDoTesouro:user', JSON.stringify(user));
 
