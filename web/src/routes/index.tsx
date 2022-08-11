@@ -10,16 +10,26 @@ import ResetPassword from '../pages/ResetPassword';
 import Account from '../pages/Account';
 import Notifications from '../pages/Notifications';
 import ToS from '../pages/ToS';
-import { AuthContext } from '../context/AuthContext';
 import ConfirmAccount from '../pages/ConfirmAccount';
 
-function PrivateRoute({ navigateTo }: { navigateTo: string }) {
-  const { user } = useContext(AuthContext);
+function PrivateRoute({
+  navigateTo,
+  isLoggedIn,
+}: {
+  navigateTo: string;
+  isLoggedIn: boolean;
+}) {
   // If autenticated context is present
-  return user ? <Outlet /> : <Navigate to={navigateTo} />;
+  return isLoggedIn ? <Outlet /> : <Navigate to={navigateTo} />;
 }
 
-export default function AppRoutes() {
+export default function AppRoutes({
+  setIsLoggedIn,
+  isLoggedIn,
+}: {
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+  isLoggedIn: boolean;
+}) {
   return (
     <Routes>
       <Route path="/" element={<Dashboard />} />
@@ -28,16 +38,19 @@ export default function AppRoutes() {
       <Route path="/redefinir-senha" element={<ResetPassword />} />
       <Route path="/confirmar-conta" element={<ConfirmAccount />} />
       <Route path="/registrar" element={<SignUp />} />
-      <Route path="/login" element={<SignIn />} />
-      <Route path="/conta" element={<PrivateRoute navigateTo="/login" />}>
-        <Route path="" element={<Account />} />
+      <Route path="/login" element={<SignIn setIsLoggedIn={setIsLoggedIn} />} />
+      <Route
+        path="/conta"
+        element={<PrivateRoute isLoggedIn={isLoggedIn} navigateTo="/login" />}
+      >
+        <Route path="" element={<Account setIsLoggedIn={setIsLoggedIn} />} />
       </Route>
-      <Route path="/notificacoes" element={<Notifications />} />
       <Route
         path="/notificacoes"
-        element={<PrivateRoute navigateTo="/login" />}
+        element={<PrivateRoute isLoggedIn={isLoggedIn} navigateTo="/login" />}
       />
-      <Route path="/tos" element={<ToS />} />
+      <Route path="/" element={<Notifications />} />
+      <Route path="/privacidade" element={<ToS />} />
       <Route path="*" element={<Dashboard />} />
     </Routes>
   );

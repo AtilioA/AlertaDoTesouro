@@ -3,7 +3,7 @@ import { shade } from 'polished';
 
 export const CardFooter = styled.div`
   display: flex;
-  height: 300px;
+  /* height: 300px; */
 
   p,
   label {
@@ -25,7 +25,7 @@ export const CardFooter = styled.div`
     -moz-appearance: textfield;
   }
 
-  input {
+  input#notification-value {
     border-bottom: 1px solid #000;
     border: 0;
 
@@ -36,11 +36,12 @@ export const CardFooter = styled.div`
   }
 
   div#card-notify {
-    height: 300px;
+    /* height: 300px; */
+    width: 100%;
   }
 
   button {
-    height: 70px;
+    min-height: 70px;
     width: 100%;
 
     font-size: 24px;
@@ -63,20 +64,21 @@ export const CardFooter = styled.div`
 export const CardBody = styled.div`
   display: flex;
   margin-top: 20px;
-  margin-left: 21px;
-  height: 150px;
+  margin-inline: 20px;
+  /* height: 150px; */
 
   div#bond-info {
-    font-size: 20px;
     display: flex;
+    font-size: 20px;
     flex-direction: column;
+    width: 100%;
   }
   div#line {
     display: flex;
+    /* width: max-content; */
     justify-content: space-between;
     b {
       font-size: 24px;
-      margin-left: 45px;
     }
     & + div#line {
       margin-top: 20px;
@@ -90,7 +92,7 @@ export const CardHeader = styled.div`
   padding: 0 30px;
   border-radius: 0 40px 0px 0px;
 
-  height: 100px;
+  /* height: 100px; */
   margin: 0 auto;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -115,7 +117,7 @@ export const Container = styled.div`
   border-radius: 0 40px 40px 40px;
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25);
 
-  height: 500px;
+  /* height: 500px; */
   max-width: 350px;
   margin: 0 auto;
   & + div {

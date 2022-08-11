@@ -20,6 +20,16 @@ export default createGlobalStyle`
   }
 
   button {
+    // Align all subitems to the center
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    // Practically, this is an icon
+    svg {
+      margin-right: 5px;
+    }
+
     cursor: pointer;
   }
 `;

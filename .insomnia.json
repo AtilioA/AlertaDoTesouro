@@ -90,7 +90,7 @@
       "metaSortKey": -1598209090094,
       "method": "PUT",
       "modified": 1598212311229,
-      "name": "Update all treasury bonds",
+      "name": "Update all treasury bond",
       "parameters": [],
       "parentId": "fld_2a24df81d4fc40299c24389a4fedc93b",
       "settingDisableRenderRequestBody": false,
@@ -99,7 +99,7 @@
       "settingRebuildPath": true,
       "settingSendCookies": true,
       "settingStoreCookies": true,
-      "url": "{{baseURL}}/treasurybonds/updateAll",
+      "url": "{{baseURL}}/treasurybond/updateAll",
       "_type": "request"
     },
     {
@@ -110,7 +110,7 @@
       "environmentPropertyOrder": null,
       "metaSortKey": -1598048831768,
       "modified": 1598048831768,
-      "name": "TreasuryBonds",
+      "name": "TreasuryBond",
       "parentId": "wrk_37eef8ddc0034da5a3331d14411851a0",
       "_type": "request_group"
     },
@@ -134,7 +134,7 @@
       "settingRebuildPath": true,
       "settingSendCookies": true,
       "settingStoreCookies": true,
-      "url": "{{baseURL}}/treasurybonds",
+      "url": "{{baseURL}}/treasurybond",
       "_type": "request"
     },
     {
@@ -166,7 +166,7 @@
       "settingRebuildPath": true,
       "settingSendCookies": true,
       "settingStoreCookies": true,
-      "url": "{{baseURL}}/treasurybonds",
+      "url": "{{baseURL}}/treasurybond",
       "_type": "request"
     },
     {
@@ -180,7 +180,7 @@
       "metaSortKey": -1598048869452,
       "method": "GET",
       "modified": 1598199043855,
-      "name": "List Treasury bonds",
+      "name": "List Treasury bond",
       "parameters": [],
       "parentId": "fld_2a24df81d4fc40299c24389a4fedc93b",
       "settingDisableRenderRequestBody": false,
@@ -189,12 +189,15 @@
       "settingRebuildPath": true,
       "settingSendCookies": true,
       "settingStoreCookies": true,
-      "url": "{{baseURL}}/treasurybonds",
+      "url": "{{baseURL}}/treasurybond",
       "_type": "request"
     },
     {
       "_id": "req_fe9dd271bc4d433d92927f3e0297df15",
-      "authentication": { "token": "", "type": "bearer" },
+      "authentication": {
+        "token": "",
+        "type": "bearer"
+      },
       "body": {
         "mimeType": "application/json",
         "text": "{\n\t\"email\": \"redacteduser@privacydomain.com\",\n\t\"password\": \"12345678\"\n}"
@@ -609,8 +612,14 @@
       "_id": "env_30b2fa03c7c14c6193209f0a7ed69b3f",
       "color": "#00aa60",
       "created": 1597617822940,
-      "data": { "baseURL": "http://localhost:3333" },
-      "dataPropertyOrder": { "&": ["baseURL"] },
+      "data": {
+        "baseURL": "http://localhost:3333"
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "baseURL"
+        ]
+      },
       "isPrivate": false,
       "metaSortKey": 1597617822940,
       "modified": 1597617915367,

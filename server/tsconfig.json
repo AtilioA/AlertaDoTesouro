@@ -68,8 +68,15 @@
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
     "skipLibCheck": true /* Skip type checking of declaration files. */,
   },
+  "include": [
+    "src/",
+    ".eslintrc.js",
+    "ormconfig.ts",
+  ],
   "typedocOptions": {
-    "entryPoints": ["src/"],
+    "entryPoints": [
+      "src/"
+    ],
     "entryPointStrategy": "expand",
     "out": "docs/"
   }

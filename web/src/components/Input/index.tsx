@@ -43,8 +43,17 @@ export default function Input({ name, icon: Icon, ...props }: InputProps) {
     setIsFilled(!!inputRef.current?.value);
   }, []);
 
+  const focusInput = useCallback(() => {
+    inputRef.current?.focus();
+  }, []);
+
   return (
-    <Container isFocused={isFocused} isFilled={isFilled} isErrored={!!error}>
+    <Container
+      isFocused={isFocused}
+      isFilled={isFilled}
+      isErrored={!!error}
+      onClick={focusInput}
+    >
       <div id="svg-div">{Icon && <Icon size={20} />}</div>
       <input
         onFocus={handleInputFocus}

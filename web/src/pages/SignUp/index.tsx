@@ -1,7 +1,7 @@
 import { useCallback, useRef, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { FiLogIn, FiLock, FiAtSign, FiCheck } from 'react-icons/fi';
+import { FiLogIn, FiLock, FiAtSign, FiCheck, FiKey } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
@@ -39,8 +39,8 @@ export default function SignUp() {
             (password: string, field: Yup.StringSchema) =>
               password
                 ? field
-                  .required('Senhas devem ser iguais')
-                  .oneOf([Yup.ref('password')], 'Senhas devem ser iguais')
+                    .required('Senhas devem ser iguais')
+                    .oneOf([Yup.ref('password')], 'Senhas devem ser iguais')
                 : field,
           ),
           acceptTerms: Yup.bool().oneOf(
@@ -61,7 +61,6 @@ export default function SignUp() {
           description: 'Por favor, cheque seu email para confirmar sua conta.',
         });
       } catch (err) {
-        setButtonLoading(false);
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
           formRef.current?.setErrors(errors);
@@ -73,6 +72,8 @@ export default function SignUp() {
               'Ocorreu um erro ao realizar o cadastro. Tente novamente mais tarde.',
           });
         }
+      } finally {
+        setButtonLoading(false);
       }
     },
     [addToast],
@@ -90,6 +91,7 @@ export default function SignUp() {
             <h2>EMAIL</h2>
           </div>
           <Input
+            autoFocus
             icon={FiAtSign}
             name="email"
             placeholder="Ex: turing@inf.ufes.br"

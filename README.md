@@ -29,8 +29,8 @@ A web application that notifies you about Brazilian treasury bond rates.
 
 # 💻 Project
 
-AlertaDoTesouro is a project elaborated with the intent of automatically monitoring Brazilian government bonds and alerting users about them according to their preferences of rates. Tools such as Node.js, Express, PostgreSQL, Docker, Redis, linting and debugging tools, mail delivery systems, among others, were employed to build this system.
-Furthermore, this project was also presented as the required assignment for the Integrated Project class during the 2022/1 semester.
+AlertaDoTesouro is a project elaborated with the intent of automatically monitoring Brazilian government bond and alerting users about them according to their preferences of rates. Tools such as Node.js, Express, PostgreSQL, Docker, Redis, linting and debugging tools, mail delivery systems, among others, were employed to build this system.
+Furthermore, this project was also presented as required academic work for the Integrated Project classes during the 2022/1 semester.
 
 The application allows users to set one value per treasury bond, so they can get notified whenever its rate goes above or below that value. Users should be able to be* notified by email or browser notifications.
 
@@ -60,25 +60,20 @@ This project was developed using the following tools:
 - [React.js](http://reactjs.org/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [Docker](https://www.docker.com/) with [Compose __V2__](https://docs.docker.com/compose/#compose-v2-and-the-new-docker-compose-command)
-- [pre-commit]
-
-[pre-commit]: https://pre-commit.com/
 
 ## Development
 
-After cloning the branch and installing [pre-commit], and running `pre-commit install`, you can start to develop the application. Mind that before every commit, you should run `pre-commit run` to check if there are any linting errors, and if you commit anything with linting errors, the command should fail.
-
-> __Note:__ _pre-commit_ is using `server/`'s ESLint configuration, for the whole project
+Clone the repository and enter it with your terminal.
 
 ### ⚙️ Back-end
 
-All files related exlusively to the back-end server are located in `/server`.
+All files exclusively related to the back-end server are located in the folder `/server`.
 
-The back-end REST API is fully functional and was made with Express. Multiple endpoints have been defined and they can be explored extensively by referring to the `.insomnia.json` file, which can be imported into [Insomnia](https://insomnia.rest/) itself or possibly other REST clients.
+The back-end REST API is fully functional and was made with Express. Multiple endpoints have been defined and they can be explored extensively by referring to the `.insomnia.json` file, which can be imported into [Insomnia](https://insomnia.rest/) itself or possibly other HTTP clients.
 
-#### Example: listing treasury bonds
+#### Example: listing treasury bond
 
-A typical request would be a simple `GET` request to the `/treasurybonds` endpoint. Response example:
+A typical request would be a simple `GET` request to the `/treasurybond` endpoint. Response example:
 
 ```bash
 [
@@ -111,6 +106,12 @@ A typical request would be a simple `GET` request to the `/treasurybonds` endpoi
 ]
 ```
 
+#### Documentation
+
+You can build the documentation with [typedoc](https://typedoc.org/). It is recommended that you install `typedoc` with tools like [npx](https://docs.npmjs.com/cli/v7/commands/npx/).
+
+ From the `/server` directory, run `typedoc --out docs`. The documentation will then be available at `docs/`.
+
 ### 🖥 Front-end
 
 [...]
@@ -135,8 +136,6 @@ Rename or copy the `.env.example` file to `.env` in both the `/server` and `/web
 - You can and __should__ change `JWT_SECRET` to another string. It is used by the hashing algorithm to generate hashed passwords.
 - The project uses Mailtrap for development purposes. You can of course use your preferred mail service by replacing the appropriate values in the `.env` file.
    <!-- - [Sentry](https://sentry.io/for/web/) was added mostly for learning purposes and of course is not required; feel free to leave the string empty. -->
-
-<!-- TODO: Endpoints documentation -->
 
 ### Front-end considerations
 

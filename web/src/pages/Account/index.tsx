@@ -1,16 +1,38 @@
+/* eslint-disable no-alert */
 import { useRef, useCallback, useState } from 'react';
 
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import { Form } from '@unform/web';
-import { FiAtSign, FiCheck, FiLock, FiPlus } from 'react-icons/fi';
+import {
+  FiAtSign,
+  FiCheck,
+  FiFileText,
+  FiLock,
+  FiLogOut,
+  FiPlus,
+  FiRefreshCcw,
+  FiUserX,
+} from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 import getValidationErrors from '../../utils/getValidationErrors';
 import Input from '../../components/Input';
 import { Container, AnimationContainer } from './styles';
 import api from '../../services/api';
 
-export default function Account() {
+interface PasswordUpdateFormData {
+  oldPassword: string;
+  newPassword: string;
+  newPasswordConfirmation: string;
+}
+
+export default function Account({
+  setIsLoggedIn,
+}: {
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const formRef = useRef<FormHandles>(null);
+  const navigate = useNavigate();
   const [exportButtonLoading, setExportButtonLoading] = useState(false);
   const [updateButtonLoading, setUpdateButtonLoading] = useState(false);
 
@@ -30,49 +52,119 @@ export default function Account() {
     }
   };
 
-  const handleSubmit = useCallback(async (data: object) => {
-    try {
-      setUpdateButtonLoading(true);
+  // Delete user info from localStorage and redirect user to login page
+  const handleLogout = () => {
+    // Delete user token from localStorage
+    localStorage.removeItem('@AlertaDoTesouro:token');
+    localStorage.removeItem('@AlertaDoTesouro:user');
+    localStorage.clear();
+    sessionStorage.clear();
 
-      formRef.current?.setErrors({});
+    setIsLoggedIn(false);
+    // Redirect user to landing page
+    navigate('/');
+  };
 
-      const schema = Yup.object().shape({
-        email: Yup.string()
-          .required('Email é obrigatório')
-          .email('Digite um email válido'),
-        password: Yup.string().required('Informe sua senha'),
-        newPassword: Yup.string().oneOf(
-          [Yup.ref('confirmPassword')],
-          'Senhas devem ser iguais',
-        ),
-        confirmPassword: Yup.string().when(
-          'newPassword',
-          (newPassword: string, field: Yup.StringSchema) =>
-            newPassword
-              ? field
-                .required('É necessário confirmar sua senha')
-                .min(8, 'Mínimo de 8 caracteres')
-                .oneOf([Yup.ref('newPassword')], 'Senhas devem ser iguais')
-              : field,
-        ),
-      });
+  const handleDeleteAccount = async () => {
+    if (
+      window.confirm(
+        'Você realmente quer deletar sua conta? Esta ação é irreversível!',
+      )
+    ) {
+      // Send DELETE request to API to delete user account, along with bearer token
+      const userToken: string | null = localStorage.getItem(
+        '@AlertaDoTesouro:token',
+      );
+      if (userToken) {
+        await api.delete('/users', {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        });
 
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-    } catch (err) {
-      if (err instanceof Yup.ValidationError) {
-        const errors = getValidationErrors(err);
-        formRef.current?.setErrors(errors);
-        setUpdateButtonLoading(false);
-      } else throw err;
+        // Logout
+        handleLogout();
+      }
     }
-  }, []);
+  };
+
+  const getUserEmail = (): string | undefined => {
+    try {
+      const userDataString: string | null = localStorage.getItem(
+        '@AlertaDoTesouro:user',
+      );
+      if (userDataString) {
+        const user: Record<string, string> = JSON.parse(
+          userDataString,
+        ) as Record<string, string>;
+        if (user) {
+          const userEmail: string = user.email;
+          return userEmail;
+        }
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error);
+      }
+    }
+
+    return '';
+  };
+
+  const handlePasswordUpdate = useCallback(
+    async (data: PasswordUpdateFormData) => {
+      setUpdateButtonLoading(true);
+      try {
+        formRef.current?.setErrors({});
+
+        const schema = Yup.object().shape({
+          email: Yup.string()
+            .required('Email é obrigatório')
+            .email('Digite um email válido'),
+          password: Yup.string().required('Informe sua senha'),
+          newPassword: Yup.string().oneOf(
+            [Yup.ref('confirmPassword')],
+            'Senhas devem ser iguais',
+          ),
+          confirmPassword: Yup.string().when(
+            'newPassword',
+            (newPassword: string, field: Yup.StringSchema) =>
+              newPassword
+                ? field
+                    .required('É necessário confirmar sua senha')
+                    .min(8, 'Mínimo de 8 caracteres')
+                    .oneOf([Yup.ref('newPassword')], 'Senhas devem ser iguais')
+                : field,
+          ),
+        });
+
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        await api.put('/users', data);
+
+        console.log('Senha atualizada com sucesso.');
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
+          formRef.current?.setErrors(errors);
+        } else {
+          console.error(
+            'Ocorreu um erro ao atualizar a senha. Tente novamente mais tarde.',
+          );
+        }
+      } finally {
+        setUpdateButtonLoading(false);
+      }
+    },
+    [],
+  );
 
   return (
     <Container>
       <AnimationContainer>
-        <Form ref={formRef} onSubmit={handleSubmit}>
+        <Form ref={formRef} onSubmit={handlePasswordUpdate}>
           <div id="form-header">
             <h1>SUAS INFORMAÇÕES</h1>
           </div>
@@ -84,6 +176,7 @@ export default function Account() {
             icon={FiAtSign}
             name="email"
             placeholder="turing@inf.ufes.br"
+            defaultValue={getUserEmail()}
           />
 
           <div id="input-header">
@@ -108,26 +201,41 @@ export default function Account() {
             placeholder="Confirmação de sua nova senha"
           />
 
+          {/* 'Form' Submit */}
           <button
-            id="atualizar-dados"
-            disabled={updateButtonLoading}
+            id="atualizar-senha"
             type="submit"
+            disabled={updateButtonLoading}
           >
-            Atualizar dados
+            <FiRefreshCcw />
+            Atualizar senha
           </button>
-          <button id="sair" type="submit">
-            Sair
-          </button>
-          <button id="deletar-conta" type="submit">
-            Deletar conta
-          </button>
+
+          {/* Data export */}
           <button
             id="exportar-dados"
             type="button"
             onClick={() => handleDataExport()}
             disabled={exportButtonLoading}
           >
+            <FiFileText />
             Exportar dados
+          </button>
+
+          {/* Logout */}
+          <button id="sair" type="button" onClick={() => handleLogout()}>
+            <FiLogOut />
+            Sair
+          </button>
+
+          {/* Account deletion */}
+          <button
+            id="deletar-conta"
+            type="button"
+            onClick={() => handleDeleteAccount()}
+          >
+            <FiUserX />
+            Deletar conta
           </button>
         </Form>
       </AnimationContainer>

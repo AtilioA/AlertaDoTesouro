@@ -8,12 +8,13 @@ import ResetUserPasswordService from '../services/ResetUserPasswordService';
 import DeleteUserService from '../services/DeleteUserService';
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 import Queue from '../services/Queue';
-import SendConfirmAccountMail from '../jobs/SendConfirmAccountMail';
 import SendResetPasswordMail from '../jobs/SendResetPasswordMail';
 import authConfig from '../config/auth';
-import User from '../models/User';
 import SendDataExportMail from '../jobs/SendDataExportMail';
 import Notification from '../models/Notification';
+import User from '../models/User';
+import UserAlreadyExistsError from '../models/exceptions/UserAlreadyExistsError';
+import sendConfirmationMail from '../utils/sendConfirmationEmail';
 
 const usersRouter = Router();
 
@@ -132,26 +133,31 @@ usersRouter.post('/', async (request, response, next) => {
     const createUser = new CreateUserService();
     const user = await createUser.execute({ email, password });
 
-    // Create confirmation token so that the user can confirm their account
-    const EMAIL_SECRET = authConfig.jwt.secret;
-    const emailToken = sign(
-      {
-        user,
-      },
-      EMAIL_SECRET as string,
-      {
-        expiresIn: authConfig.jwt.expiresIn,
-      },
-    );
-
-    // Add confirmation email task to the queue, so that it will be sent to the user
-    await Queue.add(SendConfirmAccountMail.key, {
-      token: emailToken,
-      user,
-    });
+    if (user) {
+      sendConfirmationMail(user);
+    }
 
     return response.json(user);
   } catch (err) {
+    if (err instanceof UserAlreadyExistsError) {
+      const { email } = request.body;
+      const user = await getRepository(User).findOne({
+        where: { email },
+      });
+
+      if (user && !user.confirmed) {
+        sendConfirmationMail(user);
+
+        return response
+          .status(400)
+          .json({ error: `${err.message} Confirmation email resent.` });
+      }
+
+      return response.status(400).json({
+        error: `${err.message} User is already confirmed, so confirmation email was not resent.`,
+      });
+    }
+
     if (err instanceof Error) {
       return response.status(400).json({ error: err.message });
     }

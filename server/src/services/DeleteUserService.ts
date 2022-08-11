@@ -8,7 +8,7 @@ class DeleteUserService {
   public async execute(user_id: string): Promise<DeleteResult> {
     // Search and delete user from the database
     const userRepository = getRepository(User);
-    const findUser: User | undefined  = await userRepository.findOne({
+    const findUser: User | undefined = await userRepository.findOne({
       where: { id: user_id },
     });
 

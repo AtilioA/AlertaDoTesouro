@@ -2,6 +2,7 @@ import { getRepository } from 'typeorm';
 import { hash } from 'bcryptjs';
 import User from '../models/User';
 import { UserOptionalPassword } from '../@types/alertadotesouro';
+import UserAlreadyExistsError from '../models/exceptions/UserAlreadyExistsError';
 
 /**
  * Interface for the request object for creating a new User.
@@ -20,26 +21,25 @@ class CreateUserService {
   public async execute({ email, password }: Request): Promise<User> {
     const usersRepository = getRepository(User);
 
-    const findUser: User | undefined  = await usersRepository.findOne({
+    const findUser: User | undefined = await usersRepository.findOne({
       where: { email },
     });
 
     if (findUser) {
-      throw new Error('E-mail address is already being used.');
+      throw new UserAlreadyExistsError('E-mail address is already being used.');
     }
-
-    const hashedPassword = await hash(password, 8);
 
     const user = usersRepository.create({
       email,
-      password: hashedPassword,
-    }) as UserOptionalPassword;
+      password: await hash(password, 8),
+    });
+    console.log(user);
 
     await usersRepository.save(user);
 
-    delete user.password;
+    delete (user as UserOptionalPassword).password;
 
-    return user as User;
+    return user;
   }
 }
 

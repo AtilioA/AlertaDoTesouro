@@ -12,26 +12,26 @@ class CheckNotificationsValueService {
     const notificationRepository = getRepository(Notification);
     const treasuryBondRepository = getRepository(TreasuryBond);
 
-    const treasuryBonds = await treasuryBondRepository.find({
+    const treasuryBond = await treasuryBondRepository.find({
       where: { lastDateOfNegotiation: IsNull() },
       relations: ['notifications', 'notifications.user'],
     });
 
-    // Check if there are any treasury bonds that exceed the conditions of any notification
-    for (const treasuryBond of treasuryBonds) {
-      for (const notification of treasuryBond.notifications) {
-        if (!treasuryBond.lastDateOfNegotiation) {
+    // Check if there are any treasury bond that exceed the conditions of any notification
+    for (const bond of treasuryBond) {
+      for (const notification of bond.notifications) {
+        if (!bond.lastDateOfNegotiation) {
           switch (notification.type) {
             case 'maior':
               if (
-                treasuryBond.annualInvestmentRate > notification.value &&
+                bond.annualInvestmentRate > notification.value &&
                 notification.active &&
                 notification.user.notify
               ) {
                 if (notification.user.notifyByEmail) {
                   await Queue.add(NotifyBondReturns.key, {
                     notification,
-                    treasuryBond,
+                    treasuryBond: bond,
                     findUser: notification.user,
                   });
 
@@ -47,14 +47,14 @@ class CheckNotificationsValueService {
               break;
             default:
               if (
-                treasuryBond.annualInvestmentRate < notification.value &&
+                bond.annualInvestmentRate < notification.value &&
                 notification.active &&
                 notification.user.notify
               ) {
                 if (notification.user.notifyByEmail) {
                   await Queue.add(NotifyBondReturns.key, {
                     notification,
-                    treasuryBond,
+                    treasuryBond: bond,
                     findUser: notification.user,
                   });
 
