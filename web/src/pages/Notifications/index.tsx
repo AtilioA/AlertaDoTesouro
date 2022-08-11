@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 import Toggle from 'react-toggle';
 
-import { FiEdit, FiTrash } from 'react-icons/fi';
+import { FiTrash } from 'react-icons/fi';
+import { useEffect, useState } from 'react';
 import {
   Container,
   AnimationContainer,
@@ -8,7 +11,9 @@ import {
   NotificationsContainer,
   NotificationContainer,
 } from './styles';
-// import Input from '../../components/Input';
+import api from '../../config/axios';
+import NotificationType from '../../@types/Notification';
+import UserType from '../../@types/User';
 
 export default function Notifications() {
   const [notifications, setNotifications] = useState<NotificationType[]>([]);
@@ -32,6 +37,7 @@ export default function Notifications() {
         console.error(error);
       });
   }, [user, user.notify, user.notifyByEmail, user.notifyByBrowser]);
+
 
   useEffect(() => {
     api
@@ -160,70 +166,45 @@ export default function Notifications() {
         <div id="header">
           <h1>NOTIFICAÇÕES</h1>
         </div>
-        <NotificationContainer>
-          <Notification>
-            <div id="notification-content">
-              <div id="notification-bond">
-                <h1>Tesouro IPCA 2026+</h1>
-                <div id="notification-bond-value">
-                  <span>Taxa atual:</span>
-                  <b>XX.XX%</b>
-                </div>
-                <div id="notification-bond-value">
-                  <span>Preço unitário:</span>
-                  <b>R$XX.XX</b>
-                </div>
-              </div>
-              <div id="notification-summary">
-                <span>
-                  Você será notificado quando a taxa estiver <u>maior</u> que{' '}
-                  <b>XX.XX%</b>.
-                </span>
-                <span>Notificação criada em XX/XX/XXXX.</span>
-              </div>
-              <div id="notification-actions">
-                <div id="toggle-with-label">
-                  <h1>Ativa</h1>
-                  <Toggle
-                    id="notification-status"
-                    defaultChecked
-                    onChange={() => handleNotifyChange()}
-                  />
-                </div>
-                <div id="notification-actions-active-minor">
-                  <div id="toggle-with-label">
-                    <span>E-mail</span>
-                    <Toggle
-                      id="notification-status"
-                      defaultChecked
-                      onChange={() => handleNotifyChange()}
-                    />
+
+        {notifications.map(notification => (
+          <NotificationContainer key={notification.id}>
+            <Notification>
+              <div id="notification-content">
+                <div id="notification-bond">
+                  <h1>{notification.bond.name}</h1>
+                  <div id="notification-bond-value">
+                    <span>Taxa atual:</span>
+                    <b>{notification.bond.annualInvestmentRate}%</b>
                   </div>
-                  <div id="toggle-with-label">
-                    <span>Browser</span>
-                    <Toggle
-                      id="notification-status"
-                      defaultChecked
-                      onChange={() => handleNotifyChange()}
-                    />
+                  <div id="notification-bond-value">
+                    <span>Preço unitário:</span>
+                    <b>R${notification.bond.minimumInvestmentAmount}</b>
                   </div>
                 </div>
+                <div id="notification-summary">
+                  <span>
+                    Você será notificado quando a taxa estiver{' '}
+                    <u>{notification.type}</u> que <b>{notification.value}%</b>.
+                  </span>
+                  <span>
+                    Notificação criada em {formatDate(notification.created_at)}.
+                  </span>
+                </div>
+              </div>
+            </Notification>
+            <div id="notification-actions-edit-delete">
+              <div id="delete">
+                <button
+                  type="button"
+                  onClick={() => handleNotificationDelete(notification.id)}
+                >
+                  <FiTrash />
+                </button>
               </div>
             </div>
-          </Notification>
-          <div id="notification-actions-edit-delete">
-            <div id="edit">
-              <button type="button">
-                <FiEdit />
-              </button>
-            </div>
-            <div id="delete">
-              <button type="button">
-                <FiTrash />
-              </button>
-            </div>
-          </div>
-        </NotificationContainer>
+          </NotificationContainer>
+        ))}
       </NotificationsContainer>
     </AnimationContainer>
   );

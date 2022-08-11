@@ -1,3 +1,7 @@
+/* eslint-disable no-await-in-loop */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable no-restricted-syntax */
 import * as uuid from 'uuid';
 import { getRepository } from 'typeorm';
 import TreasuryBond from '../models/TreasuryBond';
@@ -18,10 +22,10 @@ class UpdateTreasuryBondService {
         const code = currentTb.cd;
         const name = currentTb.nm;
         const expirationDate = currentTb.mtrtyDt;
-        const minimumInvestmentAmount = currentTb.minInvstmtAmt;
+        let minimumInvestmentAmount = currentTb.minInvstmtAmt;
         const investmentUnitaryValue = currentTb.untrInvstmtVal;
         const semianualInterestIndex = currentTb.semiAnulIntrstInd;
-        const annualInvestmentRate = currentTb.anulInvstmtRate;
+        let annualInvestmentRate = currentTb.anulInvstmtRate;
         const annualRedRate = currentTb.anulRedRate;
         const minimumRedValue = currentTb.minRedVal;
         const ISIN = currentTb.isinCd;
@@ -35,6 +39,11 @@ class UpdateTreasuryBondService {
           features: currentTb.featrs,
           recommendedTo: currentTb.rcvgIncm,
         };
+
+        if (lastDateOfNegotiation) {
+          annualInvestmentRate = annualRedRate;
+          minimumInvestmentAmount = minimumRedValue;
+        }
 
         // Insert treasurybond into database or update if already exists
         const treasuryBond = treasuryBondRepository.create({
@@ -62,11 +71,11 @@ class UpdateTreasuryBondService {
         // If it doesn't exist, insert it
         if (treasuryBondExists) {
           treasuryBond.id = treasuryBondExists.id;
-          treasuryBondRepository.update(treasuryBond.id, treasuryBond);
+          await treasuryBondRepository.update(treasuryBond.id, treasuryBond);
         } else {
           await treasuryBondRepository.insert(treasuryBond);
         }
-        treasuryBondRepository.save(treasuryBond);
+        await treasuryBondRepository.save(treasuryBond);
       }
 
       return true;

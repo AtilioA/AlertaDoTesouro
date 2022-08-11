@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import { Router } from 'express';
 import { sign, verify } from 'jsonwebtoken';
 import { getRepository } from 'typeorm';
@@ -167,6 +168,27 @@ usersRouter.post('/', async (request, response, next) => {
 usersRouter.use(ensureAuthenticated); // All user editing routes (below) require authentication
 
 /**
+ * Endpoint for getting a user's profile given a valid JWT token (user is obtained from the token payload)
+ */
+usersRouter.get('/', async (request, response, next) => {
+  try {
+    const user_id = request.user.id;
+
+    const userRepository = getRepository(User);
+    const findUser: User | undefined = await userRepository.findOne(user_id);
+
+    if (findUser) {
+      return response.json(findUser);
+    }
+  } catch (err) {
+    if (err instanceof Error) {
+      return response.status(400).json({ error: err.message });
+    }
+    next(err);
+  }
+});
+
+/**
  * Endpoint for export data from a given User.
  */
 usersRouter.get('/export', async (request, response, next) => {
@@ -227,15 +249,28 @@ usersRouter.put('/', async (request, response, next) => {
     } = request.body;
 
     const updateUser = new UpdateUserService();
-    const updated = await updateUser.execute(
-      user_id,
-      oldPassword,
-      newPassword,
-      newPasswordConfirmation,
-      notify,
-      notifyByEmail,
-      notifyByBrowser,
-    );
+    let updated;
+    if (oldPassword) {
+      updated = await updateUser.execute(
+        user_id,
+        notify,
+        notifyByEmail,
+        notifyByBrowser,
+        oldPassword,
+        newPassword,
+        newPasswordConfirmation,
+      );
+    } else {
+      updated = await updateUser.execute(
+        user_id,
+        notify,
+        notifyByEmail,
+        notifyByBrowser,
+        oldPassword,
+        newPassword,
+        newPasswordConfirmation,
+      );
+    }
 
     return response.json({ ok: 'User was updated', updated });
   } catch (err) {

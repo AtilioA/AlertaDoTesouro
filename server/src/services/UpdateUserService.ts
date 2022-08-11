@@ -10,12 +10,12 @@ import User from '../models/User';
 class UpdateUserService {
   public async execute(
     user_id: string,
-    oldPassword: string,
-    newPassword: string,
-    newPasswordConfirmation: string,
     notify: boolean,
     notifyByEmail: boolean,
     notifyByBrowser: boolean,
+    oldPassword?: string,
+    newPassword?: string,
+    newPasswordConfirmation?: string,
   ): Promise<UpdateResult> {
     // Define the validation schema
     const schema = Yup.object().shape({
@@ -56,11 +56,20 @@ class UpdateUserService {
       throw new Error('This user does not exist.');
     }
 
-    const hashedPassword = await hash(newPassword, 8);
+    if (oldPassword && newPassword) {
+      const hashedPassword = await hash(newPassword, 8);
+
+      const updateResult = await userRepository.update(
+        { id: user_id },
+        { password: hashedPassword, notify, notifyByBrowser, notifyByEmail },
+      );
+
+      return updateResult;
+    }
 
     const updateResult = await userRepository.update(
       { id: user_id },
-      { password: hashedPassword, notify, notifyByBrowser, notifyByEmail },
+      { notify, notifyByBrowser, notifyByEmail },
     );
 
     return updateResult;

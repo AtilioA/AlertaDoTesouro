@@ -9,7 +9,7 @@ import Input from '../../components/Input';
 import { Container } from '../SignUp/styles';
 import getValidationErrors from '../../utils/getValidationErrors';
 import { AnimationContainer } from '../SignIn/styles';
-import api from '../../services/api';
+import api from '../../config/axios';
 import { ToastContext } from '../../context/ToastContext';
 
 interface ResetPasswordFormData {

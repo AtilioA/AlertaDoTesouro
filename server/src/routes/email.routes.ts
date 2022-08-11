@@ -41,6 +41,9 @@ emailRouter.get('/confirmation/:token', async (request, response, next) => {
     const usersRepository = getRepository(User);
     await usersRepository.update({ id: user.id }, { confirmed: true });
 
+    console.log(
+      `Account of e-mail ${user.email} has been confirmed successfully.`,
+    );
     response.json({ ok: true, user });
     // return response.Navigate('/');  // Return to homepage
   } catch (err) {

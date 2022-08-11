@@ -1,7 +1,7 @@
-import { useCallback, useRef, useContext } from 'react';
+import { useCallback, useRef, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { FiLogIn, FiLock, FiAtSign, FiCheck, FiKey } from 'react-icons/fi';
+import { FiLogIn, FiLock, FiAtSign, FiCheck } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
@@ -9,7 +9,7 @@ import Input from '../../components/Input';
 import { Container } from './styles';
 import getValidationErrors from '../../utils/getValidationErrors';
 import { AnimationContainer } from '../SignIn/styles';
-import api from '../../services/api';
+import api from '../../config/axios';
 import { ToastContext } from '../../context/ToastContext';
 
 interface SignUpFormData {
@@ -20,10 +20,13 @@ interface SignUpFormData {
 export default function SignUp() {
   const formRef = useRef<FormHandles>(null);
   const { addToast } = useContext(ToastContext);
+  const [buttonLoading, setButtonLoading] = useState(false);
 
   const handleSubmit = useCallback(
     async (data: SignUpFormData) => {
       try {
+        setButtonLoading(true);
+
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
@@ -69,6 +72,8 @@ export default function SignUp() {
               'Ocorreu um erro ao realizar o cadastro. Tente novamente mais tarde.',
           });
         }
+      } finally {
+        setButtonLoading(false);
       }
     },
     [addToast],
@@ -111,13 +116,11 @@ export default function SignUp() {
 
           <input required name="acceptTerms" type="checkbox" id="acceptTerms" />
           <label htmlFor="acceptTerms">
-            {' '}
             Aceito os{' '}
             <a href="/privacidade">Termos e Condições Gerais de Uso</a>
           </label>
 
-          <button type="submit">
-            <FiKey />
+          <button disabled={buttonLoading} type="submit">
             Cadastrar-se
           </button>
         </Form>

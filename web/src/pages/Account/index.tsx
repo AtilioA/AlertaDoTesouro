@@ -1,5 +1,5 @@
 /* eslint-disable no-alert */
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useState } from 'react';
 
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import getValidationErrors from '../../utils/getValidationErrors';
 import Input from '../../components/Input';
 import { Container, AnimationContainer } from './styles';
-import api from '../../services/api';
+import api from '../../config/axios';
 
 interface PasswordUpdateFormData {
   oldPassword: string;
@@ -33,9 +33,12 @@ export default function Account({
 }) {
   const formRef = useRef<FormHandles>(null);
   const navigate = useNavigate();
+  const [exportButtonLoading, setExportButtonLoading] = useState(false);
+  const [updateButtonLoading, setUpdateButtonLoading] = useState(false);
 
   const handleDataExport = async () => {
     // GET request + bearer token to data export endpoint
+    setExportButtonLoading(true);
     const userToken = localStorage.getItem('@AlertaDoTesouro:token');
     if (userToken) {
       await api.get('/users/export', {
@@ -45,6 +48,7 @@ export default function Account({
       });
     } else {
       console.log('No token found for data export');
+      setExportButtonLoading(false);
     }
   };
 
@@ -109,6 +113,7 @@ export default function Account({
 
   const handlePasswordUpdate = useCallback(
     async (data: PasswordUpdateFormData) => {
+      setUpdateButtonLoading(true);
       try {
         formRef.current?.setErrors({});
 
@@ -149,6 +154,8 @@ export default function Account({
             'Ocorreu um erro ao atualizar a senha. Tente novamente mais tarde.',
           );
         }
+      } finally {
+        setUpdateButtonLoading(false);
       }
     },
     [],
@@ -195,7 +202,11 @@ export default function Account({
           />
 
           {/* 'Form' Submit */}
-          <button id="atualizar-senha" type="submit">
+          <button
+            id="atualizar-senha"
+            type="submit"
+            disabled={updateButtonLoading}
+          >
             <FiRefreshCcw />
             Atualizar senha
           </button>
@@ -205,6 +216,7 @@ export default function Account({
             id="exportar-dados"
             type="button"
             onClick={() => handleDataExport()}
+            disabled={exportButtonLoading}
           >
             <FiFileText />
             Exportar dados

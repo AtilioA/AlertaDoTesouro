@@ -43,6 +43,8 @@ rules:
       argsIgnorePattern: ^_
       destructuredArrayIgnorePattern: ^_
       ignoreRestSiblings: true
+  "@typescript-eslint/no-unsafe-argument":
+    - off
   "@typescript-eslint/naming-convention":
     - warn
     - format:

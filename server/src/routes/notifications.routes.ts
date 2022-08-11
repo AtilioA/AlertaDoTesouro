@@ -25,8 +25,8 @@ notificationsRouter.get('/', async (request, response, next) => {
     );
     const notifications = await notificationsRepository.find({
       where: { user: { id: user.id } },
-    });
-
+      relations: ['bond'],
+  });
     return response.json(notifications);
   } catch (err) {
     next(err);

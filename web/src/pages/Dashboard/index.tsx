@@ -76,7 +76,8 @@ export default function Dashboard() {
 
   useEffect(() => {
     fetchlyTreasury().catch(() => {});
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (pageControls.loading) {
     return <div>Loading...</div>;

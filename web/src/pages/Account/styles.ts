@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import { shade } from 'polished';
+import { desaturate, shade } from 'polished';
 
 export const Container = styled.div`
   height: 100vh;
@@ -59,6 +59,17 @@ export const Container = styled.div`
         background: #00aa33;
         &:hover {
           background: ${shade(0.1, '#00AA33')};
+        }
+        /* Reduce saturation when button is disabled */
+        &:disabled {
+          background: ${desaturate(0.8, '#00AA33')};
+          transition: background 0.2s;
+        }
+      }
+      &#atualizar-dados {
+        &:disabled {
+          background: ${desaturate(0.8, '#3b9eff')};
+          transition: background 0.2s;
         }
       }
       &#sair {

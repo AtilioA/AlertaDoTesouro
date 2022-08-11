@@ -1,6 +1,5 @@
 import { Router } from 'express';
-import { getRepository, RepositoryNotTreeError } from 'typeorm';
-import CreateTreasuryBondService from '../services/CreateTreasuryBondService';
+import { getRepository } from 'typeorm';
 import TreasuryBond from '../models/TreasuryBond';
 import UpdateTreasuryBondService from '../services/UpdateTreasuryBondService';
 
@@ -12,6 +11,18 @@ const treasuryBondRouter = Router();
 treasuryBondRouter.get('/', async (_request, response) => {
   const treasuryBondRepository = getRepository(TreasuryBond);
   const treasuryBond = await treasuryBondRepository.find();
+
+  return response.json(treasuryBond);
+});
+
+/**
+ * Endpoint for listing a specific treasury bond.
+ */
+treasuryBondRouter.get('/:id', async (_request, response) => {
+  const treasuryBondsRepository = getRepository(TreasuryBond);
+  const treasuryBond = await treasuryBondsRepository.find({
+    where: { id: _request.params.id },
+  });
 
   return response.json(treasuryBond);
 });

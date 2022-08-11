@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 import { Outlet, Navigate } from 'react-router';
 import { Routes, Route } from 'react-router-dom';
 
@@ -10,6 +9,7 @@ import ResetPassword from '../pages/ResetPassword';
 import Account from '../pages/Account';
 import Notifications from '../pages/Notifications';
 import ToS from '../pages/ToS';
+import ConfirmAccount from '../pages/ConfirmAccount';
 
 function PrivateRoute({
   navigateTo,
@@ -35,6 +35,7 @@ export default function AppRoutes({
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/esqueci-minha-senha" element={<ForgotPassword />} />
       <Route path="/redefinir-senha" element={<ResetPassword />} />
+      <Route path="/confirmar-conta" element={<ConfirmAccount />} />
       <Route path="/registrar" element={<SignUp />} />
       <Route path="/login" element={<SignIn setIsLoggedIn={setIsLoggedIn} />} />
       <Route
@@ -46,10 +47,11 @@ export default function AppRoutes({
       <Route
         path="/notificacoes"
         element={<PrivateRoute isLoggedIn={isLoggedIn} navigateTo="/login" />}
-      />
-      <Route path="/" element={<Notifications />} />
+      >
+        <Route path="" element={<Notifications />} />
+      </Route>
       <Route path="/privacidade" element={<ToS />} />
-      <Route path="*" element={<p>Não tem nada aqui!</p>} />
+      <Route path="*" element={<Dashboard />} />
     </Routes>
   );
 }

@@ -21,6 +21,9 @@ export default function Footer() {
           >
             Henriquelay
           </a>
+          {' '}e{' '}<a target="_blank" rel="noopener noreferrer" href="https://www.github.com/Henriquelay">
+            Henriquelay
+          </a>
           .
         </p>
         <p>

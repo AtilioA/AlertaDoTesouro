@@ -46,7 +46,9 @@ export default function Card({
       return res;
     } catch (err) {
       updateCardControls({
-        error: { message: 'Error setting notification' },
+        error: {
+          message: 'Erro configurando a notificação. Você está logado?',
+        },
       });
     } finally {
       updateCardControls({ loading: false });
