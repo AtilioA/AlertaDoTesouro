@@ -4,7 +4,7 @@ import { FiCheck } from 'react-icons/fi';
 import { useNavigate } from 'react-router';
 import { Container } from '../SignUp/styles';
 import { AnimationContainer } from '../SignIn/styles';
-import api from '../../services/api';
+import api from '../../config/axios';
 
 export default function ConfirmAccount() {
   // const { addToast } = useContext(ToastContext);

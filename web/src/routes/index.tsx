@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 import { Outlet, Navigate } from 'react-router';
 import { Routes, Route } from 'react-router-dom';
 
@@ -48,8 +47,9 @@ export default function AppRoutes({
       <Route
         path="/notificacoes"
         element={<PrivateRoute isLoggedIn={isLoggedIn} navigateTo="/login" />}
-      />
-      <Route path="/" element={<Notifications />} />
+      >
+        <Route path="" element={<Notifications />} />
+      </Route>
       <Route path="/privacidade" element={<ToS />} />
       <Route path="*" element={<Dashboard />} />
     </Routes>

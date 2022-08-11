@@ -11,7 +11,7 @@ const routes = Router();
 /**
  * Root route of the API (/); returns a json message.
  */
-routes.get('/', async (_, response) => {
+routes.get('/', (_, response) => {
   return response.json({ message: '🌐 AlertaDoTesouro is online.' });
 });
 

@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import getValidationErrors from '../../utils/getValidationErrors';
 import Input from '../../components/Input';
 import { Container, AnimationContainer } from './styles';
-import api from '../../services/api';
+import api from '../../config/axios';
 
 interface PasswordUpdateFormData {
   oldPassword: string;

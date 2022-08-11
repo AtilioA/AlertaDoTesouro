@@ -2,7 +2,7 @@
 // FIXME !!
 import { createContext, useCallback, useState } from 'react';
 import { BaseLayoutProps } from './ToastContext';
-import api from '../services/api';
+import api from '../config/axios';
 import axiosInstance from '../config/axios';
 
 interface SignInCredentials {

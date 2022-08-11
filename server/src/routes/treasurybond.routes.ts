@@ -1,6 +1,5 @@
 import { Router } from 'express';
-import { getRepository, RepositoryNotTreeError } from 'typeorm';
-import CreateTreasuryBondService from '../services/CreateTreasuryBondService';
+import { getRepository } from 'typeorm';
 import TreasuryBond from '../models/TreasuryBond';
 import UpdateTreasuryBondService from '../services/UpdateTreasuryBondService';
 

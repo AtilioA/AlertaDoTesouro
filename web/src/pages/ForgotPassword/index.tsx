@@ -9,7 +9,7 @@ import { ToastContext } from '../../context/ToastContext';
 import { Container } from '../SignUp/styles';
 import { AnimationContainer } from '../SignIn/styles';
 import Input from '../../components/Input';
-import api from '../../services/api';
+import api from '../../config/axios';
 
 interface ForgotPasswordFormData {
   email: string;

@@ -11,58 +11,59 @@ import {
   NotificationsContainer,
   NotificationContainer,
 } from './styles';
-import api from '../../services/api';
+import api from '../../config/axios';
 import NotificationType from '../../@types/Notification';
 import UserType from '../../@types/User';
 
 export default function Notifications() {
   const [notifications, setNotifications] = useState<NotificationType[]>([]);
-  const [user, setUser] = useState<UserType>();
-  const [notify, setNotify] = useState(false);
-  const [notifyByEmail, setNotifyByEmail] = useState(false);
-  const [notifyByBrowser, setNotifyByBrowser] = useState(false);
+  const [user, setUser] = useState<UserType>(
+    JSON.parse(localStorage.getItem('@AlertaDoTesouro:user') ?? '') as UserType,
+  );
+  const [notify, setNotify] = useState(user.notify);
+  const [notifyByEmail, setNotifyByEmail] = useState(user.notifyByEmail);
+  const [notifyByBrowser, setNotifyByBrowser] = useState(user.notifyByBrowser);
 
   useEffect(() => {
-    const userToken = localStorage.getItem('@AlertaDoTesouro:token');
-    if (userToken) {
-      api
-        .get(`/users/`, {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        })
-        .then(userResponse => {
-          const userData = userResponse.data as UserType;
+    api
+      .put(`/users/`, {
+        notify,
+        notifyByEmail,
+        notifyByBrowser,
+      })
+      .catch(error => {
+        console.error(error);
+      })
+      .then(() => {
+        localStorage.setItem('@AlertaDoTesouro:user', JSON.stringify(user));
+        console.log('Notification status updated!');
+      });
+  }, [user, notify, notifyByEmail, notifyByBrowser]);
 
-          setUser(userData);
-        })
-        .catch(error => console.log(error));
-    }
-    console.log(user);
+  useEffect(() => {
+    api
+      .get(`/users/`)
+      .then(userResponse => {
+        const userData = userResponse.data as UserType;
+        setUser(userData);
+      })
+      .catch(error => console.error(error));
   }, []);
 
   useEffect(() => {
-    // GET request + bearer token to notification list endpoint
-    const userToken = localStorage.getItem('@AlertaDoTesouro:token');
-    if (userToken) {
-      api
-        .get('/notifications', {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        })
-        .then(notificationsResponse => {
-          const responseData = notificationsResponse.data as NotificationType[];
+    api
+      .get('/notifications')
+      .then(notificationsResponse => {
+        const responseData = notificationsResponse.data as NotificationType[];
 
-          setNotifications(responseData);
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    }
+        setNotifications(responseData);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }, []);
 
-  function handleNotificationDelete(notificationID: string) {
+  async function handleNotificationDelete(notificationID: string) {
     // Fools the user and might not be needed if the notifications are getting deleted from the backend
     const newNotifications = notifications.filter(
       mapNotification => mapNotification.id !== notificationID,
@@ -70,81 +71,49 @@ export default function Notifications() {
     setNotifications([...newNotifications]);
 
     // DELETE request + bearer token to notification endpoint with notification ID
-    const userToken = localStorage.getItem('@AlertaDoTesouro:token');
-    if (userToken) {
-      api
-        .delete(`/notifications/${notificationID}`, {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        })
-        .then(() => {
-          console.log('Notification deleted');
-        })
-        .catch(error => {
-          console.log(error);
-        });
+    try {
+      await api.delete(`/notifications/${notificationID}`);
+      console.log('Notification deleted');
+    } catch (error) {
+      console.error(error);
     }
   }
 
+  console.log('USER', user);
+
   function formatDate(date: string) {
     const dateObject = new Date(date);
-    const dateFormatted = `${dateObject.getDate()}/${dateObject.getMonth() + 1
-      }/${dateObject.getFullYear()}`;
+    const dateFormatted = `${dateObject.getDate()}/${
+      dateObject.getMonth() + 1
+    }/${dateObject.getFullYear()}`;
 
     return dateFormatted;
   }
 
   function handleGlobalNotifyChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const userToken = localStorage.getItem('@AlertaDoTesouro:token');
-    if (userToken) {
-      switch (e.target.id) {
-        case 'notification-status-global-all':
-          setNotify(e.target.checked);
-          if (!e.target.checked) {
-            setNotifyByEmail(false);
-            setNotifyByBrowser(false);
-          }
-          api
-            .put(
-              `/users/`,
-              {
-                notify,
-                notifyByEmail,
-                notifyByBrowser,
-              },
-              {
-                headers: {
-                  Authorization: `Bearer ${userToken}`,
-                },
-              },
-            )
-            .then(() => {
-              console.log('Notification status updated!');
-            })
-            .catch(error => {
-              console.log(error);
-            });
-          console.log('notification-status-global-all');
-          break;
-        case 'notification-status-global-email':
-          setNotifyByEmail(e.target.checked);
-          if (e.target.checked) {
-            setNotify(true);
-          }
-          console.log('notification-status-global-email');
-          break;
-        case 'notification-status-global-browser':
-          setNotifyByBrowser(e.target.checked);
-          if (e.target.checked) {
-            setNotify(true);
-          }
-          console.log('notification-status-global-browser');
-          break;
-        default:
-          console.log("Switch didn't work 😯");
-          break;
-      }
+    console.log(e.target.id);
+    switch (e.target.id) {
+      case 'notification-status-global-all':
+        setNotify(e.target.checked);
+        if (!e.target.checked) {
+          setNotifyByEmail(false);
+          setNotifyByBrowser(false);
+        }
+        break;
+      case 'notification-status-global-email':
+        setNotifyByEmail(e.target.checked);
+        if (e.target.checked) {
+          setNotify(true);
+        }
+        break;
+      case 'notification-status-global-browser':
+        setNotifyByBrowser(e.target.checked);
+        if (e.target.checked) {
+          setNotify(true);
+        }
+        break;
+      default:
+        console.error("Switch didn't work 😯");
     }
   }
 

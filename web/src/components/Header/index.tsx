@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { User } from '../../@types/global';
 import { Container, Profile } from './styles';
 
@@ -13,11 +12,6 @@ export default function Header({ isLoggedIn }: { isLoggedIn: boolean }) {
     borderRadius: '5px',
     padding: '5px',
   };
-  const location = useLocation();
-  const [path, setPath] = useState(location.pathname);
-  useEffect(() => {
-    setPath(location.pathname);
-  }, [location]);
 
   return (
     <Container>
@@ -53,7 +47,7 @@ export default function Header({ isLoggedIn }: { isLoggedIn: boolean }) {
               {
                 (
                   JSON.parse(
-                    localStorage.getItem('@AlertaDoTesouro:user')!,
+                    localStorage.getItem('@AlertaDoTesouro:user') as string,
                   ) as User
                 ).email
               }
