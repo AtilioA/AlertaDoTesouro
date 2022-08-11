@@ -20,16 +20,14 @@ export default function Notifications() {
   const [user, setUser] = useState<UserType>(
     JSON.parse(localStorage.getItem('@AlertaDoTesouro:user') ?? '') as UserType,
   );
-  const [notify, setNotify] = useState(user.notify);
-  const [notifyByEmail, setNotifyByEmail] = useState(user.notifyByEmail);
-  const [notifyByBrowser, setNotifyByBrowser] = useState(user.notifyByBrowser);
 
   useEffect(() => {
+    console.log(user.notify, user.notifyByEmail, user.notifyByBrowser);
     api
       .put(`/users/`, {
-        notify,
-        notifyByEmail,
-        notifyByBrowser,
+        notify: user.notify,
+        notifyByEmail: user.notifyByEmail,
+        notifyByBrowser: user.notifyByBrowser,
       })
       .then(() => {
         localStorage.setItem('@AlertaDoTesouro:user', JSON.stringify(user));
@@ -38,7 +36,8 @@ export default function Notifications() {
       .catch(error => {
         console.error(error);
       });
-  }, [user, notify, notifyByEmail, notifyByBrowser]);
+  }, [user, user.notify, user.notifyByEmail, user.notifyByBrowser]);
+
 
   useEffect(() => {
     api
@@ -90,33 +89,6 @@ export default function Notifications() {
     return dateFormatted;
   }
 
-  function handleGlobalNotifyChange(e: React.ChangeEvent<HTMLInputElement>) {
-    console.log(e.target.id);
-    switch (e.target.id) {
-      case 'notification-status-global-all':
-        setNotify(e.target.checked);
-        if (!e.target.checked) {
-          setNotifyByEmail(false);
-          setNotifyByBrowser(false);
-        }
-        break;
-      case 'notification-status-global-email':
-        setNotifyByEmail(e.target.checked);
-        if (e.target.checked) {
-          setNotify(true);
-        }
-        break;
-      case 'notification-status-global-browser':
-        setNotifyByBrowser(e.target.checked);
-        if (e.target.checked) {
-          setNotify(true);
-        }
-        break;
-      default:
-        console.error("Switch didn't work 😯");
-    }
-  }
-
   return (
     <AnimationContainer>
       <Container>
@@ -129,9 +101,21 @@ export default function Notifications() {
             <span>Receber notificações</span>
             <Toggle
               id="notification-status-global-all"
-              defaultChecked={user?.notify}
-              checked={notify}
-              onChange={e => handleGlobalNotifyChange(e)}
+              // defaultChecked={user.notify}
+              checked={user.notify}
+              onChange={() => {
+                // Has to be set inside here because the function is execute in the context before state reaction
+                const futureNotify = !user.notify;
+                setUser(prev => ({ ...prev, notify: futureNotify }));
+                if (!futureNotify) {
+                  setUser(prev => ({
+                    ...prev,
+                    notify: false,
+                    notifyByBrowser: false,
+                    notifyByEmail: false,
+                  }));
+                }
+              }}
             />
           </div>
           <div id="global-notification-settings-body">
@@ -139,18 +123,40 @@ export default function Notifications() {
               <span>Receber notificações por e-mail</span>
               <Toggle
                 id="notification-status-global-email"
-                defaultChecked={user?.notifyByEmail}
-                checked={notifyByEmail}
-                onChange={e => handleGlobalNotifyChange(e)}
+                defaultChecked={user.notifyByEmail}
+                checked={user.notifyByEmail}
+                onChange={() => {
+                  // Has to be set inside here because the function is execute in the context before state reaction
+                  const futureNotify = !user.notifyByEmail;
+                  setUser(prev => ({ ...prev, notifyByEmail: futureNotify }));
+                  if (futureNotify) {
+                    setUser(prev => ({
+                      ...prev,
+                      notify: true,
+                      notifyByEmail: true,
+                    }));
+                  }
+                }}
               />
             </div>
             <div id="toggle-with-label">
               <span>Receber notificações pelo navegador</span>
               <Toggle
                 id="notification-status-global-browser"
-                defaultChecked={user?.notifyByBrowser}
-                checked={notifyByBrowser}
-                onChange={e => handleGlobalNotifyChange(e)}
+                defaultChecked={user.notifyByBrowser}
+                checked={user.notifyByBrowser}
+                onChange={() => {
+                  // Has to be set inside here because the function is execute in the context before state reaction
+                  const futureNotify = !user.notifyByBrowser;
+                  setUser(prev => ({ ...prev, notifyByBrowser: futureNotify }));
+                  if (futureNotify) {
+                    setUser(prev => ({
+                      ...prev,
+                      notify: true,
+                      notifyByBrowser: true,
+                    }));
+                  }
+                }}
               />
             </div>
           </div>
