@@ -1,5 +1,5 @@
 <h1 align="center">
-    🚨 Alerta do Tesouro (WIP)
+    🚨 Alerta do Tesouro
 </h1>
 
 <h4 align="center">
@@ -25,7 +25,7 @@ A web application that notifies you about Brazilian treasury bond rates.
 AlertaDoTesouro is a project elaborated with the intent of automatically monitoring Brazilian government bond and alerting users about them according to their preferences of rates. Tools such as Node.js, Express, PostgreSQL, Docker, Redis, linting and debugging tools, mail delivery systems, among others, were employed to build this system.
 Furthermore, this project was also presented as required academic work for the Integrated Project classes during the 2022/1 semester.
 
-The application allows users to set one value per treasury bond, so they can get notified whenever its rate goes above or below that value. Users should be able to be* notified by email or browser notifications.
+The application allows users to set one value per treasury bond, so they can get notified by email whenever its rate goes above or below that value.
 
 <table>
     <thead>
