@@ -25,7 +25,7 @@ A web application that notifies you about Brazilian treasury bond rates.
 AlertaDoTesouro is a project elaborated with the intent of automatically monitoring Brazilian government bond and alerting users about them according to their preferences of rates. Tools such as Node.js, Express, PostgreSQL, Docker, Redis, linting and debugging tools, mail delivery systems, among others, were employed to build this system.
 Furthermore, this project was also presented as required academic work for the Integrated Project classes during the 2022/1 semester.
 
-The application allows users to set one value per treasury bond, so they can get notified whenever its rate goes above or below that value. Users should be able to be* notified by email or browser notifications.
+The application allows users to set one value per treasury bond, so they can get notified whenever its rate goes above or below that value. Users should be able to be notified by email or browser notifications.
 
 <table>
     <thead>
@@ -126,7 +126,7 @@ A typical request would be a simple `GET` request to the `/treasurybond` endpoin
 
 You can build the documentation with [typedoc](https://typedoc.org/). It is recommended that you install `typedoc` with tools like [npx](https://docs.npmjs.com/cli/v7/commands/npx/).
 
- From the `/server` directory, run `typedoc --out docs`. The documentation will then be available at `docs/`.
+From the `/server` directory, run `typedoc --out docs`. The documentation will then be available at `docs/`.
 
 ### 🖥 Front-end
 
@@ -136,11 +136,11 @@ Running it with `dev` profile (see below) will automatically start the front-end
 
 Clone the repository and enter the folder with your terminal. To start the services with Compose v2, run the following command while on the project root directory:
 
-   ```bash
-  docker compose up # TODO, only development is currently supported
-   ```
+```bash
+docker compose up # TODO, only development is currently supported
+```
 
-   > You can append `-d` or `--detach` to run the services in detached mode.
+> You can append `-d` or `--detach` to run the services in detached mode.
 
 Rename or copy the `.env.example` file to `.env` in both the `/server` and `/web` directories and change values whenever needed.
 
